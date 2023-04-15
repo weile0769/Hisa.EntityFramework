@@ -1,6 +1,3 @@
-﻿namespace Hyte.EntityFramework.Models
-{
-    internal class SqlParameter
-    {
-    }
-}
+﻿namespace Hyte.EntityFramework.Models;
+
+internal class SqlParameter { }
