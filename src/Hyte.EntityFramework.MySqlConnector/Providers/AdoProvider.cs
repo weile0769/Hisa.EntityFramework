@@ -44,18 +44,22 @@ public class AdoProvider : IAdoProvider
     /// <summary>
     ///     打开数据库连接
     /// </summary>
-    public void Open()
+    /// <returns></returns>
+    public bool Open()
     {
         if (Connection.State != ConnectionState.Open)
         {
             try
             {
                 Connection.Open();
+                return true;
             }
             catch (Exception ex)
             {
                 Check.Exception(ErrorMessage.ConnectionFailed, ex.Message);
             }
         }
+
+        return false;
     }
 }

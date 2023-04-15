@@ -1,4 +1,6 @@
+using Hyte.EntityFramework.MySqlConnector.Providers;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Options;
 
 namespace Hyte.EntityFramework.Options;
 
@@ -28,5 +30,8 @@ public class MySqlConnectorOptionsExtension : IEntityFrameworkOptionsExtension
     public void AddServices(IServiceCollection services)
     {
         services.Configure(_optionAction);
+        services.AddSingleton(resolver => resolver.GetRequiredService<IOptions<MySqlConnectorOptions>>().Value);
+
+        services.AddScoped<IAdoProvider, AdoProvider>();
     }
 }

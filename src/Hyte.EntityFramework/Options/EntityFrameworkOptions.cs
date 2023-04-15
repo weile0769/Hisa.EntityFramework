@@ -8,6 +8,14 @@ namespace Hyte.EntityFramework.Options;
 public class EntityFrameworkOptions
 {
     /// <summary>
+    ///     构造函数
+    /// </summary>
+    public EntityFrameworkOptions()
+    {
+        Extensions = new List<IEntityFrameworkOptionsExtension>();
+    }
+
+    /// <summary>
     ///     实体框架配置选项扩展类
     /// </summary>
     internal IList<IEntityFrameworkOptionsExtension> Extensions { get; }
