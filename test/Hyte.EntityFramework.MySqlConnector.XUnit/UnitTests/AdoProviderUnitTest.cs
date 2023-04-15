@@ -1,3 +1,5 @@
+using System.Data;
+
 namespace Hyte.EntityFramework.MySqlConnector.XUnit.UnitTests;
 
 /// <summary>
@@ -19,12 +21,36 @@ public class AdoProviderUnitTest
     }
 
     /// <summary>
-    ///     数据库连接单元测试案例
+    ///     打开数据库连接单元测试案例
     /// </summary>
-    [Fact(DisplayName = "数据库连接单元测试案例")]
+    [Fact(DisplayName = "打开数据库连接单元测试案例")]
     public void ConnectOpenUnitTest()
     {
-        var openState = _adoProvider.Open();
-        Assert.True(openState);
+        try
+        {
+            _adoProvider.Open();
+            Assert.Equal(_adoProvider.Connection.State,ConnectionState.Open);
+        }
+        catch (Exception ex)
+        {
+            Assert.Fail(ex.Message);
+        }
+    }
+
+    /// <summary>
+    ///     关闭数据库连接单元测试案例
+    /// </summary>
+    [Fact(DisplayName = "关闭数据库连接单元测试案例")]
+    public void ConnectCloseUnitTest()
+    {
+        try
+        {
+            _adoProvider.Close();
+            Assert.Equal(_adoProvider.Connection.State,ConnectionState.Closed);
+        }
+        catch (Exception ex)
+        {
+            Assert.Fail(ex.Message);
+        }
     }
 }
