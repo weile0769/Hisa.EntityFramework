@@ -20,7 +20,7 @@ public class Startup
             options.UseMySqlConnector(connectOptions =>
             {
                 connectOptions.ConnectionString =
-                    "Server=172.17.250.112;Port=3307;database=erp_scm;uid=root;pwd=20180329;SslMode=none;Convert Zero Datetime=True;AllowUserVariables=True;AllowLoadLocalInfile=true";
+                    "Server=127.17.1.1;Port=3307;database=test_unit;uid=root;pwd=1;SslMode=none;Convert Zero Datetime=True;AllowUserVariables=True;AllowLoadLocalInfile=true";
             });
         });
     }
