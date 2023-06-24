@@ -1,1 +1,1 @@
-# HyteSQL
+# Hyte.EntityFramework
