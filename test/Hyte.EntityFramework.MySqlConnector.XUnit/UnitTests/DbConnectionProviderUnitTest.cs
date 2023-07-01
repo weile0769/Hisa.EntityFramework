@@ -49,8 +49,7 @@ public class DbConnectionProviderUnitTest
     [Fact(DisplayName = "数据库连接成功单元测试案例")]
     public void DatabaseConnectSucceedUnitTest()
     {
-        var connectionString = "Server=localhost;Port=3306;database=mysql_xunit;uid=xunit_user;pwd=123456;SslMode=none;";
-        var connection = _connectionProvider.GetConnection(connectionString);
+        var connection = _connectionProvider.GetConnection(Configure.ConnectionString);
         try
         {
             _connectionProvider.CheckConnection();
