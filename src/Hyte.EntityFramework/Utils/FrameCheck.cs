@@ -1,11 +1,11 @@
 using Hyte.EntityFramework.Exceptions;
 
-namespace Hyte.EntityFramework.Utilities;
+namespace Hyte.EntityFramework.Utils;
 
 /// <summary>
 ///     异常处理帮助类
 /// </summary>
-public static class Check
+public static class FrameCheck
 {
     /// <summary>
     ///     抛出异常
@@ -14,6 +14,6 @@ public static class Check
     /// <param name="args">额外参数</param>
     public static void Exception(string message, params object[] args)
     {
-        throw new SqlException(string.Format(message, args));
+        throw new EntityFrameworkException(string.Format(message, args));
     }
 }

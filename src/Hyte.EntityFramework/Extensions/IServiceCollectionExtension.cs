@@ -7,7 +7,7 @@ namespace Microsoft.Extensions.DependencyInjection;
 /// <summary>
 ///     IServiceCollection服务容器扩展类
 /// </summary>
-public static class IServiceCollectionExtensions
+public static class IServiceCollectionExtension
 {
     /// <summary>
     ///     注册数据库实体框架

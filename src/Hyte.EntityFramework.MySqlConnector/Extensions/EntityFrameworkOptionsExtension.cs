@@ -19,8 +19,7 @@ public static class EntityFrameworkOptionsExtension
     /// <param name="options">实体框架配置选项</param>
     /// <param name="optionAction">数据驱动配置选项</param>
     /// <returns>实体框架配置选项</returns>
-    public static EntityFrameworkOptions UseMySqlConnector(this EntityFrameworkOptions options,
-        Action<MySqlConnectorOptions> optionAction)
+    public static EntityFrameworkOptions UseMySqlConnector(this EntityFrameworkOptions options, Action<MySqlConnectorOptions> optionAction)
     {
         if (optionAction == null)
         {
@@ -28,7 +27,7 @@ public static class EntityFrameworkOptionsExtension
         }
 
         options.RegisterExtension(new MySqlConnectorOptionsExtension(optionAction));
-
+        
         return options;
     }
 }

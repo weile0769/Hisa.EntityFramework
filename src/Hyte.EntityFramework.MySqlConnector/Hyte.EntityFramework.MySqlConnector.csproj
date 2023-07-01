@@ -6,23 +6,23 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\Hyte.EntityFramework\Hyte.EntityFramework.csproj"/>
+        <ProjectReference Include="..\Hyte.EntityFramework\Hyte.EntityFramework.csproj" />
     </ItemGroup>
 
     <ItemGroup>
-        <Compile Remove="Builders\**"/>
+        <Compile Remove="Builders\**" />
     </ItemGroup>
 
     <ItemGroup>
-        <EmbeddedResource Remove="Builders\**"/>
+        <EmbeddedResource Remove="Builders\**" />
     </ItemGroup>
 
     <ItemGroup>
-        <None Remove="Builders\**"/>
+        <None Remove="Builders\**" />
     </ItemGroup>
 
     <ItemGroup>
-        <PackageReference Include="MySqlConnector" Version="2.2.5"/>
+        <PackageReference Include="MySqlConnector" Version="2.2.6" />
     </ItemGroup>
 
 </Project>

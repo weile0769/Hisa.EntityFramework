@@ -32,6 +32,8 @@ public class MySqlConnectorOptionsExtension : IEntityFrameworkOptionsExtension
         services.Configure(_optionAction);
         services.AddSingleton(resolver => resolver.GetRequiredService<IOptions<MySqlConnectorOptions>>().Value);
 
-        services.AddScoped<IAdoProvider, AdoProvider>();
+        services.AddScoped<IDatabaseConnectionProvider, DatabaseConnectionProvider>();
+
+        //services.AddScoped<IAdoProvider, AdoProvider>();
     }
 }
