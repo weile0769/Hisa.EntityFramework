@@ -44,12 +44,30 @@ public class DbConnectionProviderUnitTest
     }
 
     /// <summary>
-    ///     数据库连接成功单元测试案例
+    ///     数据库连接成功单元测试案例（自定义参数）
     /// </summary>
-    [Fact(DisplayName = "数据库连接成功单元测试案例")]
-    public void DatabaseConnectSucceedUnitTest()
+    [Fact(DisplayName = "数据库连接成功单元测试案例（自定义参数）")]
+    public void DatabaseConnectSucceedByCustomVariablesUnitTest()
     {
         var connection = _connectionProvider.GetConnection(Configure.ConnectionString);
+        try
+        {
+            _connectionProvider.CheckConnection();
+            Assert.Equal(ConnectionState.Open, connection.State);
+        }
+        catch (EntityFrameworkException ex)
+        {
+            Assert.Fail(ex.Message);
+        }
+    }
+    
+    /// <summary>
+    ///     数据库连接成功单元测试案例（启动配置项）
+    /// </summary>
+    [Fact(DisplayName = "数据库连接成功单元测试案例（启动配置项）")]
+    public void DatabaseConnectSucceedByConfigureOptionsUnitTest()
+    {
+        var connection = _connectionProvider.GetConnection();
         try
         {
             _connectionProvider.CheckConnection();
