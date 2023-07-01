@@ -19,6 +19,11 @@ public class DatabaseCommandProvider : IDatabaseCommandProvider
     ///     数据库连接对象提供器
     /// </summary>
     private readonly IDatabaseConnectionProvider _databaseConnectionProvider;
+    
+    /// <summary>
+    ///     数据库连接配置选项提供器
+    /// </summary>
+    private readonly IDatabaseConnectorOptionsProvider _databaseConnectorOptionsProvider;
 
     /// <summary>
     ///     数据库连接配置选项
@@ -45,13 +50,15 @@ public class DatabaseCommandProvider : IDatabaseCommandProvider
     ///     构造函数
     /// </summary>
     public DatabaseCommandProvider(MySqlConnectorOptions options,
+        IDataParameterProvider dataParameterProvider,
         IDatabaseConnectionProvider databaseConnectionProvider,
-        IDataParameterProvider dataParameterProvider)
+        IDatabaseConnectorOptionsProvider databaseConnectorOptionsProvider)
     {
         _options = options;
         _commandType = CommandType.Text;
-        _databaseConnectionProvider = databaseConnectionProvider;
         _dataParameterProvider = dataParameterProvider;
+        _databaseConnectionProvider = databaseConnectionProvider;
+        _databaseConnectorOptionsProvider = databaseConnectorOptionsProvider;
     }
 
     /// <summary>
@@ -65,9 +72,10 @@ public class DatabaseCommandProvider : IDatabaseCommandProvider
         if (_dbCommand == null)
         {
             var connection = _databaseConnectionProvider.GetConnection();
+            var connectorOptions = _databaseConnectorOptionsProvider.GetCurrentConnectorOptions();
             var sqlCommand = new MySqlCommand(sql, (MySqlConnection)connection);
             sqlCommand.CommandType = _commandType;
-            sqlCommand.CommandTimeout = _options.CommandTimeOut;
+            sqlCommand.CommandTimeout = connectorOptions.CommandTimeOut;
             if (_transaction != null)
             {
                 sqlCommand.Transaction = (MySqlTransaction)_transaction;

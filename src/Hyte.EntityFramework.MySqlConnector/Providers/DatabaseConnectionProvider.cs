@@ -11,9 +11,9 @@ namespace Hyte.EntityFramework.MySqlConnector.Providers;
 public class DatabaseConnectionProvider : IDatabaseConnectionProvider
 {
     /// <summary>
-    ///     实体框架配置选项
+    ///     数据库连接配置选项提供器
     /// </summary>
-    private readonly EntityFrameworkOptions _options;
+    private readonly IDatabaseConnectorOptionsProvider _connectorOptionsProvider;
 
     /// <summary>
     ///     数据库连接对象
@@ -23,9 +23,9 @@ public class DatabaseConnectionProvider : IDatabaseConnectionProvider
     /// <summary>
     ///     构造函数
     /// </summary>
-    public DatabaseConnectionProvider(EntityFrameworkOptions options)
+    public DatabaseConnectionProvider(IDatabaseConnectorOptionsProvider connectorOptionsProvider)
     {
-        _options = options;
+        _connectorOptionsProvider = connectorOptionsProvider;
     }
 
     /// <summary>
@@ -63,7 +63,8 @@ public class DatabaseConnectionProvider : IDatabaseConnectionProvider
     /// <returns>数据库连接对象</returns>
     public IDbConnection GetConnection(string connectionString = default)
     {
-        connectionString ??= _options.ConnectionString;
+        var connectorOptions = _connectorOptionsProvider.GetCurrentConnectorOptions();
+        connectionString ??= connectorOptions.ConnectionString;
         if (_connection == null)
         {
             try

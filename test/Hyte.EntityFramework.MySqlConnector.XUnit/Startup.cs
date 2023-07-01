@@ -17,19 +17,18 @@ public class Startup
         //注册数据库实体框架
         services.AddHyteEntityFramework(options =>
         {
-            options.UseMySqlConnector(option =>
+            options.ConfigureOptions = new List<DatabaseConfigureOptions>
             {
-                option.ConfigureOptions = new List<DatabaseConfigureOptions>
+                new DatabaseConfigureOptions
                 {
-                    new DatabaseConfigureOptions()
-                    {
-                        Enabled = true,
-                        Default = true,
-                        ConnectionName = Configure.ConnectionName,
-                        ConnectionString = Configure.ConnectionString
-                    }
-                };
-            });
+                    Enabled = true,
+                    Default = true,
+                    ConnectionName = Configure.ConnectionName,
+                    ConnectionString = Configure.ConnectionString
+                }
+            };
+            
+            options.UseMySqlConnector();
         });
     }
 }

@@ -14,11 +14,11 @@ public class EntityFrameworkOptions
     {
         Extensions = new List<IEntityFrameworkOptionsExtension>();
     }
-    
+
     /// <summary>
-    ///     数据库连接字符串
+    ///     数据库配置选项
     /// </summary>
-    public string ConnectionString { get; set; }
+    public IList<DatabaseConfigureOptions> ConfigureOptions { get; set; }
     
 
     /// <summary>
