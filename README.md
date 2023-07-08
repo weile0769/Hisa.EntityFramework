@@ -6,7 +6,7 @@
 </div>
 <br>
 <p align="center">
-<img alt="visual studio 2022" src="https://img.shields.io/badge/vscode-blue.svg">
+<img alt="visual studio 2022" src="https://img.shields.io/badge/Visual Studio-2022-blue.svg">
 <img alt="csharp" src="https://img.shields.io/badge/language-csharp-brightgreen.svg">
 <img alt="license" src="https://img.shields.io/badge/license-MIT-blue.svg">
 </p>
