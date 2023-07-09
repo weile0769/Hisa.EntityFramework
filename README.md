@@ -6,13 +6,12 @@
 </div>
 <br>
 <p align="center">
-<img alt="visual studio 2022" src="https://img.shields.io/badge/Visual Studio-2022-blue.svg">
 <img alt="csharp" src="https://img.shields.io/badge/language-csharp-brightgreen.svg">
 <img alt="license" src="https://img.shields.io/badge/license-MIT-blue.svg">
 </p>
 
 ### 🚩 项目介绍
-Hyte.EntityFramework 一款NET开源多库的、开箱即用的、功能全面的ORM框架。目前数据库仅支持MYSQL。未来一直会致力追求卓越的性能、支持更多的数据库，为国产开源社区再添砖加瓦。
+Hyte.EntityFramework 一款NET开源多库的、开箱即用的、功能全面的ORM框架。目前数据库仅支持MYSQL。未来一直会致力追求卓越的性能、支持更多的数据库，为开源中国添砖加瓦。
 
 ### 🏅 开源地址
 [![Gitee](https://shields.io/badge/Gitee-https://gitee.com/weile0796/Hyte.EntityFramework-green?logo=gitee&style=flat&logoColor=red)](https://gitee.com/weile0796/Hyte.EntityFramework.git)
