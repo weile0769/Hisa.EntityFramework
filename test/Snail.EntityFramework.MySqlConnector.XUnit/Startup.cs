@@ -15,7 +15,7 @@ public class Startup
     public void ConfigureServices(IServiceCollection services)
     {
         //注册数据库实体框架
-        services.AddHyteEntityFramework(options =>
+        services.AddSnailEntityFramework(options =>
         {
             options.ConfigureOptions = new List<DatabaseConfigureOptions>
             {
