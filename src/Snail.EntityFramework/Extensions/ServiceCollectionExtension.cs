@@ -1,8 +1,9 @@
+using Microsoft.Extensions.Options;
 using Snail.EntityFramework;
 using Snail.EntityFramework.Builders;
+using Snail.EntityFramework.Caching;
 using Snail.EntityFramework.Options;
 using Snail.EntityFramework.Providers;
-using Microsoft.Extensions.Options;
 
 namespace Microsoft.Extensions.DependencyInjection;
 
@@ -27,9 +28,17 @@ public static class ServiceCollectionExtension
             serviceExtension.AddServices(services);
         }
 
+        services.AddMemoryCache();
+        services.AddSingleton<ICacheProvider, DefaultCacheProvider>();
+
         services.Configure(optionAction);
         services.AddSingleton(resolver => resolver.GetRequiredService<IOptions<EntityFrameworkOptions>>().Value);
         services.AddSingleton<IDatabaseConnectorOptionsProvider, DatabaseConnectorOptionsProvider>();
+
+        services.AddSingleton<IAdoProvider, DefaultAdoProvider>();
+        services.AddSingleton<IDataReaderProvider, DefaultDataReaderProvider>();
+        services.AddSingleton<IEntityMappingProvider, DefaultEntityMappingProvider>();
+        services.AddTransient(typeof(IDataReaderEntityBuilder<>), typeof(DefaultDataReaderEntityBuilder<>));
         return new EntityFrameworkBuilder(services);
     }
 }

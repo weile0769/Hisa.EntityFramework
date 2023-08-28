@@ -1,4 +1,4 @@
-namespace Snail.EntityFramework;
+namespace Snail.EntityFramework.Caching;
 
 /// <summary>
 ///     缓存服务提供器

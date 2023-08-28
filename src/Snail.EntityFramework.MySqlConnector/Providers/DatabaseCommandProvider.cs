@@ -1,6 +1,7 @@
 using System.Data;
-using Snail.EntityFramework.Models;
 using MySqlConnector;
+using Snail.EntityFramework.Models;
+using Snail.EntityFramework.Options;
 
 namespace Snail.EntityFramework.MySqlConnector.Providers;
 
@@ -22,7 +23,7 @@ public class DatabaseCommandProvider : IDatabaseCommandProvider
     /// <summary>
     ///     数据库命令类型
     /// </summary>
-    private CommandType _commandType;
+    private readonly CommandType _commandType;
 
     /// <summary>
     ///     数据库命令

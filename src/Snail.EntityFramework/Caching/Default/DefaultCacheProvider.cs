@@ -1,11 +1,11 @@
 using Microsoft.Extensions.Caching.Memory;
 
-namespace Snail.EntityFramework;
+namespace Snail.EntityFramework.Caching;
 
 /// <summary>
 ///     缓存服务提供器（本地内存默认实现）
 /// </summary>
-public class MemoryCacheProvider : ICacheProvider
+public class DefaultCacheProvider : ICacheProvider
 {
     /// <summary>
     ///     内存缓存服务
@@ -15,7 +15,7 @@ public class MemoryCacheProvider : ICacheProvider
     /// <summary>
     ///     构造函数
     /// </summary>
-    public MemoryCacheProvider(IMemoryCache memoryCache)
+    public DefaultCacheProvider(IMemoryCache memoryCache)
     {
         _memoryCache = memoryCache;
     }
@@ -32,7 +32,7 @@ public class MemoryCacheProvider : ICacheProvider
     /// <returns>缓存数据</returns>
     public T GetOrAdd<T>(string cacheKey, Func<T> create, TimeSpan? cacheTimeSpan = default)
     {
-        if (_memoryCache.TryGetValue(cacheKey, out T cacheValue))
+        if (!_memoryCache.TryGetValue(cacheKey, out T cacheValue))
         {
             cacheValue = create();
             if (cacheTimeSpan.HasValue)

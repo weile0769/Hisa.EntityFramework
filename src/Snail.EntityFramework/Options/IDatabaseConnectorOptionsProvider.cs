@@ -1,6 +1,6 @@
 using Snail.EntityFramework.Options;
 
-namespace Snail.EntityFramework;
+namespace Snail.EntityFramework.Options;
 
 /// <summary>
 ///     数据库连接配置选项提供器
