@@ -3,7 +3,7 @@ using System.Data;
 namespace Snail.EntityFramework.Builders;
 
 /// <summary>
-///     IDataRecord数据列转换映射实体属性构造器
+///     实体属性转换器
 /// </summary>
 /// <typeparam name="T">实体类型</typeparam>
 public interface IDataReaderEntityBuilder<out T>
@@ -22,5 +22,5 @@ public interface IDataReaderEntityBuilder<out T>
     /// <param name="readerKeys"></param>
     /// <returns></returns>
     /// <exception cref="EntityFrameworkException"></exception>
-    void CreateEntityBuilder(IDataRecord dataRecord, List<string> readerKeys);
+    IDataReaderEntityBuilder<T> CreateBuilder(IDataRecord dataRecord, List<string> readerKeys);
 }

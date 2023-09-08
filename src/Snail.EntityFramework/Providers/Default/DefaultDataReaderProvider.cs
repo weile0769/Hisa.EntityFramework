@@ -1,6 +1,7 @@
 using System.Data;
 using Microsoft.Extensions.DependencyInjection;
 using Snail.EntityFramework.Builders;
+using Snail.EntityFramework.Exceptions;
 
 namespace Snail.EntityFramework.Providers;
 
@@ -28,6 +29,7 @@ public class DefaultDataReaderProvider : IDataReaderProvider
     /// <param name="dataReader"></param>
     /// <typeparam name="T">泛型对象类型</typeparam>
     /// <returns>数据列表</returns>
+    /// <exception cref="EntityFrameworkException"></exception>
     public List<T> ToEntities<T>(IDataReader dataReader)
     {
         var entities = new List<T>();
@@ -38,8 +40,13 @@ public class DefaultDataReaderProvider : IDataReaderProvider
 
         var nameTypes = GetDataReaderNameTypes(dataReader);
         var fieldNames = nameTypes.Select(s => s.Key).ToList();
-        var entityBuilder = _serviceProvider.GetRequiredService<IDataReaderEntityBuilder<T>>();
-        entityBuilder.CreateEntityBuilder(dataReader, fieldNames);
+        var entityBuilderFactory = _serviceProvider.GetRequiredService<IDataReaderEntityBuilder<T>>();
+        if (entityBuilderFactory == null)
+        {
+            throw new EntityFrameworkException("实体属性转换器{0}未注册", nameof(IDataReaderEntityBuilder<T>));
+        }
+
+        var entityBuilder = entityBuilderFactory.CreateBuilder(dataReader, fieldNames);
         while (dataReader.Read())
         {
             var entity = entityBuilder.Build(dataReader);

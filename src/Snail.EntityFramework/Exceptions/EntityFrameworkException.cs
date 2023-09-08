@@ -15,8 +15,8 @@ public class EntityFrameworkException : Exception
     /// <summary>
     ///     构造函数
     /// </summary>
+    /// <param name="exception">异常类</param>
     /// <param name="message">异常内容</param>
-    /// <param name="innerException">异常类</param>
     /// <param name="args">额外参数</param>
-    public EntityFrameworkException(string message, Exception innerException, params object[] args) : base(string.Format(message, args), innerException) { }
+    public EntityFrameworkException(Exception exception, string message, params object[] args) : base(string.Format(message, args), exception) { }
 }

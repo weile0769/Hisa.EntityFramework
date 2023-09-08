@@ -8,10 +8,10 @@ using Snail.EntityFramework.Utils;
 namespace Snail.EntityFramework.Builders;
 
 /// <summary>
-///     IDataRecord数据列转换映射实体属性构造器
+///     实体属性转换器
 /// </summary>
 /// <typeparam name="T">实体类型</typeparam>
-public class DefaultDataReaderEntityBuilder<T> : IDataReaderEntityBuilder<T>
+public class DataReaderEntityBuilder<T> : IDataReaderEntityBuilder<T>
 {
     /// <summary>
     ///     实体映射提供者
@@ -26,7 +26,7 @@ public class DefaultDataReaderEntityBuilder<T> : IDataReaderEntityBuilder<T>
     /// <summary>
     ///     构造函数
     /// </summary>
-    public DefaultDataReaderEntityBuilder(IEntityMappingProvider entityMapping)
+    public DataReaderEntityBuilder(IEntityMappingProvider entityMapping)
     {
         _entityMapping = entityMapping;
     }
@@ -48,7 +48,7 @@ public class DefaultDataReaderEntityBuilder<T> : IDataReaderEntityBuilder<T>
     /// <param name="readerKeys"></param>
     /// <returns></returns>
     /// <exception cref="EntityFrameworkException"></exception>
-    public void CreateEntityBuilder(IDataRecord dataRecord, List<string> readerKeys)
+    public IDataReaderEntityBuilder<T> CreateBuilder(IDataRecord dataRecord, List<string> readerKeys)
     {
         var type = typeof(T);
         //定义动态方法
@@ -91,6 +91,7 @@ public class DefaultDataReaderEntityBuilder<T> : IDataReaderEntityBuilder<T>
         generator.Emit(OpCodes.Ret);
         //完成动态方法的创建，并且获取一个可以执行该动态方法的委托
         _handler = (Load)dynamicMethod.CreateDelegate(typeof(Load));
+        return this;
     }
 
     private void BindField(IDataRecord dataRecord, ILGenerator generator, LocalBuilder result, MethodInfo method, EntityColumn entityColumn, string fieldName)

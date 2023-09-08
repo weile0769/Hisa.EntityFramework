@@ -13,5 +13,5 @@ public static class Configure
     /// <summary>
     ///     数据库连接字符串
     /// </summary>
-    public const string ConnectionString = "Server=localhost;Port=3306;database=mysql_xunit;uid=xunit_user;pwd=123456;SslMode=none;";
+    public const string ConnectionString = "Server=localhost;Port=3306;database=snail_xunit;uid=root;pwd=123456;SslMode=none;";
 }

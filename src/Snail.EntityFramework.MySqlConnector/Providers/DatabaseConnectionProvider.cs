@@ -1,8 +1,8 @@
 using System.Data;
+using MySqlConnector;
 using Snail.EntityFramework.Exceptions;
 using Snail.EntityFramework.Options;
 using Snail.EntityFramework.Utils;
-using MySqlConnector;
 
 namespace Snail.EntityFramework.MySqlConnector.Providers;
 
