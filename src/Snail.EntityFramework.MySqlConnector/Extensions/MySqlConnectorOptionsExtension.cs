@@ -1,6 +1,6 @@
-using Snail.EntityFramework.MySqlConnector.Providers;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
+using Snail.EntityFramework.MySqlConnector.Providers;
 
 namespace Snail.EntityFramework.Options;
 
@@ -38,5 +38,6 @@ public class MySqlConnectorOptionsExtension : IEntityFrameworkOptionsExtension
         services.AddScoped<IDatabaseConnectionProvider, DatabaseConnectionProvider>();
         services.AddSingleton<IDataParameterProvider, DataParameterProvider>();
         services.AddTransient<IDatabaseCommandProvider, DatabaseCommandProvider>();
+        services.AddSingleton<ISqlParameterTypeConvertProvider, SqlParameterTypeConvertProvider>();
     }
 }

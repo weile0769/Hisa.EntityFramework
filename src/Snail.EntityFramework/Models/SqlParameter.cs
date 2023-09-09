@@ -13,12 +13,8 @@ public class SqlParameter : DbParameter
     /// </summary>
     public SqlParameter() { }
 
-    /// <summary>
-    ///     构造函数
-    /// </summary>
-    /// <param name="parameterName">属性名称</param>
-    /// <param name="parameterValue">属性值</param>
-    public SqlParameter(string parameterName, object parameterValue)
+
+    /*public SqlParameter(string parameterName, object parameterValue)
     {
         Value = parameterValue;
         ParameterName = parameterName;
@@ -26,7 +22,7 @@ public class SqlParameter : DbParameter
         {
             SettingDataType(parameterValue.GetType());
         }
-    }
+    }*/
 
 
     /// <summary>
@@ -41,6 +37,9 @@ public class SqlParameter : DbParameter
     /// </summary>
     public override bool IsNullable { get; set; }
 
+    /// <summary>
+    ///     属性名称
+    /// </summary>
     public override string ParameterName { get; set; }
 
     public override string SourceColumn { get; set; }
@@ -54,21 +53,5 @@ public class SqlParameter : DbParameter
     public override void ResetDbType()
     {
         DbType = DbType.String;
-    }
-
-    private void SettingDataType(Type type)
-    {
-        switch (type.Name)
-        {
-            case "Int32":
-                DbType = DbType.Int32;
-                break;
-            case "DateTime":
-                DbType = DbType.DateTime;
-                break;
-            case "DateTimeOffset":
-                DbType = DbType.DateTimeOffset;
-                break;
-        }
     }
 }

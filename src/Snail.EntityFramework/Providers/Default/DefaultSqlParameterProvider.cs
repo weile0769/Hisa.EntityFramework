@@ -8,6 +8,19 @@ namespace Snail.EntityFramework.Providers;
 public class DefaultSqlParameterProvider : ISqlParameterProvider
 {
     /// <summary>
+    ///     数据参数化类型转换提供器
+    /// </summary>
+    private readonly ISqlParameterTypeConvertProvider _typeConvert;
+
+    /// <summary>
+    ///     构造函数
+    /// </summary>
+    public DefaultSqlParameterProvider(ISqlParameterTypeConvertProvider typeConvert)
+    {
+        _typeConvert = typeConvert;
+    }
+
+    /// <summary>
     ///     获取数据参数
     /// </summary>
     /// <param name="objectParameter">对象参数</param>
@@ -27,7 +40,15 @@ public class DefaultSqlParameterProvider : ISqlParameterProvider
                     propertyValue = DBNull.Value;
                 }
 
-                var parameter = new SqlParameter(property.Name, propertyValue);
+                var propertyName = property.Name;
+                var parameter = new SqlParameter
+                {
+                    Value = propertyValue,
+                    ParameterName = propertyName
+                };
+
+                var dbType = _typeConvert.ConvertDataType(propertyValue.GetType());
+                parameter.DbType = dbType;
                 sqlParameters.Add(parameter);
             }
         }
