@@ -9,7 +9,7 @@ namespace Snail.EntityFramework.MySqlConnector.Providers;
 /// <summary>
 ///     数据库连接对象提供器
 /// </summary>
-public class DatabaseConnectionProvider : IDatabaseConnectionProvider
+public class DatabaseConnectionProvider : IDatabaseConnectionProvider, IDisposable
 {
     /// <summary>
     ///     数据库连接配置选项提供器
@@ -79,5 +79,17 @@ public class DatabaseConnectionProvider : IDatabaseConnectionProvider
         }
 
         return _connection;
+    }
+
+    /// <summary>
+    ///     数据库连接对象销毁
+    /// </summary>
+    public void Dispose()
+    {
+        if (_connection != null)
+        {
+            _connection.Close();
+            _connection = null;
+        }
     }
 }
