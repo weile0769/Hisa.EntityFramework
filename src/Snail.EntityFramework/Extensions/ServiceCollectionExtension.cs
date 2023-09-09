@@ -38,6 +38,7 @@ public static class ServiceCollectionExtension
         services.AddSingleton<IAdoProvider, DefaultAdoProvider>();
         services.AddSingleton<IDataReaderProvider, DefaultDataReaderProvider>();
         services.AddSingleton<IEntityMappingProvider, DefaultEntityMappingProvider>();
+        services.AddSingleton<ISqlParameterProvider, DefaultSqlParameterProvider>();
         services.AddTransient(typeof(IDataReaderEntityBuilder<>), typeof(DataReaderEntityBuilder<>));
         return new EntityFrameworkBuilder(services);
     }

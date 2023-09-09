@@ -21,6 +21,15 @@ public interface IAdoProvider
     ///     SQL查询
     /// </summary>
     /// <param name="sql">SQL脚本</param>
+    /// <param name="parameter">查询参数</param>
+    /// <typeparam name="T">查询结果对象类型</typeparam>
+    /// <returns>查询结果实体对象列表</returns>
+    List<T> SqlQuery<T>(string sql, object parameter);
+
+    /// <summary>
+    ///     SQL查询
+    /// </summary>
+    /// <param name="sql">SQL脚本</param>
     /// <param name="parameters">查询参数</param>
     /// <typeparam name="T">查询结果对象类型</typeparam>
     /// <returns>查询结果实体对象列表</returns>

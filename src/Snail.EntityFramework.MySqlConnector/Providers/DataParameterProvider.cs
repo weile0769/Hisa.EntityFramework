@@ -22,7 +22,7 @@ public class DataParameterProvider : IDataParameterProvider
             return null;
         }
 
-        var mySqlParameters = new IDataParameter[parameters.Length];
+        var mySqlParameters = new MySqlParameter[parameters.Length];
         var index = 0;
         foreach (var parameter in parameters)
         {

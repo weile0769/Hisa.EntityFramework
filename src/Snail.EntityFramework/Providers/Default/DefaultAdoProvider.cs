@@ -20,19 +20,41 @@ public class DefaultAdoProvider : IAdoProvider
     private readonly IDatabaseConnectionProvider _connection;
 
     /// <summary>
+    ///     数据库读取提供器
     /// </summary>
     private readonly IDataReaderProvider _dataReader;
+
+    /// <summary>
+    ///     数据参数化提供器
+    /// </summary>
+    private readonly ISqlParameterProvider _parameterReader;
 
     /// <summary>
     ///     构造函数
     /// </summary>
     public DefaultAdoProvider(IDataReaderProvider dataReader,
         IDatabaseConnectionProvider connection,
-        IDatabaseCommandProvider command)
+        IDatabaseCommandProvider command,
+        ISqlParameterProvider parameterReader)
     {
         _command = command;
         _dataReader = dataReader;
         _connection = connection;
+        _parameterReader = parameterReader;
+    }
+
+
+    /// <summary>
+    ///     SQL查询
+    /// </summary>
+    /// <param name="sql">SQL脚本</param>
+    /// <param name="parameter">查询参数</param>
+    /// <typeparam name="T">查询结果对象类型</typeparam>
+    /// <returns>查询结果实体对象列表</returns>
+    public List<T> SqlQuery<T>(string sql, object parameter)
+    {
+        var parameters = _parameterReader.GetSqlParameter(parameter);
+        return SqlQuery<T>(sql, parameters);
     }
 
     /// <summary>
@@ -44,7 +66,7 @@ public class DefaultAdoProvider : IAdoProvider
     /// <returns>查询结果实体对象列表</returns>
     public List<T> SqlQuery<T>(string sql, params SqlParameter[] parameters)
     {
-        using var connection = _connection.GetConnection();
+        var connection = _connection.GetConnection();
         using var dataReader = GetDataReader(connection, sql, parameters);
         var entities = new List<T>();
         if (((DbDataReader)dataReader).HasRows)
