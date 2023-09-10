@@ -23,13 +23,13 @@ public class DefaultDataReaderProvider : IDataReaderProvider
         _serviceProvider = serviceProvider;
     }
 
+
     /// <summary>
-    ///     IDataReader对象转换泛型类型数据列表
+    ///     IDataReader对象转换泛型类型实体列表
     /// </summary>
     /// <param name="dataReader"></param>
     /// <typeparam name="T">泛型对象类型</typeparam>
-    /// <returns>数据列表</returns>
-    /// <exception cref="EntityFrameworkException"></exception>
+    /// <returns>泛型类型实体列表</returns>
     public List<T> ToEntities<T>(IDataReader dataReader)
     {
         var entities = new List<T>();
@@ -57,6 +57,38 @@ public class DefaultDataReaderProvider : IDataReaderProvider
         }
 
         return entities;
+    }
+
+    /// <summary>
+    ///     IDataReader对象转换泛型类型实体
+    /// </summary>
+    /// <param name="dataReader"></param>
+    /// <typeparam name="T">泛型对象类型</typeparam>
+    /// <returns>泛型类型实体</returns>
+    public T ToEntity<T>(IDataReader dataReader)
+    {
+        if (dataReader != null)
+        {
+            var nameTypes = GetDataReaderNameTypes(dataReader);
+            var fieldNames = nameTypes.Select(s => s.Key).ToList();
+            var entityBuilderFactory = _serviceProvider.GetRequiredService<IDataReaderEntityBuilder<T>>();
+            if (entityBuilderFactory == null)
+            {
+                throw new EntityFrameworkException("实体属性转换器{0}未注册", nameof(IDataReaderEntityBuilder<T>));
+            }
+
+            var entityBuilder = entityBuilderFactory.CreateBuilder(dataReader, fieldNames);
+            while (dataReader.Read())
+            {
+                var entity = entityBuilder.Build(dataReader);
+                if (entity != null)
+                {
+                    return entity;
+                }
+            }
+        }
+
+        return default;
     }
 
     /// <summary>

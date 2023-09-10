@@ -43,6 +43,62 @@ public class DefaultAdoProvider : IAdoProvider
         _parameterReader = parameterReader;
     }
 
+    #region GetDataReader
+
+    /// <summary>
+    ///     获取数据读取器对象
+    /// </summary>
+    /// <param name="connection">数据库连接对象</param>
+    /// <param name="sql">SQL脚本</param>
+    /// <param name="parameters">参数</param>
+    /// <returns></returns>
+    public IDataReader GetDataReader(IDbConnection connection, string sql, params SqlParameter[] parameters)
+    {
+        var command = _command.GetCommand(sql, parameters, connection);
+        _connection.Open();
+        return command.ExecuteReader(CommandBehavior.CloseConnection);
+    }
+
+    #endregion
+    
+    #region SqlQuerySingle
+
+    /// <summary>
+    ///     SQL查询
+    /// </summary>
+    /// <param name="sql">SQL脚本</param>
+    /// <param name="parameter">查询参数</param>
+    /// <typeparam name="T">查询结果对象类型</typeparam>
+    /// <returns>查询结果实体对象</returns>
+    public T SqlQuerySingle<T>(string sql, object parameter)
+    {
+        var parameters = _parameterReader.GetSqlParameter(parameter);
+        return SqlQuerySingle<T>(sql, parameters);
+    }
+
+    /// <summary>
+    ///     SQL查询
+    /// </summary>
+    /// <param name="sql">SQL脚本</param>
+    /// <param name="parameters">查询参数</param>
+    /// <typeparam name="T">查询结果对象类型</typeparam>
+    /// <returns>查询结果实体对象</returns>
+    public T SqlQuerySingle<T>(string sql, params SqlParameter[] parameters)
+    {
+        var connection = _connection.GetConnection();
+        using var dataReader = GetDataReader(connection, sql, parameters);
+        var entity = default(T);
+        if (((DbDataReader)dataReader).HasRows)
+        {
+            entity = _dataReader.ToEntity<T>(dataReader);
+        }
+
+        return entity;
+    }
+
+    #endregion
+
+    #region SqlQuery
 
     /// <summary>
     ///     SQL查询
@@ -77,17 +133,5 @@ public class DefaultAdoProvider : IAdoProvider
         return entities;
     }
 
-    /// <summary>
-    ///     获取数据读取器对象
-    /// </summary>
-    /// <param name="connection">数据库连接对象</param>
-    /// <param name="sql">SQL脚本</param>
-    /// <param name="parameters">参数</param>
-    /// <returns></returns>
-    public IDataReader GetDataReader(IDbConnection connection, string sql, params SqlParameter[] parameters)
-    {
-        var command = _command.GetCommand(sql, parameters, connection);
-        _connection.Open();
-        return command.ExecuteReader(CommandBehavior.CloseConnection);
-    }
+    #endregion
 }
