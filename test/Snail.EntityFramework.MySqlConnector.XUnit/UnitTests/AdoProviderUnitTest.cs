@@ -26,9 +26,9 @@ public class AdoProviderUnitTest
     #region SqlQuery
 
     /// <summary>
-    ///     SQL非参数化查询单元测试案例
+    ///     SQL非参数化列表查询单元测试案例
     /// </summary>
-    [Fact(DisplayName = "SQL非参数化查询单元测试案例")]
+    [Fact(DisplayName = "SQL非参数化列表查询单元测试案例")]
     public void SqlQueryNoSqlParameterUnitTest()
     {
         var sql = @"
@@ -42,9 +42,9 @@ from user where id>1
     }
 
     /// <summary>
-    ///     SQL参数化查询单元测试案例
+    ///     SQL参数化列表查询单元测试案例
     /// </summary>
-    [Fact(DisplayName = "SQL参数化查询单元测试案例")]
+    [Fact(DisplayName = "SQL参数化列表查询单元测试案例")]
     public void SqlQueryIncludeSqlParameterUnitTest()
     {
         var sql = @"
@@ -63,9 +63,9 @@ from user where id>@id
     }
 
     /// <summary>
-    ///     SQL对象参数化查询单元测试案例
+    ///     SQL对象参数化列表查询单元测试案例
     /// </summary>
-    [Fact(DisplayName = "SQL对象参数化查询单元测试案例")]
+    [Fact(DisplayName = "SQL对象参数化列表查询单元测试案例")]
     public void SqlQueryIncludeObjectParameterUnitTest()
     {
         var sql = @"
@@ -80,6 +80,67 @@ from user where id>@id and create_time<@createTime
             createTime = DateTime.Now
         });
         Assert.NotEmpty(list);
+    }
+
+    #endregion
+
+    #region SqlQuerySingle
+
+    /// <summary>
+    ///     SQL非参数化单实体查询单元测试案例
+    /// </summary>
+    [Fact(DisplayName = "SQL非参数化单实体查询单元测试案例")]
+    public void SqlQuerySingleNoSqlParameterUnitTest()
+    {
+        var sql = @"
+select id          as Id,
+       create_time as CreateTime,
+       modify_time as ModifyTime
+from user where id=1
+";
+        var entity = _adoProvider.SqlQuerySingle<User>(sql);
+        Assert.NotNull(entity);
+    }
+
+    /// <summary>
+    ///     SQL参数化单实体查询单元测试案例
+    /// </summary>
+    [Fact(DisplayName = "SQL参数化单实体查询单元测试案例")]
+    public void SqlQuerySingleIncludeSqlParameterUnitTest()
+    {
+        var sql = @"
+select id          as Id,
+       create_time as CreateTime,
+       modify_time as ModifyTime
+from user where id=@id
+";
+        var entity = _adoProvider.SqlQuerySingle<User>(sql, new SqlParameter
+        {
+            DbType = DbType.Int64,
+            ParameterName = "id",
+            Value = 2
+        });
+        Assert.NotNull(entity);
+    }
+
+    /// <summary>
+    ///     SQL对象参数化单实体查询单元测试案例
+    /// </summary>
+    [Fact(DisplayName = "SQL对象参数化单实体查询单元测试案例")]
+    public void SqlQuerySingleIncludeObjectParameterUnitTest()
+    {
+        var sql = @"
+select id          as Id,
+       create_time as CreateTime,
+       modify_time as ModifyTime
+from user where id=@id and create_time<@createTime
+";
+        var entity = _adoProvider.SqlQuerySingle<User>(sql, new
+        {
+            id = 1,
+            createTime = DateTime.Now
+        });
+        Assert.NotNull(entity);
     }
 
     #endregion
