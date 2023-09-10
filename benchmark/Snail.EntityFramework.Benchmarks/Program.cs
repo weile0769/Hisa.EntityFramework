@@ -1,3 +1,4 @@
-﻿// See https://aka.ms/new-console-template for more information
+﻿using BenchmarkDotNet.Running;
+using Snail.EntityFramework.Benchmarks.BenchmarkTests;
 
-Console.WriteLine("Hello, World!");
+BenchmarkRunner.Run<AdoProviderBenchmarkTest>();
