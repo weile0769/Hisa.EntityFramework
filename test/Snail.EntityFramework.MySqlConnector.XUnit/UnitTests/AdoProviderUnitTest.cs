@@ -23,6 +23,8 @@ public class AdoProviderUnitTest
         _adoProvider = adoProvider;
     }
 
+    #region SqlQuery
+
     /// <summary>
     ///     SQL非参数化查询单元测试案例
     /// </summary>
@@ -79,4 +81,6 @@ from user where id>@id and create_time<@createTime
         });
         Assert.NotEmpty(list);
     }
+
+    #endregion
 }
