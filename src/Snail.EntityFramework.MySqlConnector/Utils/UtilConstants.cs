@@ -8,7 +8,7 @@ internal class UtilConstants
     /// <summary>
     ///     数值类型
     /// </summary>
-    internal static Type[] NumericalTypes = new Type[]
+    internal static Type[] NumericalTypes =
     {
         typeof(int),
         typeof(uint),
@@ -17,6 +17,6 @@ internal class UtilConstants
         typeof(long),
         typeof(ulong),
         typeof(short),
-        typeof(ushort),
+        typeof(ushort)
     };
 }

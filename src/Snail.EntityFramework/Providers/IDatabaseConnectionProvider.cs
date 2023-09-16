@@ -1,5 +1,4 @@
 using System.Data;
-using Snail.EntityFramework.Options;
 
 namespace Snail.EntityFramework;
 

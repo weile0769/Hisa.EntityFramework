@@ -19,7 +19,7 @@ public class EntityFrameworkOptions
     ///     数据库配置选项
     /// </summary>
     public IList<DatabaseConfigureOptions> ConfigureOptions { get; set; }
-    
+
 
     /// <summary>
     ///     实体框架配置选项扩展类

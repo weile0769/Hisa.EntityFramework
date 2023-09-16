@@ -1,5 +1,4 @@
 using Snail.EntityFramework.Exceptions;
-using Snail.EntityFramework.Options;
 using Snail.EntityFramework.Utils;
 
 namespace Snail.EntityFramework.Options;

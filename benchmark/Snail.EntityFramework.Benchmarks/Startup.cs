@@ -1,6 +1,6 @@
-using Microsoft.Extensions.DependencyInjection;
 using Snail.EntityFramework.Benchmarks;
 using Snail.EntityFramework.Options;
+using SqlSugar;
 
 namespace Microsoft.Extensions.DependencyInjection;
 
@@ -30,6 +30,17 @@ public static class Startup
             };
 
             options.UseMySqlConnector();
+        });
+
+        services.AddScoped<ISqlSugarClient>(s =>
+        {
+            var sqlSugar = new SqlSugarClient(new ConnectionConfig
+            {
+                DbType = DbType.MySql,
+                ConnectionString = Configure.ConnectionString,
+                IsAutoCloseConnection = true
+            });
+            return sqlSugar;
         });
     }
 }

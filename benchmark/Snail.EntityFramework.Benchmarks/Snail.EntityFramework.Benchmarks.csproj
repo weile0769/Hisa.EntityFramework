@@ -7,9 +7,10 @@
         <LangVersion>11</LangVersion>
     </PropertyGroup>
     <ItemGroup>
-        <ProjectReference Include="..\..\src\Snail.EntityFramework.MySqlConnector\Snail.EntityFramework.MySqlConnector.csproj" />
+        <ProjectReference Include="..\..\src\Snail.EntityFramework.MySqlConnector\Snail.EntityFramework.MySqlConnector.csproj"/>
     </ItemGroup>
     <ItemGroup>
-      <PackageReference Include="BenchmarkDotNet" Version="0.13.8" />
+        <PackageReference Include="BenchmarkDotNet" Version="0.13.8"/>
+        <PackageReference Include="SqlSugarCore" Version="5.1.4.105"/>
     </ItemGroup>
 </Project>

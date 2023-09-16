@@ -16,6 +16,6 @@ internal static class StringExtension
     /// <returns></returns>
     internal static string ToSafeString(this string value, string defaultString = "")
     {
-        return value?.Trim()??defaultString;
+        return value?.Trim() ?? defaultString;
     }
 }

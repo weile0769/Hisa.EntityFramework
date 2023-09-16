@@ -9,7 +9,7 @@ public static class Configure
     ///     数据库连接标识
     /// </summary>
     public const string ConnectionName = "xunit";
-    
+
     /// <summary>
     ///     数据库连接字符串
     /// </summary>

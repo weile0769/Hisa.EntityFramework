@@ -60,7 +60,7 @@ public class DefaultAdoProvider : IAdoProvider
     }
 
     #endregion
-    
+
     #region SqlQuerySingle
 
     /// <summary>

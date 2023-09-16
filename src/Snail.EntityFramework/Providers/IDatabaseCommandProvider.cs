@@ -6,7 +6,7 @@ namespace Snail.EntityFramework;
 /// <summary>
 ///     数据库命令提供器
 /// </summary>
-public interface IDatabaseCommandProvider:IDisposable
+public interface IDatabaseCommandProvider : IDisposable
 {
     /// <summary>
     ///     获取数据库命令

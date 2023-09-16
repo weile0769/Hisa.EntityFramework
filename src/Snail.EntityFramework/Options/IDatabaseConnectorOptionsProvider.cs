@@ -1,5 +1,3 @@
-using Snail.EntityFramework.Options;
-
 namespace Snail.EntityFramework.Options;
 
 /// <summary>

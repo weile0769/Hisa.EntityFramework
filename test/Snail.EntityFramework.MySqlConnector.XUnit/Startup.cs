@@ -1,5 +1,5 @@
-using Snail.EntityFramework.Options;
 using Microsoft.Extensions.DependencyInjection;
+using Snail.EntityFramework.Options;
 
 namespace Snail.EntityFramework.MySqlConnector.XUnit;
 
@@ -19,7 +19,7 @@ public class Startup
         {
             options.ConfigureOptions = new List<DatabaseConfigureOptions>
             {
-                new DatabaseConfigureOptions
+                new()
                 {
                     Enabled = true,
                     Default = true,
@@ -27,7 +27,7 @@ public class Startup
                     ConnectionString = Configure.ConnectionString
                 }
             };
-            
+
             options.UseMySqlConnector();
         });
     }

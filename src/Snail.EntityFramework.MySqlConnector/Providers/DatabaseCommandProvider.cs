@@ -11,6 +11,11 @@ namespace Snail.EntityFramework.MySqlConnector.Providers;
 public class DatabaseCommandProvider : IDatabaseCommandProvider
 {
     /// <summary>
+    ///     数据库命令类型
+    /// </summary>
+    private readonly CommandType _commandType;
+
+    /// <summary>
     ///     数据库连接配置选项提供器
     /// </summary>
     private readonly IDatabaseConnectorOptionsProvider _connectorOptions;
@@ -19,11 +24,6 @@ public class DatabaseCommandProvider : IDatabaseCommandProvider
     ///     数据库参数提供器
     /// </summary>
     private readonly IDataParameterProvider _parameter;
-
-    /// <summary>
-    ///     数据库命令类型
-    /// </summary>
-    private readonly CommandType _commandType;
 
     /// <summary>
     ///     数据库命令

@@ -60,7 +60,7 @@ public class DbConnectionProviderUnitTest
             Assert.Fail(ex.Message);
         }
     }
-    
+
     /// <summary>
     ///     数据库连接成功单元测试案例（启动配置项）
     /// </summary>

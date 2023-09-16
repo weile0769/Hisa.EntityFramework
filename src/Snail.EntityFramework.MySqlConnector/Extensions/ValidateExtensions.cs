@@ -1,7 +1,7 @@
 namespace Snail.EntityFramework.MySqlConnector.Extensions;
 
 /// <summary>
-///    Validate 验证扩展类
+///     Validate 验证扩展类
 /// </summary>
 internal static class ValidateExtensions
 {
@@ -14,7 +14,7 @@ internal static class ValidateExtensions
     {
         return (thisValue + "").StartsWith("System.Collections.Generic.List") || (thisValue + "").StartsWith("System.Collections.Generic.IEnumerable");
     }
-    
+
     /// <summary>
     ///     元素T是否在数组T[]里
     /// </summary>
@@ -26,7 +26,7 @@ internal static class ValidateExtensions
     {
         return values.Contains(thisValue);
     }
-    
+
     /// <summary>
     ///     是否数值类型数组
     /// </summary>
