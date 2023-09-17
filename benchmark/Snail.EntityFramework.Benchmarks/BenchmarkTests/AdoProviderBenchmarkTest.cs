@@ -6,6 +6,11 @@ using SqlSugar;
 
 namespace Snail.EntityFramework.Benchmarks.BenchmarkTests;
 
+[MinColumn]
+[Q1Column]
+[Q3Column]
+[MaxColumn]
+[RankColumn]
 [SimpleJob(RunStrategy.ColdStart, iterationCount: 10000)]
 public class AdoProviderBenchmarkTest
 {
