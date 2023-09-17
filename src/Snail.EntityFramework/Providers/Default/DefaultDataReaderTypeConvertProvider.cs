@@ -38,15 +38,14 @@ public class DefaultDataReaderTypeConvertProvider : IDataReaderTypeConvertProvid
             return entities;
         }
 
-        var nameTypes = GetDataReaderNameTypes(dataReader);
-        var fieldNames = nameTypes.Select(s => s.Key).ToList();
-        var entityBuilderFactory = _serviceProvider.GetRequiredService<IDataReaderEntityBuilder<T>>();
+        var readerNameKeys = GetDataReaderNameTypes(dataReader);
+        var entityBuilderFactory = _serviceProvider.GetService<IDataReaderEntityBuilder<T>>();
         if (entityBuilderFactory == null)
         {
             throw new EntityFrameworkException("实体属性转换器{0}未注册", nameof(IDataReaderEntityBuilder<T>));
         }
 
-        var entityBuilder = entityBuilderFactory.CreateBuilder(dataReader, fieldNames);
+        var entityBuilder = entityBuilderFactory.CreateBuilder(dataReader, readerNameKeys);
         while (dataReader.Read())
         {
             var entity = entityBuilder.Build(dataReader);
@@ -69,15 +68,14 @@ public class DefaultDataReaderTypeConvertProvider : IDataReaderTypeConvertProvid
     {
         if (dataReader != null)
         {
-            var nameTypes = GetDataReaderNameTypes(dataReader);
-            var fieldNames = nameTypes.Select(s => s.Key).ToList();
+            var readerNameKeys = GetDataReaderNameTypes(dataReader);
             var entityBuilderFactory = _serviceProvider.GetRequiredService<IDataReaderEntityBuilder<T>>();
             if (entityBuilderFactory == null)
             {
                 throw new EntityFrameworkException("实体属性转换器{0}未注册", nameof(IDataReaderEntityBuilder<T>));
             }
 
-            var entityBuilder = entityBuilderFactory.CreateBuilder(dataReader, fieldNames);
+            var entityBuilder = entityBuilderFactory.CreateBuilder(dataReader, readerNameKeys);
             while (dataReader.Read())
             {
                 var entity = entityBuilder.Build(dataReader);
@@ -96,7 +94,7 @@ public class DefaultDataReaderTypeConvertProvider : IDataReaderTypeConvertProvid
     /// </summary>
     /// <param name="dataReader">IDataReader对象</param>
     /// <returns>数据列名称与列类型键值对</returns>
-    private IEnumerable<KeyValuePair<string, string>> GetDataReaderNameTypes(IDataRecord dataReader)
+    private List<KeyValuePair<string, string>> GetDataReaderNameTypes(IDataRecord dataReader)
     {
         var nameTypes = new List<KeyValuePair<string, string>>();
         for (var i = 0; i < dataReader.FieldCount; i++)

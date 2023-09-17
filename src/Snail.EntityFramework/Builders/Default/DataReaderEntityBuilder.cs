@@ -45,11 +45,11 @@ public class DataReaderEntityBuilder<T> : IDataReaderEntityBuilder<T>
     ///     创建数据列转换映射实体属性构造器
     /// </summary>
     /// <param name="dataRecord">IDataRecord访问器</param>
-    /// <param name="readerKeys"></param>
-    /// <returns></returns>
-    /// <exception cref="EntityFrameworkException"></exception>
-    public IDataReaderEntityBuilder<T> CreateBuilder(IDataRecord dataRecord, List<string> readerKeys)
+    /// <param name="readerNameKeys"></param>
+    /// <returns>数据列转换映射实体属性构造器</returns>
+    public IDataReaderEntityBuilder<T> CreateBuilder(IDataRecord dataRecord, List<KeyValuePair<string, string>> readerNameKeys)
     {
+        var readerKeys = readerNameKeys.Select(s => s.Key).ToList();
         var type = typeof(T);
         //定义动态方法
         var dynamicMethod = new DynamicMethod("DataReaderEntityBuild", type, new[] { typeof(IDataRecord) }, type, true);
