@@ -1,4 +1,5 @@
 using System.Data;
+using Snail.EntityFramework.Models;
 
 namespace Snail.EntityFramework;
 
@@ -8,18 +9,10 @@ namespace Snail.EntityFramework;
 public interface IDataReaderProvider
 {
     /// <summary>
-    ///     IDataReader对象转换泛型类型实体
+    ///     获取数据读取器对象
     /// </summary>
-    /// <param name="dataReader"></param>
-    /// <typeparam name="T">泛型对象类型</typeparam>
-    /// <returns>泛型类型实体</returns>
-    T ToEntity<T>(IDataReader dataReader);
-
-    /// <summary>
-    ///     IDataReader对象转换泛型类型实体列表
-    /// </summary>
-    /// <param name="dataReader"></param>
-    /// <typeparam name="T">泛型对象类型</typeparam>
-    /// <returns>泛型类型实体列表</returns>
-    List<T> ToEntities<T>(IDataReader dataReader);
+    /// <param name="sql">SQL脚本</param>
+    /// <param name="parameters">参数</param>
+    /// <returns></returns>
+    IDataReader GetDataReader(string sql, params SqlParameter[] parameters);
 }

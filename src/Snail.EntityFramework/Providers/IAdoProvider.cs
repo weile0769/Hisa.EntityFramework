@@ -1,4 +1,3 @@
-using System.Data;
 using Snail.EntityFramework.Models;
 
 namespace Snail.EntityFramework;
@@ -8,19 +7,6 @@ namespace Snail.EntityFramework;
 /// </summary>
 public interface IAdoProvider
 {
-    #region GetDataReader
-
-    /// <summary>
-    ///     获取数据读取器对象
-    /// </summary>
-    /// <param name="connection">数据库连接对象</param>
-    /// <param name="sql">SQL脚本</param>
-    /// <param name="parameters">参数</param>
-    /// <returns></returns>
-    IDataReader GetDataReader(IDbConnection connection, string sql, params SqlParameter[] parameters);
-
-    #endregion
-
     #region SqlQuerySingle
 
     /// <summary>

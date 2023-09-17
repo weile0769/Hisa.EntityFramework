@@ -1,4 +1,3 @@
-using System.Data;
 using System.Data.Common;
 using Snail.EntityFramework.Models;
 
@@ -10,19 +9,14 @@ namespace Snail.EntityFramework.Providers;
 public class DefaultAdoProvider : IAdoProvider
 {
     /// <summary>
-    ///     数据库命令提供器
-    /// </summary>
-    private readonly IDatabaseCommandProvider _command;
-
-    /// <summary>
-    ///     数据库连接对象提供器
-    /// </summary>
-    private readonly IDatabaseConnectionProvider _connection;
-
-    /// <summary>
     ///     数据库读取提供器
     /// </summary>
     private readonly IDataReaderProvider _dataReader;
+
+    /// <summary>
+    ///     数据库读取转换泛型实体提供器
+    /// </summary>
+    private readonly IDataReaderTypeConvertProvider _dataReaderTypeConvert;
 
     /// <summary>
     ///     数据参数化提供器
@@ -32,34 +26,15 @@ public class DefaultAdoProvider : IAdoProvider
     /// <summary>
     ///     构造函数
     /// </summary>
-    public DefaultAdoProvider(IDataReaderProvider dataReader,
-        IDatabaseConnectionProvider connection,
-        IDatabaseCommandProvider command,
-        ISqlParameterProvider parameterReader)
+    public DefaultAdoProvider(IDataReaderProvider dataReader, 
+        ISqlParameterProvider parameterReader,
+        IDataReaderTypeConvertProvider dataReaderTypeConvert
+    )
     {
-        _command = command;
         _dataReader = dataReader;
-        _connection = connection;
         _parameterReader = parameterReader;
+        _dataReaderTypeConvert = dataReaderTypeConvert;
     }
-
-    #region GetDataReader
-
-    /// <summary>
-    ///     获取数据读取器对象
-    /// </summary>
-    /// <param name="connection">数据库连接对象</param>
-    /// <param name="sql">SQL脚本</param>
-    /// <param name="parameters">参数</param>
-    /// <returns></returns>
-    public IDataReader GetDataReader(IDbConnection connection, string sql, params SqlParameter[] parameters)
-    {
-        var command = _command.GetCommand(sql, parameters, connection);
-        _connection.Open();
-        return command.ExecuteReader(CommandBehavior.CloseConnection);
-    }
-
-    #endregion
 
     #region SqlQuerySingle
 
@@ -85,12 +60,11 @@ public class DefaultAdoProvider : IAdoProvider
     /// <returns>查询结果实体对象</returns>
     public T SqlQuerySingle<T>(string sql, params SqlParameter[] parameters)
     {
-        var connection = _connection.GetConnection();
-        using var dataReader = GetDataReader(connection, sql, parameters);
+        using var dataReader = _dataReader.GetDataReader(sql, parameters);
         var entity = default(T);
         if (((DbDataReader)dataReader).HasRows)
         {
-            entity = _dataReader.ToEntity<T>(dataReader);
+            entity = _dataReaderTypeConvert.ToEntity<T>(dataReader);
         }
 
         return entity;
@@ -122,12 +96,11 @@ public class DefaultAdoProvider : IAdoProvider
     /// <returns>查询结果实体对象列表</returns>
     public List<T> SqlQuery<T>(string sql, params SqlParameter[] parameters)
     {
-        var connection = _connection.GetConnection();
-        using var dataReader = GetDataReader(connection, sql, parameters);
+        using var dataReader = _dataReader.GetDataReader(sql, parameters);
         var entities = new List<T>();
         if (((DbDataReader)dataReader).HasRows)
         {
-            entities = _dataReader.ToEntities<T>(dataReader);
+            entities = _dataReaderTypeConvert.ToEntities<T>(dataReader);
         }
 
         return entities;

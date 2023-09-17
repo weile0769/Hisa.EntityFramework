@@ -1,3 +1,4 @@
+using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Options;
 using Snail.EntityFramework;
 using Snail.EntityFramework.Builders;
@@ -29,17 +30,19 @@ public static class ServiceCollectionExtension
         }
 
         services.AddMemoryCache();
-        services.AddSingleton<ICacheProvider, DefaultCacheProvider>();
+        services.TryAddSingleton<ICacheProvider, DefaultCacheProvider>();
 
         services.Configure(optionAction);
         services.AddSingleton(resolver => resolver.GetRequiredService<IOptions<EntityFrameworkOptions>>().Value);
         services.AddSingleton<IDatabaseConnectorOptionsProvider, DatabaseConnectorOptionsProvider>();
 
-        services.AddSingleton<IAdoProvider, DefaultAdoProvider>();
-        services.AddSingleton<IDataReaderProvider, DefaultDataReaderProvider>();
-        services.AddSingleton<IEntityMappingProvider, DefaultEntityMappingProvider>();
-        services.AddSingleton<ISqlParameterProvider, DefaultSqlParameterProvider>();
-        services.AddTransient(typeof(IDataReaderEntityBuilder<>), typeof(DataReaderEntityBuilder<>));
+        services.TryAddSingleton<IAdoProvider, DefaultAdoProvider>();
+        services.TryAddSingleton<ISqlParameterProvider, DefaultSqlParameterProvider>();
+        services.TryAddTransient<IDataReaderProvider, DefaultDataReaderProvider>();
+
+        services.TryAddSingleton<IDataReaderTypeConvertProvider, DefaultDataReaderTypeConvertProvider>();
+        services.TryAddSingleton<IEntityMappingProvider, DefaultEntityMappingProvider>();
+        services.TryAddTransient(typeof(IDataReaderEntityBuilder<>), typeof(DataReaderEntityBuilder<>));
         return new EntityFrameworkBuilder(services);
     }
 }
