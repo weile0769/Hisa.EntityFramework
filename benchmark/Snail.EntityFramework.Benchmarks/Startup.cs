@@ -1,3 +1,4 @@
+using FreeSql;
 using Snail.EntityFramework.Benchmarks;
 using Snail.EntityFramework.Options;
 using SqlSugar;
@@ -42,5 +43,14 @@ public static class Startup
             });
             return sqlSugar;
         });
+
+
+        services.AddSingleton(r => new FreeSqlBuilder()
+            .UseConnectionString(DataType.MySql, Configure.ConnectionString)
+            .UseAutoSyncStructure(false)
+            .UseNoneCommandParameter(true)
+            .Build());
+
+        services.AddLogging();
     }
 }

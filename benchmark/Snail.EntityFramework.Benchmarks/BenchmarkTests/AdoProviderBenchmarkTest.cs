@@ -15,15 +15,23 @@ namespace Snail.EntityFramework.Benchmarks.BenchmarkTests;
 public class AdoProviderBenchmarkTest
 {
     /// <summary>
-    ///     数据库连接对象提供器
+    ///     SnailSql数据库框架
     /// </summary>
     private readonly IAdoProvider _adoProvider;
 
     /// <summary>
-    ///     SqlSugar数据库对象
+    ///     FreeSql数据库框架
+    /// </summary>
+    private readonly IFreeSql _freeSqlClient;
+
+    /// <summary>
+    ///     SqlSugar数据库框架
     /// </summary>
     private readonly ISqlSugarClient _sqlSugarClient;
 
+    /// <summary>
+    ///     构造函数
+    /// </summary>
     public AdoProviderBenchmarkTest()
     {
         var services = new ServiceCollection();
@@ -31,15 +39,16 @@ public class AdoProviderBenchmarkTest
         var serviceProvider = services.BuildServiceProvider();
         _adoProvider = serviceProvider.GetRequiredService<IAdoProvider>();
         _sqlSugarClient = serviceProvider.GetRequiredService<ISqlSugarClient>();
+        _freeSqlClient = serviceProvider.GetRequiredService<IFreeSql>();
     }
 
     #region SqlQuerySingle
 
     /// <summary>
-    ///     SQL非参数化单实体查询性能测试案例
+    ///     SnailEntityFramework-SQL非参数化单实体查询性能测试案例
     /// </summary>
     [Benchmark]
-    public void SqlQuerySingleNoSqlParameterBenchmarkTest()
+    public void SqlQuerySingleNoSqlParameterForSnailEntityFrameworkBenchmarkTest()
     {
         var sql = @"
 select id          as Id,
@@ -63,6 +72,21 @@ select id          as Id,
 from user where id=1
 ";
         _sqlSugarClient.Ado.SqlQuerySingle<User>(sql);
+    }
+
+    /// <summary>
+    ///     FreeSql-SQL非参数化单实体查询性能测试案例
+    /// </summary>
+    [Benchmark]
+    public void SqlQuerySingleNoSqlParameterForFreeSqlBenchmarkTest()
+    {
+        var sql = @"
+select id          as Id,
+       create_time as CreateTime,
+       modify_time as ModifyTime
+from user where id=1
+";
+        _freeSqlClient.Ado.QuerySingle<User>(sql);
     }
 
     #endregion
