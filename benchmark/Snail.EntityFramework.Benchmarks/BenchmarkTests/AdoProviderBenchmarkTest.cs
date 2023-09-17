@@ -1,17 +1,11 @@
 using BenchmarkDotNet.Attributes;
-using BenchmarkDotNet.Engines;
 using Microsoft.Extensions.DependencyInjection;
 using Snail.EntityFramework.Benchmarks.Entities;
 using SqlSugar;
 
 namespace Snail.EntityFramework.Benchmarks.BenchmarkTests;
 
-[MinColumn]
-[Q1Column]
-[Q3Column]
-[MaxColumn]
-[RankColumn]
-[SimpleJob(RunStrategy.ColdStart, iterationCount: 10000)]
+[MemoryDiagnoser,RankColumn]
 public class AdoProviderBenchmarkTest
 {
     /// <summary>
