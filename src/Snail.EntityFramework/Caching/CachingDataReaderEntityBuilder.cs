@@ -61,11 +61,11 @@ public class CachingDataReaderEntityBuilder<T> : IDataReaderEntityBuilder<T>
         var fullName = typeof(T).FullName;
         var fieldNames = readerNameKeys.Select(s => s.Key);
         var typeNames = readerNameKeys.Select(s => s.Key);
-        var client = _cacheProvider.Get(string.Format(CacheKey, $"CreateBuild.{fullName}{typeNames.ForeachSelectString()}{fieldNames.ForeachSelectString()}"),
-            TimeSpan.FromDays(180),
+        var builder = _cacheProvider.Get(string.Format(CacheKey, $"CreateBuild.{fullName}{typeNames.ForeachSelectString()}{fieldNames.ForeachSelectString()}"),
+            TimeSpan.FromDays(366),
             () => _dataReaderEntityBuilder.CreateBuilder(dataRecord, readerNameKeys),
             _logger);
 
-        return client;
+        return builder;
     }
 }
