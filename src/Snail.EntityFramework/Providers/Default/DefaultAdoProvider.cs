@@ -26,7 +26,7 @@ public class DefaultAdoProvider : IAdoProvider
     /// <summary>
     ///     构造函数
     /// </summary>
-    public DefaultAdoProvider(IDataReaderProvider dataReader, 
+    public DefaultAdoProvider(IDataReaderProvider dataReader,
         ISqlParameterProvider parameterReader,
         IDataReaderTypeConvertProvider dataReaderTypeConvert
     )
