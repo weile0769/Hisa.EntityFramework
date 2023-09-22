@@ -5,8 +5,12 @@ using SqlSugar;
 
 namespace Snail.EntityFramework.Benchmarks.BenchmarkTests;
 
-[MemoryDiagnoser,RankColumn]
-public class AdoProviderBenchmarkTest
+/// <summary>
+///     SQL非参数化单实体查询性能测试案例
+/// </summary>
+[MemoryDiagnoser]
+[RankColumn]
+public class SqlQuerySingleNoSqlParameterBenchmarkTest
 {
     /// <summary>
     ///     SnailSql数据库框架
@@ -26,7 +30,7 @@ public class AdoProviderBenchmarkTest
     /// <summary>
     ///     构造函数
     /// </summary>
-    public AdoProviderBenchmarkTest()
+    public SqlQuerySingleNoSqlParameterBenchmarkTest()
     {
         var services = new ServiceCollection();
         services.ConfigureServices();
@@ -36,6 +40,35 @@ public class AdoProviderBenchmarkTest
         _freeSqlClient = serviceProvider.GetRequiredService<IFreeSql>();
     }
 
+
+    /// <summary>
+    ///     定义不同规模的数据作为参数
+    /// </summary>
+    [Params(1)]
+    public int pageSize { get; set; }
+
+    /// <summary>
+    ///     初始化程序
+    /// </summary>
+    [GlobalSetup]
+    public void BenchmarkTestSetup()
+    {
+        _sqlSugarClient.DbMaintenance.TruncateTable<User>();
+        var userModels = new List<User>();
+        for (var i = 1; i <= 2000; i++)
+        {
+            userModels.Add(new User
+            {
+                Id = i,
+                CreateTime = DateTime.Now,
+                ModifyTime = DateTime.Now
+            });
+        }
+
+        _sqlSugarClient.Insertable(userModels).ExecuteCommand();
+    }
+
+
     #region SqlQuerySingle
 
     /// <summary>
@@ -44,11 +77,11 @@ public class AdoProviderBenchmarkTest
     [Benchmark]
     public void SqlQuerySingleNoSqlParameterForSnailEntityFrameworkBenchmarkTest()
     {
-        var sql = @"
+        var sql = $@"
 select id          as Id,
        create_time as CreateTime,
        modify_time as ModifyTime
-from user where id=1
+from user where id={pageSize}
 ";
         _adoProvider.SqlQuerySingle<User>(sql);
     }
@@ -59,11 +92,11 @@ from user where id=1
     [Benchmark]
     public void SqlQuerySingleNoSqlParameterForSqlSugarBenchmarkTest()
     {
-        var sql = @"
+        var sql = $@"
 select id          as Id,
        create_time as CreateTime,
        modify_time as ModifyTime
-from user where id=1
+from user where id={pageSize}
 ";
         _sqlSugarClient.Ado.SqlQuerySingle<User>(sql);
     }
@@ -74,11 +107,11 @@ from user where id=1
     [Benchmark]
     public void SqlQuerySingleNoSqlParameterForFreeSqlBenchmarkTest()
     {
-        var sql = @"
+        var sql = $@"
 select id          as Id,
        create_time as CreateTime,
        modify_time as ModifyTime
-from user where id=1
+from user where id={pageSize}
 ";
         _freeSqlClient.Ado.QuerySingle<User>(sql);
     }

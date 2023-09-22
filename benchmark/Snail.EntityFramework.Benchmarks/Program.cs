@@ -2,5 +2,4 @@
 using BenchmarkDotNet.Running;
 using Snail.EntityFramework.Benchmarks.BenchmarkTests;
 
-
-BenchmarkRunner.Run<AdoProviderBenchmarkTest>(ManualConfig.Create(DefaultConfig.Instance).WithOptions(ConfigOptions.DisableOptimizationsValidator));
+BenchmarkRunner.Run<SqlQuerySingleNoSqlParameterBenchmarkTest>(ManualConfig.Create(DefaultConfig.Instance).WithOptions(ConfigOptions.DisableOptimizationsValidator));
