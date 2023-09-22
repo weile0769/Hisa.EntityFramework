@@ -9,24 +9,11 @@ namespace Snail.EntityFramework.Providers;
 public class DefaultEntityMappingProvider : IEntityMappingProvider
 {
     /// <summary>
-    ///     缓存服务提供器
-    /// </summary>
-    private readonly ICacheProvider _cache;
-
-    /// <summary>
-    ///     构造函数
-    /// </summary>
-    public DefaultEntityMappingProvider(ICacheProvider cache)
-    {
-        _cache = cache;
-    }
-
-    /// <summary>
-    ///     获取实体信息（无缓存）
+    ///     获取实体信息
     /// </summary>
     /// <param name="type">实体类型</param>
     /// <returns>实体信息</returns>
-    public Entity GetEntityNoCache(Type type)
+    public Entity GetEntity(Type type)
     {
         var entity = new Entity();
         var sqlTableAttribute = type.GetTypeInfo().GetCustomAttributes(typeof(SqlTable), false).SingleOrDefault(it => it is SqlTable);
@@ -45,16 +32,5 @@ public class DefaultEntityMappingProvider : IEntityMappingProvider
         entity.Name = type.Name;
         entity.InitEntityColumns();
         return entity;
-    }
-
-    /// <summary>
-    ///     获取实体信息（缓存）
-    /// </summary>
-    /// <param name="type">实体类型</param>
-    /// <returns>实体信息</returns>
-    public Entity GetEntity(Type type)
-    {
-        var cacheKey = $"EntityMappingTable:{type.FullName}";
-        return _cache.GetOrAdd(cacheKey, () => GetEntityNoCache(type));
     }
 }

@@ -41,7 +41,9 @@ public static class ServiceCollectionExtension
         services.TryAddTransient<IDataReaderProvider, DefaultDataReaderProvider>();
 
         services.TryAddSingleton<IDataReaderTypeConvertProvider, DefaultDataReaderTypeConvertProvider>();
-        services.TryAddSingleton<IEntityMappingProvider, DefaultEntityMappingProvider>();
+
+        services.TryAddSingleton(typeof(DefaultEntityMappingProvider));
+        services.TryAddSingleton<IEntityMappingProvider, CachingEntityMappingProvider<DefaultEntityMappingProvider>>();
         services.TryAddTransient(typeof(DataReaderEntityBuilder<>));
         services.TryAddSingleton(typeof(IDataReaderEntityBuilder<>), typeof(CachingDataReaderEntityBuilder<>));
 

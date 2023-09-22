@@ -8,14 +8,7 @@ namespace Snail.EntityFramework;
 public interface IEntityMappingProvider
 {
     /// <summary>
-    ///     获取实体信息（无缓存）
-    /// </summary>
-    /// <param name="type">实体类型</param>
-    /// <returns>实体信息</returns>
-    Entity GetEntityNoCache(Type type);
-
-    /// <summary>
-    ///     获取实体信息（缓存）
+    ///     获取实体信息
     /// </summary>
     /// <param name="type">实体类型</param>
     /// <returns>实体信息</returns>
