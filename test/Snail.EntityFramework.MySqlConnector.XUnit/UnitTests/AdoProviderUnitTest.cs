@@ -11,7 +11,7 @@ namespace Snail.EntityFramework.MySqlConnector.XUnit.UnitTests;
 public class AdoProviderUnitTest
 {
     /// <summary>
-    ///     数据库连接对象提供器
+    ///     数据库访问提供程序
     /// </summary>
     private readonly IAdoProvider _adoProvider;
 

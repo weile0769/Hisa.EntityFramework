@@ -10,11 +10,21 @@
 <img alt="license" src="https://img.shields.io/badge/license-MIT-blue.svg">
 </p>
 
-### 🚩 项目介绍
+## 🚩 项目介绍
 Snail.EntityFramework 一款NET开源多库的、开箱即用的、功能全面的ORM框架。目前数据库仅支持MYSQL。未来一直会致力追求卓越的性能、支持更多的数据库，为开源中国添砖加瓦。
 
-### 🏅 开源地址
+## 🏅 开源地址
 [![Gitee](https://shields.io/badge/Gitee-https://gitee.com/weile0796/Snail.EntityFramework-green?logo=gitee&style=flat&logoColor=red)](https://gitee.com/weile0796/Snail.EntityFramework.git)
 
 
-### 🎉 功能介绍
+## 🎉 功能介绍
+### 1. **原生SQL**
+
+| 方法名                | 描述                     | 返回值   |
+| --------------------- | ------------------------ | -------- |
+| **SqlQuery<T>**       | **查询所有返回实体集合** | **List** |
+| **SqlQuerySingle<T>** | **查询第一条记录**       | **T**    |
+| **GetDataTable** | **查询数据表格DataTable**       | **DataTable**    |
+| **GetDataReader** | **查询数据读取器DataReader，需要手动释放**       | **DataReader**    |
+| **GetDataSet** | **查询数据结果集DataSet**       | **DataSet**    |
+| **ExecuteCommand** | **执行SQL返回受影响行数，一般用于增删改**       | **int**    |
