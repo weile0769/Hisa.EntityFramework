@@ -47,6 +47,9 @@ public static class ServiceCollectionExtension
         services.TryAddTransient(typeof(DataReaderEntityBuilder<>));
         services.TryAddSingleton(typeof(IDataReaderEntityBuilder<>), typeof(CachingDataReaderEntityBuilder<>));
 
+
+        services.TryAddScoped<ISnailSqlClient, SnailSqlClient>();
+
         return new EntityFrameworkBuilder(services);
     }
 }

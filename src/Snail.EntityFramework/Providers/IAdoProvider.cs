@@ -50,4 +50,24 @@ public interface IAdoProvider
     List<T> SqlQuery<T>(string sql, params SqlParameter[] parameters);
 
     #endregion
+
+    #region ExecuteCommand
+
+    /// <summary>
+    ///     执行SQL
+    /// </summary>
+    /// <param name="sql">SQL脚本</param>
+    /// <param name="parameter">查询参数</param>
+    /// <returns>影响行数</returns>
+    int ExecuteCommand(string sql, object parameter);
+
+    /// <summary>
+    ///     执行SQL
+    /// </summary>
+    /// <param name="sql">SQL脚本</param>
+    /// <param name="parameters">查询参数</param>
+    /// <returns>影响行数</returns>
+    int ExecuteCommand(string sql, params SqlParameter[] parameters);
+
+    #endregion
 }

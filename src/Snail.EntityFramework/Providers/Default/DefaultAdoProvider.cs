@@ -9,6 +9,11 @@ namespace Snail.EntityFramework.Providers;
 public class DefaultAdoProvider : IAdoProvider
 {
     /// <summary>
+    ///     数据库命令提供器
+    /// </summary>
+    private readonly IDatabaseCommandProvider _command;
+
+    /// <summary>
     ///     数据库读取提供器
     /// </summary>
     private readonly IDataReaderProvider _dataReader;
@@ -28,10 +33,12 @@ public class DefaultAdoProvider : IAdoProvider
     /// </summary>
     public DefaultAdoProvider(IDataReaderProvider dataReader,
         ISqlParameterProvider parameterReader,
+        IDatabaseCommandProvider command,
         IDataReaderTypeConvertProvider dataReaderTypeConvert
     )
     {
         _dataReader = dataReader;
+        _command = command;
         _parameterReader = parameterReader;
         _dataReaderTypeConvert = dataReaderTypeConvert;
     }
@@ -104,6 +111,37 @@ public class DefaultAdoProvider : IAdoProvider
         }
 
         return entities;
+    }
+
+    #endregion
+
+    #region ExecuteCommand
+
+    /// <summary>
+    ///     执行SQL
+    /// </summary>
+    /// <param name="sql">SQL脚本</param>
+    /// <param name="parameter">查询参数</param>
+    /// <returns>影响行数</returns>
+    public int ExecuteCommand(string sql, object parameter)
+    {
+        var parameters = _parameterReader.GetSqlParameter(parameter);
+        var command = _command.GetCommand(sql, parameters);
+        var count = command.ExecuteNonQuery();
+        return count;
+    }
+
+    /// <summary>
+    ///     执行SQL
+    /// </summary>
+    /// <param name="sql">SQL脚本</param>
+    /// <param name="parameters">查询参数</param>
+    /// <returns>影响行数</returns>
+    public int ExecuteCommand(string sql, params SqlParameter[] parameters)
+    {
+        var command = _command.GetCommand(sql, parameters);
+        var count = command.ExecuteNonQuery();
+        return count;
     }
 
     #endregion

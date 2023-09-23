@@ -14,18 +14,11 @@ public class DefaultDataReaderProvider : IDataReaderProvider
     private readonly IDatabaseCommandProvider _command;
 
     /// <summary>
-    ///     数据库连接对象提供器
-    /// </summary>
-    private readonly IDatabaseConnectionProvider _connection;
-
-    /// <summary>
     ///     构造函数
     /// </summary>
-    public DefaultDataReaderProvider(IDatabaseConnectionProvider connection,
-        IDatabaseCommandProvider command)
+    public DefaultDataReaderProvider(IDatabaseCommandProvider command)
     {
         _command = command;
-        _connection = connection;
     }
 
     /// <summary>
@@ -36,9 +29,7 @@ public class DefaultDataReaderProvider : IDataReaderProvider
     /// <returns></returns>
     public IDataReader GetDataReader(string sql, params SqlParameter[] parameters)
     {
-        var connection = _connection.GetConnection();
-        var command = _command.GetCommand(sql, parameters, connection);
-        connection.Open();
+        var command = _command.GetCommand(sql, parameters);
         return command.ExecuteReader(CommandBehavior.CloseConnection);
     }
 }

@@ -14,6 +14,11 @@ public class DatabaseCommandProvider : IDatabaseCommandProvider
     ///     数据库命令类型
     /// </summary>
     private readonly CommandType _commandType;
+    
+    /// <summary>
+    ///     数据库连接对象提供器
+    /// </summary>
+    private readonly IDatabaseConnectionProvider _connection;
 
     /// <summary>
     ///     数据库连接配置选项提供器
@@ -40,10 +45,12 @@ public class DatabaseCommandProvider : IDatabaseCommandProvider
     ///     构造函数
     /// </summary>
     public DatabaseCommandProvider(IDataParameterProvider parameter,
+        IDatabaseConnectionProvider connection,
         IDatabaseConnectorOptionsProvider connectorOptions)
     {
         _commandType = CommandType.Text;
         _parameter = parameter;
+        _connection = connection;
         _connectorOptions = connectorOptions;
     }
 
@@ -60,10 +67,10 @@ public class DatabaseCommandProvider : IDatabaseCommandProvider
     /// </summary>
     /// <param name="sql">sql脚本</param>
     /// <param name="parameters">sql参数</param>
-    /// <param name="connection">数据库连接对象</param>
     /// <returns>数据库命令</returns>
-    public IDbCommand GetCommand(string sql, SqlParameter[] parameters, IDbConnection connection)
+    public IDbCommand GetCommand(string sql, SqlParameter[] parameters)
     {
+        var connection = _connection.GetConnection();
         if (_dbCommand == null)
         {
             var connectorOptions = _connectorOptions.GetCurrentConnectorOptions();
@@ -82,8 +89,9 @@ public class DatabaseCommandProvider : IDatabaseCommandProvider
             }
 
             _dbCommand = sqlCommand;
+            
         }
-
+        _connection.Open();
         return _dbCommand;
     }
 }
