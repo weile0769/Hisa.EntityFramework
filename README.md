@@ -15,7 +15,8 @@ Snail.EntityFramework 一款NET开源多库的、开箱即用的、功能全面�
 
 ## 🏅 开源地址
 [![Gitee](https://shields.io/badge/Gitee-https://gitee.com/weile0796/Snail.EntityFramework-green?logo=gitee&style=flat&logoColor=red)](https://gitee.com/weile0796/Snail.EntityFramework.git)
-
+<br>
+[![Github](https://shields.io/badge/Github-https://github.com/weile0769/Snail.EntityFramework-green?logo=github&style=flat&logoColor=white)](https://github.com/weile0769/Snail.EntityFramework)
 
 ## 🎉 功能介绍
 ### 1. **原生SQL**
