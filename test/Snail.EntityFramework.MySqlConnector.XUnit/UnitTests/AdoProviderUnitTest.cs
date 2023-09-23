@@ -23,6 +23,7 @@ public class AdoProviderUnitTest
         _adoProvider = adoProvider;
     }
 
+
     #region SqlQuery
 
     /// <summary>
@@ -141,6 +142,63 @@ from user where id=@id and create_time<@createTime
             createTime = DateTime.Now
         });
         Assert.NotNull(entity);
+    }
+
+    #endregion
+
+    #region ExecuteCommand
+
+    /// <summary>
+    ///     SQL非参数化执行单元测试案例
+    /// </summary>
+    [Fact(DisplayName = "SQL非参数化执行单元测试案例")]
+    public void ExecuteCommandNoSqlParameterUnitTest()
+    {
+        var sql = @"
+delete from user where id=9999;
+insert into user(id,create_time,modify_time)
+value (9999,now(),now());
+";
+        var count = _adoProvider.ExecuteCommand(sql);
+        Assert.True(count > 0);
+    }
+
+    /// <summary>
+    ///     SQL参数化执行单元测试案例
+    /// </summary>
+    [Fact(DisplayName = "SQL参数化执行单元测试案例")]
+    public void ExecuteCommandIncludeSqlParameterUnitTest()
+    {
+        var sql = @"
+delete from user where id=@id;
+insert into user(id,create_time,modify_time)
+value (9999,now(),now());
+";
+        var count = _adoProvider.ExecuteCommand(sql, new SqlParameter
+        {
+            DbType = DbType.Int64,
+            ParameterName = "id",
+            Value = 9999
+        });
+        Assert.True(count > 0);
+    }
+
+    /// <summary>
+    ///     SQL对象参数化执行单元测试案例
+    /// </summary>
+    [Fact(DisplayName = "SQL对象参数化执行单元测试案例")]
+    public void ExecuteCommandIncludeObjectParameterUnitTest()
+    {
+        var sql = @"
+delete from user where id=@id;
+insert into user(id,create_time,modify_time)
+value (9999,now(),now());
+";
+        var count = _adoProvider.ExecuteCommand(sql, new
+        {
+            id = 9999
+        });
+        Assert.True(count > 0);
     }
 
     #endregion
