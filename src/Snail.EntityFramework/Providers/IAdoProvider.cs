@@ -1,3 +1,4 @@
+using System.Data;
 using Snail.EntityFramework.Models;
 
 namespace Snail.EntityFramework;
@@ -68,6 +69,26 @@ public interface IAdoProvider
     /// <param name="parameters">查询参数</param>
     /// <returns>影响行数</returns>
     int ExecuteCommand(string sql, params SqlParameter[] parameters);
+
+    #endregion
+
+    #region GetDataReader
+
+    /// <summary>
+    ///     查询数据读取器
+    /// </summary>
+    /// <param name="sql">SQL脚本</param>
+    /// <param name="parameter">查询参数</param>
+    /// <returns>数据读取器</returns>
+    IDataReader GetDataReader(string sql, object parameter);
+
+    /// <summary>
+    ///     查询数据读取器
+    /// </summary>
+    /// <param name="sql">SQL脚本</param>
+    /// <param name="parameters">查询参数</param>
+    /// <returns>数据读取器</returns>
+    IDataReader GetDataReader(string sql, params SqlParameter[] parameters);
 
     #endregion
 }

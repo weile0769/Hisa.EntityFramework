@@ -1,3 +1,4 @@
+using System.Data;
 using System.Data.Common;
 using Snail.EntityFramework.Models;
 
@@ -142,6 +143,33 @@ public class DefaultAdoProvider : IAdoProvider
         var command = _command.GetCommand(sql, parameters);
         var count = command.ExecuteNonQuery();
         return count;
+    }
+
+    #endregion
+
+    #region GetDataReader
+
+    /// <summary>
+    ///     查询数据读取器
+    /// </summary>
+    /// <param name="sql">SQL脚本</param>
+    /// <param name="parameter">查询参数</param>
+    /// <returns>数据读取器</returns>
+    public IDataReader GetDataReader(string sql, object parameter)
+    {
+        var parameters = _parameterReader.GetSqlParameter(parameter);
+        return _dataReader.GetDataReader(sql, parameters);
+    }
+
+    /// <summary>
+    ///     查询数据读取器
+    /// </summary>
+    /// <param name="sql">SQL脚本</param>
+    /// <param name="parameters">查询参数</param>
+    /// <returns>数据读取器</returns>
+    public IDataReader GetDataReader(string sql, params SqlParameter[] parameters)
+    {
+        return _dataReader.GetDataReader(sql, parameters);
     }
 
     #endregion
