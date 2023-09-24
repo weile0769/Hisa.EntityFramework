@@ -1,4 +1,5 @@
 using System.Data;
+using System.Data.Common;
 using Snail.EntityFramework.Models;
 using Snail.EntityFramework.MySqlConnector.XUnit.Entities;
 
@@ -199,6 +200,67 @@ value (9999,now(),now());
             id = 9999
         });
         Assert.True(count > 0);
+    }
+
+    #endregion
+
+    #region GetDataReader
+
+    /// <summary>
+    ///     SQL非参数化数据读取器查询单元测试案例
+    /// </summary>
+    [Fact(DisplayName = "SQL非参数化数据读取器查询单元测试案例")]
+    public void GetDataReaderNoSqlParameterUnitTest()
+    {
+        var sql = @"
+select id          as Id,
+       create_time as CreateTime,
+       modify_time as ModifyTime
+from user where id=1
+";
+        using var dataReader = _adoProvider.GetDataReader(sql);
+        Assert.True(((DbDataReader)dataReader).HasRows);
+    }
+
+    /// <summary>
+    ///     SQL参数化数据读取器查询单元测试案例
+    /// </summary>
+    [Fact(DisplayName = "SQL参数化数据读取器查询单元测试案例")]
+    public void GetDataReaderIncludeSqlParameterUnitTest()
+    {
+        var sql = @"
+select id          as Id,
+       create_time as CreateTime,
+       modify_time as ModifyTime
+from user where id=@id
+";
+        using var dataReader = _adoProvider.GetDataReader(sql, new SqlParameter
+        {
+            DbType = DbType.Int64,
+            ParameterName = "id",
+            Value = 2
+        });
+        Assert.True(((DbDataReader)dataReader).HasRows);
+    }
+
+    /// <summary>
+    ///     SQL对象参数化数据读取器查询单元测试案例
+    /// </summary>
+    [Fact(DisplayName = "SQL对象参数化数据读取器查询单元测试案例")]
+    public void GetDataReaderIncludeObjectParameterUnitTest()
+    {
+        var sql = @"
+select id          as Id,
+       create_time as CreateTime,
+       modify_time as ModifyTime
+from user where id=@id and create_time<@createTime
+";
+        using var dataReader = _adoProvider.GetDataReader(sql, new
+        {
+            id = 1,
+            createTime = DateTime.Now
+        });
+        Assert.True(((DbDataReader)dataReader).HasRows);
     }
 
     #endregion
