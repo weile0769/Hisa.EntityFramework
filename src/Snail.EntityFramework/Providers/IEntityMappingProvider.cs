@@ -1,6 +1,6 @@
 using Snail.EntityFramework.Models;
 
-namespace Snail.EntityFramework;
+namespace Snail.EntityFramework.Providers;
 
 /// <summary>
 ///     实体映射提供器

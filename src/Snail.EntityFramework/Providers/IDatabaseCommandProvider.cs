@@ -1,7 +1,7 @@
 using System.Data;
 using Snail.EntityFramework.Models;
 
-namespace Snail.EntityFramework;
+namespace Snail.EntityFramework.Providers;
 
 /// <summary>
 ///     数据库命令提供器

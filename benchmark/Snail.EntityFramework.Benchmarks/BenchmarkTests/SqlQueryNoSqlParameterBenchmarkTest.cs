@@ -1,6 +1,7 @@
 using BenchmarkDotNet.Attributes;
 using Microsoft.Extensions.DependencyInjection;
 using Snail.EntityFramework.Benchmarks.Entities;
+using Snail.EntityFramework.Providers;
 using SqlSugar;
 
 namespace Snail.EntityFramework.Benchmarks.BenchmarkTests;

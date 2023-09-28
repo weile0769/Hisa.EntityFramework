@@ -1,6 +1,6 @@
 using System.Data;
 
-namespace Snail.EntityFramework;
+namespace Snail.EntityFramework.Providers;
 
 /// <summary>
 ///     数据参数化类型转换提供器

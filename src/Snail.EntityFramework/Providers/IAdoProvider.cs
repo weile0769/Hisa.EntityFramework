@@ -1,7 +1,7 @@
 using System.Data;
 using Snail.EntityFramework.Models;
 
-namespace Snail.EntityFramework;
+namespace Snail.EntityFramework.Providers;
 
 /// <summary>
 ///     数据库访问提供程序
@@ -89,6 +89,26 @@ public interface IAdoProvider
     /// <param name="parameters">查询参数</param>
     /// <returns>数据读取器</returns>
     IDataReader GetDataReader(string sql, params SqlParameter[] parameters);
+
+    #endregion
+
+    #region GetDataSet
+
+    /// <summary>
+    ///     查询数据结果集
+    /// </summary>
+    /// <param name="sql">SQL脚本</param>
+    /// <param name="parameter">查询参数</param>
+    /// <returns>数据结果集</returns>
+    DataSet GetDataSet(string sql, object parameter);
+
+    /// <summary>
+    ///     查询数据结果集
+    /// </summary>
+    /// <param name="sql">SQL脚本</param>
+    /// <param name="parameters">查询参数</param>
+    /// <returns>数据结果集</returns>
+    DataSet GetDataSet(string sql, params SqlParameter[] parameters);
 
     #endregion
 }

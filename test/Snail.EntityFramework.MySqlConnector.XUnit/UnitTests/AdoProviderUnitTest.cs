@@ -2,6 +2,7 @@ using System.Data;
 using System.Data.Common;
 using Snail.EntityFramework.Models;
 using Snail.EntityFramework.MySqlConnector.XUnit.Entities;
+using Snail.EntityFramework.Providers;
 
 namespace Snail.EntityFramework.MySqlConnector.XUnit.UnitTests;
 

@@ -15,6 +15,11 @@ public class DefaultAdoProvider : IAdoProvider
     private readonly IDatabaseCommandProvider _command;
 
     /// <summary>
+    ///     数据读取适配器
+    /// </summary>
+    private readonly IDataAdapterProvider _dataAdapter;
+
+    /// <summary>
     ///     数据库读取提供器
     /// </summary>
     private readonly IDataReaderProvider _dataReader;
@@ -32,7 +37,8 @@ public class DefaultAdoProvider : IAdoProvider
     /// <summary>
     ///     构造函数
     /// </summary>
-    public DefaultAdoProvider(IDataReaderProvider dataReader,
+    public DefaultAdoProvider(IDataAdapterProvider dataAdapter,
+        IDataReaderProvider dataReader,
         ISqlParameterProvider parameterReader,
         IDatabaseCommandProvider command,
         IDataReaderTypeConvertProvider dataReaderTypeConvert
@@ -40,6 +46,7 @@ public class DefaultAdoProvider : IAdoProvider
     {
         _dataReader = dataReader;
         _command = command;
+        _dataAdapter = dataAdapter;
         _parameterReader = parameterReader;
         _dataReaderTypeConvert = dataReaderTypeConvert;
     }
@@ -170,6 +177,38 @@ public class DefaultAdoProvider : IAdoProvider
     public IDataReader GetDataReader(string sql, params SqlParameter[] parameters)
     {
         return _dataReader.GetDataReader(sql, parameters);
+    }
+
+    #endregion
+
+    #region GetDataSet
+
+    /// <summary>
+    ///     查询数据结果集
+    /// </summary>
+    /// <param name="sql">SQL脚本</param>
+    /// <param name="parameter">查询参数</param>
+    /// <returns>数据结果集</returns>
+    public DataSet GetDataSet(string sql, object parameter)
+    {
+        var parameters = _parameterReader.GetSqlParameter(parameter);
+        return GetDataSet(sql, parameters);
+    }
+
+    /// <summary>
+    ///     查询数据结果集
+    /// </summary>
+    /// <param name="sql">SQL脚本</param>
+    /// <param name="parameters">查询参数</param>
+    /// <returns>数据结果集</returns>
+    public DataSet GetDataSet(string sql, params SqlParameter[] parameters)
+    {
+        var dataAdapter = _dataAdapter.GetDataAdapter();
+        var command = _command.GetCommand(sql, parameters);
+        _dataAdapter.SetCommandToAdapter(dataAdapter, command);
+        var dataSet = new DataSet();
+        dataAdapter.Fill(dataSet);
+        return dataSet;
     }
 
     #endregion

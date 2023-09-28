@@ -1,6 +1,6 @@
 using Snail.EntityFramework.Models;
 
-namespace Snail.EntityFramework;
+namespace Snail.EntityFramework.Providers;
 
 /// <summary>
 ///     数据参数化提供器

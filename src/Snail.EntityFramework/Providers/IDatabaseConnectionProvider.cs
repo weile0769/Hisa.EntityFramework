@@ -1,6 +1,6 @@
 using System.Data;
 
-namespace Snail.EntityFramework;
+namespace Snail.EntityFramework.Providers;
 
 /// <summary>
 ///     数据库连接对象提供器

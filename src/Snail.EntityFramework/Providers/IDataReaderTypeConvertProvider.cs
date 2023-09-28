@@ -1,6 +1,6 @@
 using System.Data;
 
-namespace Snail.EntityFramework;
+namespace Snail.EntityFramework.Providers;
 
 /// <summary>
 ///     数据库读取转换泛型实体提供器

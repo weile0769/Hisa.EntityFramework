@@ -3,6 +3,7 @@ using System.Reflection;
 using System.Reflection.Emit;
 using Snail.EntityFramework.Exceptions;
 using Snail.EntityFramework.Models;
+using Snail.EntityFramework.Providers;
 using Snail.EntityFramework.Utils;
 
 namespace Snail.EntityFramework.Builders;
