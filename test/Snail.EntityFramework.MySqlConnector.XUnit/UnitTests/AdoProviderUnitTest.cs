@@ -1,5 +1,6 @@
 using System.Data;
 using System.Data.Common;
+using System.Diagnostics;
 using Snail.EntityFramework.Models;
 using Snail.EntityFramework.MySqlConnector.XUnit.Entities;
 using Snail.EntityFramework.Providers;
@@ -262,6 +263,70 @@ from user where id=@id and create_time<@createTime
             createTime = DateTime.Now
         });
         Assert.True(((DbDataReader)dataReader).HasRows);
+    }
+
+    #endregion
+
+    #region GetDataSet
+
+    /// <summary>
+    ///     SQL非参数化数据结果集查询单元测试案例
+    /// </summary>
+    [Fact(DisplayName = "SQL非参数化数据结果集查询单元测试案例")]
+    public void GetDataSetNoSqlParameterUnitTest()
+    {
+        var sql = @"
+select id          as Id,
+       create_time as CreateTime,
+       modify_time as ModifyTime
+from user where id=1
+";
+        var dataSet = _adoProvider.GetDataSet(sql);
+        Assert.True(dataSet.Tables.Count > 0);
+        Assert.True(dataSet.Tables.Count > 0 && dataSet.Tables[0].Rows.Count > 0);
+    }
+
+    /// <summary>
+    ///     SQL参数化数据结果集查询单元测试案例
+    /// </summary>
+    [Fact(DisplayName = "SQL参数化数据结果集查询单元测试案例")]
+    public void GetDataSetIncludeSqlParameterUnitTest()
+    {
+        var sql = @"
+select id          as Id,
+       create_time as CreateTime,
+       modify_time as ModifyTime
+from user where id=@id
+";
+        var dataSet = _adoProvider.GetDataSet(sql, new SqlParameter
+        {
+            DbType = DbType.Int64,
+            ParameterName = "id",
+            Value = 2
+        });
+        Assert.True(dataSet.Tables.Count > 0);
+        Assert.True(dataSet.Tables.Count > 0 && dataSet.Tables[0].Rows.Count > 0);
+    }
+
+    /// <summary>
+    ///     SQL对象参数化数据结果集查询单元测试案例
+    /// </summary>
+    [Fact(DisplayName = "SQL对象参数化数据结果集查询单元测试案例")]
+    public void GetDataSetIncludeObjectParameterUnitTest()
+    {
+        var sql = @"
+select id          as Id,
+       create_time as CreateTime,
+       modify_time as ModifyTime
+from user where id=@id and create_time<@createTime
+";
+        var dataSet = _adoProvider.GetDataSet(sql, new
+        {
+            id = 1,
+            createTime = DateTime.Now
+        });
+        Assert.True(dataSet.Tables.Count > 0);
+        Assert.True(dataSet.Tables.Count > 0 && dataSet.Tables[0].Rows.Count > 0);
     }
 
     #endregion
