@@ -1,7 +1,7 @@
 using System.Data;
 using MySqlConnector;
 using Snail.EntityFramework.Models;
-using Snail.EntityFramework.Options;
+using Snail.EntityFramework.Providers;
 
 namespace Snail.EntityFramework.MySqlConnector.Providers;
 

@@ -1,7 +1,8 @@
 using Snail.EntityFramework.Exceptions;
+using Snail.EntityFramework.Options;
 using Snail.EntityFramework.Utils;
 
-namespace Snail.EntityFramework.Options;
+namespace Snail.EntityFramework.Providers;
 
 /// <summary>
 ///     数据库连接配置选项提供器
