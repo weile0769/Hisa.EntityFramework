@@ -244,6 +244,56 @@ public class DefaultAdoProvider : IAdoProvider
 
     #endregion
 
+    #region GetScalar
+
+    /// <summary>
+    ///     获取首行首列
+    /// </summary>
+    /// <param name="sql">SQL脚本</param>
+    /// <returns>首行首列</returns>
+    public object GetScalar(string sql)
+    {
+        var command = _command.GetCommand(sql);
+        return command.ExecuteScalar();
+    }
+
+    /// <summary>
+    ///     获取首行首列
+    /// </summary>
+    /// <param name="sql">SQL脚本</param>
+    /// <param name="parameter">查询参数</param>
+    /// <returns>首行首列</returns>
+    public object GetScalar(string sql, object parameter)
+    {
+        var parameters = _parameterReader.GetSqlParameter(parameter);
+        return GetScalar(sql, parameters);
+    }
+
+    /// <summary>
+    ///     获取首行首列
+    /// </summary>
+    /// <param name="sql">SQL脚本</param>
+    /// <param name="parameters">查询参数</param>
+    /// <returns>首行首列</returns>
+    public object GetScalar(string sql, List<SqlParameter> parameters)
+    {
+        return GetScalar(sql, parameters.ToArray());
+    }
+
+    /// <summary>
+    ///     获取首行首列
+    /// </summary>
+    /// <param name="sql">SQL脚本</param>
+    /// <param name="parameters">查询参数</param>
+    /// <returns>首行首列</returns>
+    private object GetScalar(string sql, SqlParameter[] parameters)
+    {
+        var command = _command.GetCommand(sql, parameters);
+        return command.ExecuteScalar();
+    }
+
+    #endregion
+
     #region GetDataReader
 
     /// <summary>
@@ -594,6 +644,57 @@ public class DefaultAdoProvider : IAdoProvider
     {
         var command = _command.GetCommand(sql, parameters);
         return command.ExecuteNonQueryAsync(token);
+    }
+
+    #endregion
+
+
+    #region GetScalarAsync
+
+    /// <summary>
+    ///     获取首行首列
+    /// </summary>
+    /// <param name="sql">SQL脚本</param>
+    /// <returns>首行首列</returns>
+    public Task<object> GetScalarAsync(string sql)
+    {
+        var command = _command.GetCommand(sql);
+        return command.ExecuteScalarAsync();
+    }
+
+    /// <summary>
+    ///     获取首行首列
+    /// </summary>
+    /// <param name="sql">SQL脚本</param>
+    /// <param name="parameter">查询参数</param>
+    /// <returns>首行首列</returns>
+    public Task<object> GetScalarAsync(string sql, object parameter)
+    {
+        var parameters = _parameterReader.GetSqlParameter(parameter);
+        return GetScalarAsync(sql, parameters);
+    }
+
+    /// <summary>
+    ///     获取首行首列
+    /// </summary>
+    /// <param name="sql">SQL脚本</param>
+    /// <param name="parameters">查询参数</param>
+    /// <returns>首行首列</returns>
+    public Task<object> GetScalarAsync(string sql, List<SqlParameter> parameters)
+    {
+        return GetScalarAsync(sql, parameters.ToArray());
+    }
+
+    /// <summary>
+    ///     获取首行首列
+    /// </summary>
+    /// <param name="sql">SQL脚本</param>
+    /// <param name="parameters">查询参数</param>
+    /// <returns>首行首列</returns>
+    private Task<object> GetScalarAsync(string sql, SqlParameter[] parameters)
+    {
+        var command = _command.GetCommand(sql, parameters);
+        return command.ExecuteScalarAsync();
     }
 
     #endregion

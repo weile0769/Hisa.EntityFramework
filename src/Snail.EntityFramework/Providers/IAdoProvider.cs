@@ -98,6 +98,33 @@ public interface IAdoProvider
 
     #endregion
 
+    #region GetScalar
+
+    /// <summary>
+    ///     获取首行首列
+    /// </summary>
+    /// <param name="sql">SQL脚本</param>
+    /// <returns>首行首列</returns>
+    object GetScalar(string sql);
+
+    /// <summary>
+    ///     获取首行首列
+    /// </summary>
+    /// <param name="sql">SQL脚本</param>
+    /// <param name="parameter">查询参数</param>
+    /// <returns>首行首列</returns>
+    object GetScalar(string sql, object parameter);
+
+    /// <summary>
+    ///     获取首行首列
+    /// </summary>
+    /// <param name="sql">SQL脚本</param>
+    /// <param name="parameters">查询参数</param>
+    /// <returns>首行首列</returns>
+    object GetScalar(string sql, List<SqlParameter> parameters);
+
+    #endregion
+
     #region GetDataReader
 
     /// <summary>
@@ -276,6 +303,33 @@ public interface IAdoProvider
     /// <param name="token">取消令牌</param>
     /// <returns>影响行数</returns>
     Task<int> ExecuteCommandAsync(string sql, List<SqlParameter> parameters, CancellationToken token = default);
+
+    #endregion
+
+    #region GetScalarAsync
+
+    /// <summary>
+    ///     获取首行首列
+    /// </summary>
+    /// <param name="sql">SQL脚本</param>
+    /// <returns>首行首列</returns>
+    Task<object> GetScalarAsync(string sql);
+
+    /// <summary>
+    ///     获取首行首列
+    /// </summary>
+    /// <param name="sql">SQL脚本</param>
+    /// <param name="parameter">查询参数</param>
+    /// <returns>首行首列</returns>
+    Task<object> GetScalarAsync(string sql, object parameter);
+
+    /// <summary>
+    ///     获取首行首列
+    /// </summary>
+    /// <param name="sql">SQL脚本</param>
+    /// <param name="parameters">查询参数</param>
+    /// <returns>首行首列</returns>
+    Task<object> GetScalarAsync(string sql, List<SqlParameter> parameters);
 
     #endregion
 
