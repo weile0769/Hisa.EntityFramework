@@ -21,22 +21,22 @@ Snail.EntityFramework 一款NET开源多库的、开箱即用的、功能全面�
 ## 🎉 功能介绍
 ### 1. **原生SQL**
 #### **同步**
-| 方法名            | 描述                                   | 返回值     |
-| ----------------- | -------------------------------------- | ---------- |
-| SqlQuery<T>       | 查询所有返回实体集合                   | List       |
-| SqlQuerySingle<T> | 查询第一条记录                         | T          |
-| GetDataTable      | 查询数据表格DataTable                  | DataTable  |
-| GetDataReader     | 查询数据读取器DataReader，需要手动释放 | DataReader |
-| GetDataSet        | 查询数据结果集DataSet                  | DataSet    |
-| GetScalar         | 获取首行首列                           | object     |
-| ExecuteCommand    | 执行SQL返回受影响行数，一般用于增删改  | int        |
+| 方法名             | 描述                                   | 返回值     |
+| ------------------ | -------------------------------------- | ---------- |
+| SqlQuery\<T>       | 查询所有返回实体集合                   | List       |
+| SqlQuerySingle\<T> | 查询第一条记录                         | T          |
+| GetDataTable       | 查询数据表格DataTable                  | DataTable  |
+| GetDataReader      | 查询数据读取器DataReader，需要手动释放 | DataReader |
+| GetDataSet         | 查询数据结果集DataSet                  | DataSet    |
+| GetScalar          | 获取首行首列                           | object     |
+| ExecuteCommand     | 执行SQL返回受影响行数，一般用于增删改  | int        |
 #### **异步**
-| 方法名                 | 描述                                   | 返回值            |
-| ---------------------- | -------------------------------------- | ----------------- |
-| SqlQueryAsync<T>       | 查询所有返回实体集合                   | Task\<List>       |
-| SqlQuerySingleAsync<T> | 查询第一条记录                         | Task\<T>          |
-| GetDataTableAsync      | 查询数据表格DataTable                  | Task\<DataTable>  |
-| GetDataReaderAsync     | 查询数据读取器DataReader，需要手动释放 | Task\<DataReader> |
-| GetDataSetAsync        | 查询数据结果集DataSet                  | Task\<DataSet>    |
-| GetScalarAsync         | 获取首行首列                           | Task\<object>     |
-| ExecuteCommandAsync    | 执行SQL返回受影响行数，一般用于增删改  | Task\<int>        |
+| 方法名                  | 描述                                   | 返回值            |
+| ----------------------- | -------------------------------------- | ----------------- |
+| SqlQueryAsync\<T>       | 查询所有返回实体集合                   | Task\<List>       |
+| SqlQuerySingleAsync\<T> | 查询第一条记录                         | Task\<T>          |
+| GetDataTableAsync       | 查询数据表格DataTable                  | Task\<DataTable>  |
+| GetDataReaderAsync      | 查询数据读取器DataReader，需要手动释放 | Task\<DataReader> |
+| GetDataSetAsync         | 查询数据结果集DataSet                  | Task\<DataSet>    |
+| GetScalarAsync          | 获取首行首列                           | Task\<object>     |
+| ExecuteCommandAsync     | 执行SQL返回受影响行数，一般用于增删改  | Task\<int>        |
