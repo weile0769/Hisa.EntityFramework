@@ -1,4 +1,5 @@
 using System.Data;
+using System.Data.Common;
 using MySqlConnector;
 using Snail.EntityFramework.Models;
 using Snail.EntityFramework.Providers;
@@ -14,7 +15,7 @@ public class DatabaseCommandProvider : IDatabaseCommandProvider
     ///     数据库命令类型
     /// </summary>
     private readonly CommandType _commandType;
-    
+
     /// <summary>
     ///     数据库连接对象提供器
     /// </summary>
@@ -33,7 +34,7 @@ public class DatabaseCommandProvider : IDatabaseCommandProvider
     /// <summary>
     ///     数据库命令
     /// </summary>
-    private IDbCommand _dbCommand;
+    private DbCommand _dbCommand;
 
     /// <summary>
     ///     数据库事务对象
@@ -63,12 +64,20 @@ public class DatabaseCommandProvider : IDatabaseCommandProvider
     }
 
     /// <summary>
+    ///     自动销毁
+    /// </summary>
+    public ValueTask DisposeAsync()
+    {
+        return _dbCommand?.DisposeAsync() ?? ValueTask.CompletedTask;
+    }
+
+    /// <summary>
     ///     获取数据库命令
     /// </summary>
     /// <param name="sql">sql脚本</param>
     /// <param name="parameters">sql参数</param>
     /// <returns>数据库命令</returns>
-    public IDbCommand GetCommand(string sql, SqlParameter[] parameters)
+    public DbCommand GetCommand(string sql,params SqlParameter[] parameters)
     {
         var connection = _connection.GetConnection();
         if (_dbCommand == null)
@@ -89,8 +98,8 @@ public class DatabaseCommandProvider : IDatabaseCommandProvider
             }
 
             _dbCommand = sqlCommand;
-            
         }
+
         _connection.Open();
         return _dbCommand;
     }
