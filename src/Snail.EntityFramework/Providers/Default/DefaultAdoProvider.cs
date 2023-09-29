@@ -212,4 +212,32 @@ public class DefaultAdoProvider : IAdoProvider
     }
 
     #endregion
+
+    #region GetDataTable
+
+    /// <summary>
+    ///     查询数据表格
+    /// </summary>
+    /// <param name="sql">SQL脚本</param>
+    /// <param name="parameter">查询参数</param>
+    /// <returns>数据表格</returns>
+    public DataTable GetDataTable(string sql, object parameter)
+    {
+        var dataSet = GetDataSet(sql, parameter);
+        return dataSet.Tables.Count > 0 ? dataSet.Tables[0] : new DataTable();
+    }
+
+    /// <summary>
+    ///     查询数据表格
+    /// </summary>
+    /// <param name="sql">SQL脚本</param>
+    /// <param name="parameters">查询参数</param>
+    /// <returns>数据表格</returns>
+    public DataTable GetDataTable(string sql, params SqlParameter[] parameters)
+    {
+        var dataSet = GetDataSet(sql, parameters);
+        return dataSet.Tables.Count > 0 ? dataSet.Tables[0] : new DataTable();
+    }
+
+    #endregion
 }

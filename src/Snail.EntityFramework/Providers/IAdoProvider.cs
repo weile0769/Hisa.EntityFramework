@@ -111,4 +111,24 @@ public interface IAdoProvider
     DataSet GetDataSet(string sql, params SqlParameter[] parameters);
 
     #endregion
+
+    #region GetDataTable
+
+    /// <summary>
+    ///     查询数据表格
+    /// </summary>
+    /// <param name="sql">SQL脚本</param>
+    /// <param name="parameter">查询参数</param>
+    /// <returns>数据表格</returns>
+    DataTable GetDataTable(string sql, object parameter);
+
+    /// <summary>
+    ///     查询数据表格
+    /// </summary>
+    /// <param name="sql">SQL脚本</param>
+    /// <param name="parameters">查询参数</param>
+    /// <returns>数据表格</returns>
+    DataTable GetDataTable(string sql, params SqlParameter[] parameters);
+
+    #endregion
 }
