@@ -1,6 +1,5 @@
 using System.Data;
 using System.Data.Common;
-using System.Diagnostics;
 using Snail.EntityFramework.Models;
 using Snail.EntityFramework.MySqlConnector.XUnit.Entities;
 using Snail.EntityFramework.Providers;
@@ -333,7 +332,62 @@ from user where id=@id and create_time<@createTime
 
     #region GetDataTable
 
-    
+    /// <summary>
+    ///     SQL非参数化数据表格查询单元测试案例
+    /// </summary>
+    [Fact(DisplayName = "SQL非参数化数据表格查询单元测试案例")]
+    public void GetDataTableNoSqlParameterUnitTest()
+    {
+        var sql = @"
+select id          as Id,
+       create_time as CreateTime,
+       modify_time as ModifyTime
+from user where id=1
+";
+        var dataTable = _adoProvider.GetDataTable(sql);
+        Assert.True(dataTable.Rows.Count > 0);
+    }
+
+    /// <summary>
+    ///     SQL参数化数据表格查询单元测试案例
+    /// </summary>
+    [Fact(DisplayName = "SQL参数化数据表格查询单元测试案例")]
+    public void GetDataTableIncludeSqlParameterUnitTest()
+    {
+        var sql = @"
+select id          as Id,
+       create_time as CreateTime,
+       modify_time as ModifyTime
+from user where id=@id
+";
+        var dataTable = _adoProvider.GetDataTable(sql, new SqlParameter
+        {
+            DbType = DbType.Int64,
+            ParameterName = "id",
+            Value = 2
+        });
+        Assert.True(dataTable.Rows.Count > 0);
+    }
+
+    /// <summary>
+    ///     SQL对象参数化数据表格查询单元测试案例
+    /// </summary>
+    [Fact(DisplayName = "SQL对象参数化数据表格查询单元测试案例")]
+    public void GetDataTableIncludeObjectParameterUnitTest()
+    {
+        var sql = @"
+select id          as Id,
+       create_time as CreateTime,
+       modify_time as ModifyTime
+from user where id=@id and create_time<@createTime
+";
+        var dataTable = _adoProvider.GetDataTable(sql, new
+        {
+            id = 1,
+            createTime = DateTime.Now
+        });
+        Assert.True(dataTable.Rows.Count > 0);
+    }
 
     #endregion
 }
