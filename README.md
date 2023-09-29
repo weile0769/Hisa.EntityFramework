@@ -23,7 +23,7 @@ Snail.EntityFramework 一款NET开源多库的、开箱即用的、功能全面�
 #### **同步**
 | 方法名             | 描述                                   | 返回值     |
 | ------------------ | -------------------------------------- | ---------- |
-| SqlQuery\<T>       | 查询所有返回实体集合                   | List       |
+| SqlQuery\<T>       | 查询所有返回实体集合                   | List\<T>       |
 | SqlQuerySingle\<T> | 查询第一条记录                         | T          |
 | GetDataTable       | 查询数据表格DataTable                  | DataTable  |
 | GetDataReader      | 查询数据读取器DataReader，需要手动释放 | DataReader |
@@ -33,7 +33,7 @@ Snail.EntityFramework 一款NET开源多库的、开箱即用的、功能全面�
 #### **异步**
 | 方法名                  | 描述                                   | 返回值            |
 | ----------------------- | -------------------------------------- | ----------------- |
-| SqlQueryAsync\<T>       | 查询所有返回实体集合                   | Task\<List>       |
+| SqlQueryAsync\<T>       | 查询所有返回实体集合                   | Task\<List\<T>>       |
 | SqlQuerySingleAsync\<T> | 查询第一条记录                         | Task\<T>          |
 | GetDataTableAsync       | 查询数据表格DataTable                  | Task\<DataTable>  |
 | GetDataReaderAsync      | 查询数据读取器DataReader，需要手动释放 | Task\<DataReader> |
