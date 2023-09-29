@@ -30,26 +30,40 @@ public class DefaultSqlParameterProvider : ISqlParameterProvider
         var sqlParameters = new List<SqlParameter>();
         if (objectParameter != null)
         {
-            var entityType = objectParameter.GetType();
-            var properties = entityType.GetProperties();
-            foreach (var property in properties)
+            switch (objectParameter)
             {
-                var propertyValue = property.GetValue(objectParameter, null);
-                if (propertyValue == null || propertyValue.Equals(DateTime.MinValue))
+                case SqlParameter sqlParameter:
+                    sqlParameters.Add(sqlParameter);
+                    break;
+                case SqlParameter[] parameters:
+                    sqlParameters.AddRange(parameters);
+                    break;
+                default:
                 {
-                    propertyValue = DBNull.Value;
+                    var entityType = objectParameter.GetType();
+                    var properties = entityType.GetProperties();
+                    foreach (var property in properties)
+                    {
+                        var propertyValue = property.GetValue(objectParameter, null);
+                        if (propertyValue == null || propertyValue.Equals(DateTime.MinValue))
+                        {
+                            propertyValue = DBNull.Value;
+                        }
+
+                        var propertyName = property.Name;
+                        var parameter = new SqlParameter
+                        {
+                            Value = propertyValue,
+                            ParameterName = propertyName
+                        };
+
+                        var dbType = _typeConvert.ConvertDataType(propertyValue.GetType());
+                        parameter.DbType = dbType;
+                        sqlParameters.Add(parameter);
+                    }
+
+                    break;
                 }
-
-                var propertyName = property.Name;
-                var parameter = new SqlParameter
-                {
-                    Value = propertyValue,
-                    ParameterName = propertyName
-                };
-
-                var dbType = _typeConvert.ConvertDataType(propertyValue.GetType());
-                parameter.DbType = dbType;
-                sqlParameters.Add(parameter);
             }
         }
 
