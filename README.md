@@ -18,7 +18,7 @@ Snail.EntityFramework 一款NET开源多库的、开箱即用的、功能全面�
 <br>
 [![Github](https://shields.io/badge/Github-https://github.com/weile0769/Snail.EntityFramework-green?logo=github&style=flat&logoColor=white)](https://github.com/weile0769/Snail.EntityFramework)
 
-### 🎯 安装
+## 🎯 安装
 ```csharp
 var builder = WebApplication.CreateBuilder(args);
 //注册Snail数据库实体框架
@@ -47,7 +47,7 @@ DatabaseConfigureOptions配置项：
 - CommandTimeOut：数据库命令执行等待时间,默认值：300秒
 
 ## 🎉 功能介绍
-### 1. **原生SQL**
+### **原生SQL**
 **同步**
 | 方法名             | 描述                                   | 返回值     |
 | ------------------ | -------------------------------------- | ---------- |
