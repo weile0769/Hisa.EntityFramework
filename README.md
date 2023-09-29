@@ -18,22 +18,51 @@ Snail.EntityFramework 一款NET开源多库的、开箱即用的、功能全面�
 <br>
 [![Github](https://shields.io/badge/Github-https://github.com/weile0769/Snail.EntityFramework-green?logo=github&style=flat&logoColor=white)](https://github.com/weile0769/Snail.EntityFramework)
 
+### 🎯 安装
+```csharp
+var builder = WebApplication.CreateBuilder(args);
+//注册Snail数据库实体框架
+builder.Services.AddSnailEntityFramework(options =>
+{
+	options.ConfigureOptions = new List<DatabaseConfigureOptions>
+	{
+		new()
+		{
+			Enabled = true,
+			Default = true,
+			ConnectionName = Configure.ConnectionName,
+			ConnectionString = Configure.ConnectionString
+		}
+	};
+
+	options.UseMySqlConnector();
+});
+```
+**说明：** <br>
+DatabaseConfigureOptions配置项：
+- Enabled：是否开启,默认true
+- Default：是否默认数据库,默认false
+- ConnectionName：数据库连接对象标识
+- ConnectionString：数据库连接字符串
+- CommandTimeOut：数据库命令执行等待时间,默认值：300秒
+
 ## 🎉 功能介绍
 ### 1. **原生SQL**
-#### **同步**
+**同步**
 | 方法名             | 描述                                   | 返回值     |
 | ------------------ | -------------------------------------- | ---------- |
-| SqlQuery\<T>       | 查询所有返回实体集合                   | List\<T>       |
+| SqlQuery\<T>       | 查询所有返回实体集合                   | List\<T>   |
 | SqlQuerySingle\<T> | 查询第一条记录                         | T          |
 | GetDataTable       | 查询数据表格DataTable                  | DataTable  |
 | GetDataReader      | 查询数据读取器DataReader，需要手动释放 | DataReader |
 | GetDataSet         | 查询数据结果集DataSet                  | DataSet    |
 | GetScalar          | 获取首行首列                           | object     |
 | ExecuteCommand     | 执行SQL返回受影响行数，一般用于增删改  | int        |
-#### **异步**
+
+**异步**
 | 方法名                  | 描述                                   | 返回值            |
 | ----------------------- | -------------------------------------- | ----------------- |
-| SqlQueryAsync\<T>       | 查询所有返回实体集合                   | Task\<List\<T>>       |
+| SqlQueryAsync\<T>       | 查询所有返回实体集合                   | Task\<List\<T>>   |
 | SqlQuerySingleAsync\<T> | 查询第一条记录                         | Task\<T>          |
 | GetDataTableAsync       | 查询数据表格DataTable                  | Task\<DataTable>  |
 | GetDataReaderAsync      | 查询数据读取器DataReader，需要手动释放 | Task\<DataReader> |
