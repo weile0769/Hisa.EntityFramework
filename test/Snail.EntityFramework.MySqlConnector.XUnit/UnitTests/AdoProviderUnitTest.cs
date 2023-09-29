@@ -25,6 +25,7 @@ public class AdoProviderUnitTest
         _adoProvider = adoProvider;
     }
 
+    #region 同步
 
     #region SqlQuery
 
@@ -45,9 +46,9 @@ from user where id>1
     }
 
     /// <summary>
-    ///     SQL参数化列表查询单元测试案例
+    ///     SQL参数化列表查询单元测试案例（数组）
     /// </summary>
-    [Fact(DisplayName = "SQL参数化列表查询单元测试案例")]
+    [Fact(DisplayName = "SQL参数化列表查询单元测试案例（数组）")]
     public void SqlQueryIncludeSqlParameterUnitTest()
     {
         var sql = @"
@@ -61,6 +62,30 @@ from user where id>@id
             DbType = DbType.Int64,
             ParameterName = "id",
             Value = 1
+        });
+        Assert.NotEmpty(list);
+    }
+
+    /// <summary>
+    ///     SQL参数化列表查询单元测试案例（列表）
+    /// </summary>
+    [Fact(DisplayName = "SQL参数化列表查询单元测试案例（列表）")]
+    public void SqlQueryIncludeSqlParameterListUnitTest()
+    {
+        var sql = @"
+select id          as Id,
+       create_time as CreateTime,
+       modify_time as ModifyTime
+from user where id>@id
+";
+        var list = _adoProvider.SqlQuery<User>(sql, new List<SqlParameter>
+        {
+            new()
+            {
+                DbType = DbType.Int64,
+                ParameterName = "id",
+                Value = 1
+            }
         });
         Assert.NotEmpty(list);
     }
@@ -106,9 +131,33 @@ from user where id=1
     }
 
     /// <summary>
-    ///     SQL参数化单实体查询单元测试案例
+    ///     SQL参数化单实体查询单元测试案例（列表）
     /// </summary>
-    [Fact(DisplayName = "SQL参数化单实体查询单元测试案例")]
+    [Fact(DisplayName = "SQL参数化单实体查询单元测试案例（列表）")]
+    public void SqlQuerySingleIncludeSqlParameterListUnitTest()
+    {
+        var sql = @"
+select id          as Id,
+       create_time as CreateTime,
+       modify_time as ModifyTime
+from user where id=@id
+";
+        var entity = _adoProvider.SqlQuerySingle<User>(sql, new List<SqlParameter>
+        {
+            new()
+            {
+                DbType = DbType.Int64,
+                ParameterName = "id",
+                Value = 2
+            }
+        });
+        Assert.NotNull(entity);
+    }
+
+    /// <summary>
+    ///     SQL参数化单实体查询单元测试案例（数组）
+    /// </summary>
+    [Fact(DisplayName = "SQL参数化单实体查询单元测试案例（数组）")]
     public void SqlQuerySingleIncludeSqlParameterUnitTest()
     {
         var sql = @"
@@ -166,9 +215,32 @@ value (9999,now(),now());
     }
 
     /// <summary>
-    ///     SQL参数化执行单元测试案例
+    ///     SQL参数化执行单元测试案例（列表）
     /// </summary>
-    [Fact(DisplayName = "SQL参数化执行单元测试案例")]
+    [Fact(DisplayName = "SQL参数化执行单元测试案例（列表）")]
+    public void ExecuteCommandIncludeSqlParameterListUnitTest()
+    {
+        var sql = @"
+delete from user where id=@id;
+insert into user(id,create_time,modify_time)
+value (9999,now(),now());
+";
+        var count = _adoProvider.ExecuteCommand(sql, new List<SqlParameter>
+        {
+            new()
+            {
+                DbType = DbType.Int64,
+                ParameterName = "id",
+                Value = 9999
+            }
+        });
+        Assert.True(count > 0);
+    }
+
+    /// <summary>
+    ///     SQL参数化执行单元测试案例（数组）
+    /// </summary>
+    [Fact(DisplayName = "SQL参数化执行单元测试案例（数组）")]
     public void ExecuteCommandIncludeSqlParameterUnitTest()
     {
         var sql = @"
@@ -224,9 +296,9 @@ from user where id=1
     }
 
     /// <summary>
-    ///     SQL参数化数据读取器查询单元测试案例
+    ///     SQL参数化数据读取器查询单元测试案例（数组）
     /// </summary>
-    [Fact(DisplayName = "SQL参数化数据读取器查询单元测试案例")]
+    [Fact(DisplayName = "SQL参数化数据读取器查询单元测试案例（数组）")]
     public void GetDataReaderIncludeSqlParameterUnitTest()
     {
         var sql = @"
@@ -240,6 +312,30 @@ from user where id=@id
             DbType = DbType.Int64,
             ParameterName = "id",
             Value = 2
+        });
+        Assert.True(((DbDataReader)dataReader).HasRows);
+    }
+
+    /// <summary>
+    ///     SQL参数化数据读取器查询单元测试案例（列表）
+    /// </summary>
+    [Fact(DisplayName = "SQL参数化数据读取器查询单元测试案例（列表）")]
+    public void GetDataReaderIncludeSqlParameterListUnitTest()
+    {
+        var sql = @"
+select id          as Id,
+       create_time as CreateTime,
+       modify_time as ModifyTime
+from user where id=@id
+";
+        using var dataReader = _adoProvider.GetDataReader(sql, new List<SqlParameter>
+        {
+            new()
+            {
+                DbType = DbType.Int64,
+                ParameterName = "id",
+                Value = 2
+            }
         });
         Assert.True(((DbDataReader)dataReader).HasRows);
     }
@@ -286,9 +382,34 @@ from user where id=1
     }
 
     /// <summary>
-    ///     SQL参数化数据结果集查询单元测试案例
+    ///     SQL参数化数据结果集查询单元测试案例（列表）
     /// </summary>
-    [Fact(DisplayName = "SQL参数化数据结果集查询单元测试案例")]
+    [Fact(DisplayName = "SQL参数化数据结果集查询单元测试案例（列表）")]
+    public void GetDataSetIncludeSqlParameterListUnitTest()
+    {
+        var sql = @"
+select id          as Id,
+       create_time as CreateTime,
+       modify_time as ModifyTime
+from user where id=@id
+";
+        var dataSet = _adoProvider.GetDataSet(sql, new List<SqlParameter>
+        {
+            new()
+            {
+                DbType = DbType.Int64,
+                ParameterName = "id",
+                Value = 2
+            }
+        });
+        Assert.True(dataSet.Tables.Count > 0);
+        Assert.True(dataSet.Tables.Count > 0 && dataSet.Tables[0].Rows.Count > 0);
+    }
+
+    /// <summary>
+    ///     SQL参数化数据结果集查询单元测试案例（数组）
+    /// </summary>
+    [Fact(DisplayName = "SQL参数化数据结果集查询单元测试案例（数组）")]
     public void GetDataSetIncludeSqlParameterUnitTest()
     {
         var sql = @"
@@ -349,9 +470,33 @@ from user where id=1
     }
 
     /// <summary>
-    ///     SQL参数化数据表格查询单元测试案例
+    ///     SQL参数化数据表格查询单元测试案例（列表）
     /// </summary>
-    [Fact(DisplayName = "SQL参数化数据表格查询单元测试案例")]
+    [Fact(DisplayName = "SQL参数化数据表格查询单元测试案例（列表）")]
+    public void GetDataTableIncludeSqlParameterListUnitTest()
+    {
+        var sql = @"
+select id          as Id,
+       create_time as CreateTime,
+       modify_time as ModifyTime
+from user where id=@id
+";
+        var dataTable = _adoProvider.GetDataTable(sql, new List<SqlParameter>
+        {
+            new()
+            {
+                DbType = DbType.Int64,
+                ParameterName = "id",
+                Value = 2
+            }
+        });
+        Assert.True(dataTable.Rows.Count > 0);
+    }
+
+    /// <summary>
+    ///     SQL参数化数据表格查询单元测试案例（数组）
+    /// </summary>
+    [Fact(DisplayName = "SQL参数化数据表格查询单元测试案例（数组）")]
     public void GetDataTableIncludeSqlParameterUnitTest()
     {
         var sql = @"
@@ -388,6 +533,12 @@ from user where id=@id and create_time<@createTime
         });
         Assert.True(dataTable.Rows.Count > 0);
     }
+
+    #endregion
+
+    #endregion
+
+    #region 异步
 
     #endregion
 }
