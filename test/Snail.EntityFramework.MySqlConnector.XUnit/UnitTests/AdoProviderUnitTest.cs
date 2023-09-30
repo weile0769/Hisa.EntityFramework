@@ -536,6 +536,83 @@ from user where id=@id and create_time<@createTime
 
     #endregion
 
+    #region GetScalar
+
+    /// <summary>
+    ///     SQL非参数化首行首列查询单元测试案例
+    /// </summary>
+    [Fact(DisplayName = "SQL非参数化首行首列查询单元测试案例")]
+    public void GetScalarNoSqlParameterUnitTest()
+    {
+        var sql = @"
+select id          as Id
+from user where id=1
+";
+        var id = _adoProvider.GetScalar(sql);
+        Assert.True((long)id > 0);
+    }
+
+    /// <summary>
+    ///     SQL参数化首行首列查询单元测试案例（列表）
+    /// </summary>
+    [Fact(DisplayName = "SQL参数化首行首列查询单元测试案例（列表）")]
+    public void GetScalarIncludeSqlParameterListUnitTest()
+    {
+        var sql = @"
+select id          as Id
+from user where id=@id
+";
+        var id = _adoProvider.GetScalar(sql, new List<SqlParameter>
+        {
+            new()
+            {
+                DbType = DbType.Int64,
+                ParameterName = "id",
+                Value = 2
+            }
+        });
+        Assert.True((long)id > 0);
+    }
+
+    /// <summary>
+    ///     SQL参数化首行首列查询单元测试案例（数组）
+    /// </summary>
+    [Fact(DisplayName = "SQL参数化首行首列查询单元测试案例（数组）")]
+    public void GetScalarIncludeSqlParameterUnitTest()
+    {
+        var sql = @"
+select id          as Id
+from user where id=@id
+";
+        var id = _adoProvider.GetScalar(sql, new SqlParameter
+        {
+            DbType = DbType.Int64,
+            ParameterName = "id",
+            Value = 2
+        });
+        Assert.True((long)id > 0);
+    }
+
+    /// <summary>
+    ///     SQL对象参数化首行首列查询单元测试案例
+    /// </summary>
+    [Fact(DisplayName = "SQL对象参数化首行首列查询单元测试案例")]
+    public void GetScalarIncludeObjectParameterUnitTest()
+    {
+        var sql = @"
+select id          as Id
+from user where id=@id and create_time<@createTime
+";
+        var id = _adoProvider.GetScalar(sql, new
+        {
+            id = 1,
+            createTime = DateTime.Now
+        });
+        Assert.True((long)id > 0);
+    }
+
+    #endregion
+
     #endregion
 
     #region 异步
@@ -1045,6 +1122,83 @@ from user where id=@id and create_time<@createTime
             createTime = DateTime.Now
         });
         Assert.True(dataTable.Rows.Count > 0);
+    }
+
+    #endregion
+
+    #region GetScalarAsync
+
+    /// <summary>
+    ///     SQL非参数化首行首列异步查询单元测试案例
+    /// </summary>
+    [Fact(DisplayName = "SQL非参数化首行首列异步查询单元测试案例")]
+    public async Task GetScalarAsyncNoSqlParameterUnitTest()
+    {
+        var sql = @"
+select id          as Id
+from user where id=1
+";
+        var id = await _adoProvider.GetScalarAsync(sql);
+        Assert.True((long)id > 0);
+    }
+
+    /// <summary>
+    ///     SQL参数化首行首列异步查询单元测试案例（列表）
+    /// </summary>
+    [Fact(DisplayName = "SQL参数化首行首列异步查询单元测试案例（列表）")]
+    public async Task GetScalarAsyncIncludeSqlParameterListUnitTest()
+    {
+        var sql = @"
+select id          as Id
+from user where id=@id
+";
+        var id = await _adoProvider.GetScalarAsync(sql, new List<SqlParameter>
+        {
+            new()
+            {
+                DbType = DbType.Int64,
+                ParameterName = "id",
+                Value = 2
+            }
+        });
+        Assert.True((long)id > 0);
+    }
+
+    /// <summary>
+    ///     SQL参数化首行首列异步查询单元测试案例（数组）
+    /// </summary>
+    [Fact(DisplayName = "SQL参数化首行首列异步查询单元测试案例（数组）")]
+    public async Task GetScalarAsyncIncludeSqlParameterUnitTest()
+    {
+        var sql = @"
+select id          as Id
+from user where id=@id
+";
+        var id = await _adoProvider.GetScalarAsync(sql, new SqlParameter
+        {
+            DbType = DbType.Int64,
+            ParameterName = "id",
+            Value = 2
+        });
+        Assert.True((long)id > 0);
+    }
+
+    /// <summary>
+    ///     SQL对象参数化首行首列异步查询单元测试案例
+    /// </summary>
+    [Fact(DisplayName = "SQL对象参数化首行首列异步查询单元测试案例")]
+    public async Task GetScalarAsyncIncludeObjectParameterUnitTest()
+    {
+        var sql = @"
+select id          as Id
+from user where id=@id and create_time<@createTime
+";
+        var id = await _adoProvider.GetScalarAsync(sql, new
+        {
+            id = 1,
+            createTime = DateTime.Now
+        });
+        Assert.True((long)id > 0);
     }
 
     #endregion
