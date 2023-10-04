@@ -18,6 +18,18 @@ Snail.EntityFramework 一款NET开源多库的、开箱即用的、功能全面�
 <br>
 [![Github](https://shields.io/badge/Github-https://github.com/weile0769/Snail.EntityFramework-green?logo=github&style=flat&logoColor=white)](https://github.com/weile0769/Snail.EntityFramework)
 
+## ✨ 近期目标
+**原生SQL**
+- [x] 无实体原生SQL数据库访问操作
+
+**条件查询**
+- [ ] SQL语法查询
+- [ ] Lambda表达式查询
+- [ ] SQL语法条件查询
+- [ ] Lambda表达式条件查询
+
+</dl>
+
 ## 🎯 安装
 ```csharp
 var builder = WebApplication.CreateBuilder(args);
@@ -48,7 +60,6 @@ DatabaseConfigureOptions配置项：
 
 ## 🎉 功能介绍
 ### **原生SQL**
-**同步**
 | 方法名             | 描述                                   | 返回值     |
 | ------------------ | -------------------------------------- | ---------- |
 | SqlQuery\<T>       | 查询所有返回实体集合                   | List\<T>   |
@@ -58,14 +69,3 @@ DatabaseConfigureOptions配置项：
 | GetDataSet         | 查询数据结果集DataSet                  | DataSet    |
 | GetScalar          | 获取首行首列                           | object     |
 | ExecuteCommand     | 执行SQL返回受影响行数，一般用于增删改  | int        |
-
-**异步**
-| 方法名                  | 描述                                   | 返回值            |
-| ----------------------- | -------------------------------------- | ----------------- |
-| SqlQueryAsync\<T>       | 查询所有返回实体集合                   | Task\<List\<T>>   |
-| SqlQuerySingleAsync\<T> | 查询第一条记录                         | Task\<T>          |
-| GetDataTableAsync       | 查询数据表格DataTable                  | Task\<DataTable>  |
-| GetDataReaderAsync      | 查询数据读取器DataReader，需要手动释放 | Task\<DataReader> |
-| GetDataSetAsync         | 查询数据结果集DataSet                  | Task\<DataSet>    |
-| GetScalarAsync          | 获取首行首列                           | Task\<object>     |
-| ExecuteCommandAsync     | 执行SQL返回受影响行数，一般用于增删改  | Task\<int>        |
