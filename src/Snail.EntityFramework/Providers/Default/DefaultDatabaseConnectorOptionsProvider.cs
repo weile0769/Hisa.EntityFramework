@@ -7,7 +7,7 @@ namespace Snail.EntityFramework.Providers;
 /// <summary>
 ///     数据库连接配置选项提供器
 /// </summary>
-public class DatabaseConnectorOptionsProvider : IDatabaseConnectorOptionsProvider
+public class DefaultDatabaseConnectorOptionsProvider : IDatabaseConnectorOptionsProvider
 {
     /// <summary>
     ///     数据库连接配置选项
@@ -22,7 +22,7 @@ public class DatabaseConnectorOptionsProvider : IDatabaseConnectorOptionsProvide
     /// <summary>
     ///     构造函数
     /// </summary>
-    public DatabaseConnectorOptionsProvider(EntityFrameworkOptions options)
+    public DefaultDatabaseConnectorOptionsProvider(EntityFrameworkOptions options)
     {
         _options = options;
     }

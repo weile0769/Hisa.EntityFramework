@@ -34,7 +34,7 @@ public static class ServiceCollectionExtension
 
         services.Configure(optionAction);
         services.AddSingleton(resolver => resolver.GetRequiredService<IOptions<EntityFrameworkOptions>>().Value);
-        services.AddSingleton<IDatabaseConnectorOptionsProvider, DatabaseConnectorOptionsProvider>();
+        services.AddSingleton<IDatabaseConnectorOptionsProvider, DefaultDatabaseConnectorOptionsProvider>();
 
         services.TryAddTransient<IAdoProvider, DefaultAdoProvider>();
         services.TryAddSingleton<ISqlParameterProvider, DefaultSqlParameterProvider>();
