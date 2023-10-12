@@ -44,21 +44,25 @@ public class DefaultSqlParameterProvider : ISqlParameterProvider
                     var properties = entityType.GetProperties();
                     foreach (var property in properties)
                     {
+                        var parameter = new SqlParameter();
                         var propertyValue = property.GetValue(objectParameter, null);
+                        var propertyType = propertyValue.GetType();
                         if (propertyValue == null || propertyValue.Equals(DateTime.MinValue))
                         {
                             propertyValue = DBNull.Value;
                         }
-
-                        var propertyName = property.Name;
-                        var parameter = new SqlParameter
+                        else
                         {
-                            Value = propertyValue,
-                            ParameterName = propertyName
-                        };
+                            if (propertyType.IsEnum)
+                            {
+                                propertyValue = Convert.ToInt64(propertyValue);
+                            }
 
-                        var dbType = _typeConvert.ConvertDataType(propertyValue.GetType());
-                        parameter.DbType = dbType;
+                            parameter.DbType = _typeConvert.ConvertDataType(propertyValue.GetType());
+                        }
+
+                        parameter.ParameterName = property.Name;
+                        parameter.Value = propertyValue;
                         sqlParameters.Add(parameter);
                     }
 
