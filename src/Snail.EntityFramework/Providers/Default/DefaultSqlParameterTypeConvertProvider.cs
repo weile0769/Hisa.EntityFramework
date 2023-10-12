@@ -2,12 +2,12 @@ using System.Data;
 using Snail.EntityFramework.Exceptions;
 using Snail.EntityFramework.Providers;
 
-namespace Snail.EntityFramework.MySqlConnector.Providers;
+namespace Snail.EntityFramework.Providers;
 
 /// <summary>
-///     数据参数化类型转换提供器
+///     数据参数化类型转换提供器默认实现
 /// </summary>
-public class SqlParameterTypeConvertProvider : ISqlParameterTypeConvertProvider
+public class DefaultSqlParameterTypeConvertProvider : ISqlParameterTypeConvertProvider
 {
     /// <summary>
     ///     类型对象转换数据类型

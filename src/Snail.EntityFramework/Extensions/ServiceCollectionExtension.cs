@@ -39,7 +39,8 @@ public static class ServiceCollectionExtension
         services.TryAddTransient<IAdoProvider, DefaultAdoProvider>();
         services.TryAddSingleton<ISqlParameterProvider, DefaultSqlParameterProvider>();
         services.TryAddTransient<IDataReaderProvider, DefaultDataReaderProvider>();
-
+        services.TryAddSingleton<ISqlParameterTypeConvertProvider, DefaultSqlParameterTypeConvertProvider>();
+        
         services.TryAddSingleton<IDataReaderTypeConvertProvider, DefaultDataReaderTypeConvertProvider>();
 
         services.TryAddSingleton(typeof(DefaultEntityMappingProvider));
