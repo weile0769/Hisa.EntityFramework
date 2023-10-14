@@ -90,7 +90,7 @@ public class DefaultAdoProvider : IAdoProvider
     /// <returns>查询结果实体对象</returns>
     public T SqlQuerySingle<T>(string sql, object parameter)
     {
-        var parameters = _parameterReader.GetSqlParameter(parameter);
+        var parameters = _parameterReader.GetSqlParameterByObject(parameter);
         return SqlQuerySingle<T>(sql, parameters);
     }
 
@@ -156,7 +156,7 @@ public class DefaultAdoProvider : IAdoProvider
     /// <returns>查询结果实体对象列表</returns>
     public List<T> SqlQuery<T>(string sql, object parameter)
     {
-        var parameters = _parameterReader.GetSqlParameter(parameter);
+        var parameters = _parameterReader.GetSqlParameterByObject(parameter);
         return SqlQuery<T>(sql, parameters);
     }
 
@@ -214,7 +214,7 @@ public class DefaultAdoProvider : IAdoProvider
     /// <returns>影响行数</returns>
     public int ExecuteCommand(string sql, object parameter)
     {
-        var parameters = _parameterReader.GetSqlParameter(parameter);
+        var parameters = _parameterReader.GetSqlParameterByObject(parameter);
         var command = _command.GetCommand(sql, parameters);
         return command.ExecuteNonQuery();
     }
@@ -265,7 +265,7 @@ public class DefaultAdoProvider : IAdoProvider
     /// <returns>首行首列</returns>
     public object GetScalar(string sql, object parameter)
     {
-        var parameters = _parameterReader.GetSqlParameter(parameter);
+        var parameters = _parameterReader.GetSqlParameterByObject(parameter);
         return GetScalar(sql, parameters);
     }
 
@@ -314,7 +314,7 @@ public class DefaultAdoProvider : IAdoProvider
     /// <returns>数据读取器</returns>
     public IDataReader GetDataReader(string sql, object parameter)
     {
-        var parameters = _parameterReader.GetSqlParameter(parameter);
+        var parameters = _parameterReader.GetSqlParameterByObject(parameter);
         return _dataReader.GetDataReader(sql, parameters);
     }
 
@@ -367,7 +367,7 @@ public class DefaultAdoProvider : IAdoProvider
     /// <returns>数据结果集</returns>
     public DataSet GetDataSet(string sql, object parameter)
     {
-        var parameters = _parameterReader.GetSqlParameter(parameter);
+        var parameters = _parameterReader.GetSqlParameterByObject(parameter);
         return GetDataSet(sql, parameters);
     }
 
@@ -485,7 +485,7 @@ public class DefaultAdoProvider : IAdoProvider
     /// <returns>查询结果实体对象</returns>
     public Task<T> SqlQuerySingleAsync<T>(string sql, object parameter, CancellationToken token = default)
     {
-        var parameters = _parameterReader.GetSqlParameter(parameter);
+        var parameters = _parameterReader.GetSqlParameterByObject(parameter);
         return SqlQuerySingleAsync<T>(sql, parameters, token);
     }
 
@@ -555,7 +555,7 @@ public class DefaultAdoProvider : IAdoProvider
     /// <returns>查询结果实体对象列表</returns>
     public Task<List<T>> SqlQueryAsync<T>(string sql, object parameter, CancellationToken token = default)
     {
-        var parameters = _parameterReader.GetSqlParameter(parameter);
+        var parameters = _parameterReader.GetSqlParameterByObject(parameter);
         return SqlQueryAsync<T>(sql, parameters, token);
     }
 
@@ -617,7 +617,7 @@ public class DefaultAdoProvider : IAdoProvider
     /// <returns>影响行数</returns>
     public Task<int> ExecuteCommandAsync(string sql, object parameter, CancellationToken token = default)
     {
-        var parameters = _parameterReader.GetSqlParameter(parameter);
+        var parameters = _parameterReader.GetSqlParameterByObject(parameter);
         return ExecuteCommandAsync(sql, parameters, token);
     }
 
@@ -670,7 +670,7 @@ public class DefaultAdoProvider : IAdoProvider
     /// <returns>首行首列</returns>
     public Task<object> GetScalarAsync(string sql, object parameter)
     {
-        var parameters = _parameterReader.GetSqlParameter(parameter);
+        var parameters = _parameterReader.GetSqlParameterByObject(parameter);
         return GetScalarAsync(sql, parameters);
     }
 
@@ -721,7 +721,7 @@ public class DefaultAdoProvider : IAdoProvider
     /// <returns>数据读取器</returns>
     public Task<DbDataReader> GetDataReaderAsync(string sql, object parameter, CancellationToken token = default)
     {
-        var parameters = _parameterReader.GetSqlParameter(parameter);
+        var parameters = _parameterReader.GetSqlParameterByObject(parameter);
         return GetDataReaderAsync(sql, parameters, token);
     }
 
@@ -785,7 +785,7 @@ public class DefaultAdoProvider : IAdoProvider
     /// <returns>数据结果集</returns>
     public Task<DataSet> GetDataSetAsync(string sql, object parameter, CancellationToken token = default)
     {
-        var parameters = _parameterReader.GetSqlParameter(parameter);
+        var parameters = _parameterReader.GetSqlParameterByObject(parameter);
         return GetDataSetAsync(sql, parameters, token);
     }
 

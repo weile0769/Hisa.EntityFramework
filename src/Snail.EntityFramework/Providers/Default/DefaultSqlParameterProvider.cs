@@ -25,7 +25,7 @@ public class DefaultSqlParameterProvider : ISqlParameterProvider
     /// </summary>
     /// <param name="objectParameter">对象参数</param>
     /// <returns>数据参数数组</returns>
-    public SqlParameter[] GetSqlParameter(object objectParameter)
+    public SqlParameter[] GetSqlParameterByObject(object objectParameter)
     {
         var sqlParameters = new List<SqlParameter>();
         if (objectParameter != null)
@@ -46,14 +46,13 @@ public class DefaultSqlParameterProvider : ISqlParameterProvider
                     {
                         var parameter = new SqlParameter();
                         var propertyValue = property.GetValue(objectParameter, null);
-                        var propertyType = propertyValue.GetType();
                         if (propertyValue == null || propertyValue.Equals(DateTime.MinValue))
                         {
                             propertyValue = DBNull.Value;
                         }
                         else
                         {
-                            if (propertyType.IsEnum)
+                            if (propertyValue.GetType().IsEnum)
                             {
                                 propertyValue = Convert.ToInt64(propertyValue);
                             }

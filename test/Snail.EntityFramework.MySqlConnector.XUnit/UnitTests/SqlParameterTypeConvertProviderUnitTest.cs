@@ -109,7 +109,7 @@ public class SqlParameterTypeConvertProviderUnitTest
         var dataType = _convertProvider.ConvertDataType(propertyType);
         Assert.Equal(DbType.SByte, dataType);
     }
-    
+
     /// <summary>
     ///     bool转Boolean单元测试案例
     /// </summary>
@@ -120,7 +120,7 @@ public class SqlParameterTypeConvertProviderUnitTest
         var dataType = _convertProvider.ConvertDataType(propertyType);
         Assert.Equal(DbType.Boolean, dataType);
     }
-    
+
     /// <summary>
     ///     Guid转Guid单元测试案例
     /// </summary>
@@ -131,7 +131,7 @@ public class SqlParameterTypeConvertProviderUnitTest
         var dataType = _convertProvider.ConvertDataType(propertyType);
         Assert.Equal(DbType.Guid, dataType);
     }
-    
+
     /// <summary>
     ///     double转Double单元测试案例
     /// </summary>
@@ -142,7 +142,7 @@ public class SqlParameterTypeConvertProviderUnitTest
         var dataType = _convertProvider.ConvertDataType(propertyType);
         Assert.Equal(DbType.Double, dataType);
     }
-    
+
     /// <summary>
     ///     float转Single单元测试案例
     /// </summary>
@@ -153,7 +153,7 @@ public class SqlParameterTypeConvertProviderUnitTest
         var dataType = _convertProvider.ConvertDataType(propertyType);
         Assert.Equal(DbType.Single, dataType);
     }
-    
+
     /// <summary>
     ///     decimal转Decimal单元测试案例
     /// </summary>
@@ -164,7 +164,7 @@ public class SqlParameterTypeConvertProviderUnitTest
         var dataType = _convertProvider.ConvertDataType(propertyType);
         Assert.Equal(DbType.Decimal, dataType);
     }
-    
+
     /// <summary>
     ///     string转String单元测试案例
     /// </summary>
@@ -175,7 +175,7 @@ public class SqlParameterTypeConvertProviderUnitTest
         var dataType = _convertProvider.ConvertDataType(propertyType);
         Assert.Equal(DbType.String, dataType);
     }
-    
+
     /// <summary>
     ///     DateTime转DateTime单元测试案例
     /// </summary>
@@ -186,7 +186,7 @@ public class SqlParameterTypeConvertProviderUnitTest
         var dataType = _convertProvider.ConvertDataType(propertyType);
         Assert.Equal(DbType.DateTime, dataType);
     }
-    
+
     /// <summary>
     ///     DateTimeOffset转DateTimeOffset单元测试案例
     /// </summary>
@@ -197,7 +197,7 @@ public class SqlParameterTypeConvertProviderUnitTest
         var dataType = _convertProvider.ConvertDataType(propertyType);
         Assert.Equal(DbType.DateTimeOffset, dataType);
     }
-    
+
     /// <summary>
     ///     TimeSpan转Time单元测试案例
     /// </summary>
@@ -208,7 +208,7 @@ public class SqlParameterTypeConvertProviderUnitTest
         var dataType = _convertProvider.ConvertDataType(propertyType);
         Assert.Equal(DbType.Time, dataType);
     }
-    
+
     /// <summary>
     ///     byte[]转Binary单元测试案例
     /// </summary>
@@ -219,7 +219,7 @@ public class SqlParameterTypeConvertProviderUnitTest
         var dataType = _convertProvider.ConvertDataType(propertyType);
         Assert.Equal(DbType.Binary, dataType);
     }
-    
+
     /// <summary>
     ///     Enum转Int64单元测试案例
     /// </summary>
@@ -230,13 +230,13 @@ public class SqlParameterTypeConvertProviderUnitTest
         var dataType = _convertProvider.ConvertDataType(propertyType);
         Assert.Equal(DbType.Int64, dataType);
     }
-    
+
     /// <summary>
     ///     测试枚举
     /// </summary>
     private enum TypeConvertEnum
     {
-        Convert=1,
-        Type=2
+        Convert = 1,
+        Type = 2
     }
 }

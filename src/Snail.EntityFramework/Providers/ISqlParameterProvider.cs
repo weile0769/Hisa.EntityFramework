@@ -12,5 +12,5 @@ public interface ISqlParameterProvider
     /// </summary>
     /// <param name="objectParameter">对象参数</param>
     /// <returns>数据参数数组</returns>
-    SqlParameter[] GetSqlParameter(object objectParameter);
+    SqlParameter[] GetSqlParameterByObject(object objectParameter);
 }
