@@ -40,6 +40,7 @@ public static class ServiceCollectionExtension
         services.TryAddSingleton<ISqlParameterProvider, DefaultSqlParameterProvider>();
         services.TryAddTransient<IDataReaderProvider, DefaultDataReaderProvider>();
         services.TryAddSingleton<ISqlParameterTypeConvertProvider, DefaultSqlParameterTypeConvertProvider>();
+        services.TryAddSingleton<ISqlParameterFormatProvider, DefaultSqlParameterFormatProvider>();
         
         services.TryAddSingleton<IDataReaderTypeConvertProvider, DefaultDataReaderTypeConvertProvider>();
 

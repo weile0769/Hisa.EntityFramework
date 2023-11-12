@@ -8,7 +8,7 @@ namespace Snail.EntityFramework.MySqlConnector.XUnit.UnitTests;
 ///     DbConnectionProvider单元测试
 /// </summary>
 [Collection("MySqlConnector数据库驱动测试案例组别")]
-public class DbConnectionProviderUnitTest
+public class DatabaseConnectionProviderUnitTest
 {
     /// <summary>
     ///     数据库连接对象提供器
@@ -18,7 +18,7 @@ public class DbConnectionProviderUnitTest
     /// <summary>
     ///     构造函数
     /// </summary>
-    public DbConnectionProviderUnitTest(IDatabaseConnectionProvider connectionProvider)
+    public DatabaseConnectionProviderUnitTest(IDatabaseConnectionProvider connectionProvider)
     {
         _connectionProvider = connectionProvider;
     }

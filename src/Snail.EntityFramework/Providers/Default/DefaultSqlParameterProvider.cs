@@ -1,3 +1,4 @@
+using System.Collections;
 using Snail.EntityFramework.Models;
 
 namespace Snail.EntityFramework.Providers;
@@ -57,7 +58,10 @@ public class DefaultSqlParameterProvider : ISqlParameterProvider
                                 propertyValue = Convert.ToInt64(propertyValue);
                             }
 
-                            parameter.DbType = _typeConvert.ConvertDataType(propertyValue.GetType());
+                            if (propertyValue is not (Array or IList))
+                            {
+                                parameter.DbType = _typeConvert.ConvertDataType(propertyValue.GetType());
+                            }
                         }
 
                         parameter.ParameterName = property.Name;

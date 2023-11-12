@@ -41,6 +41,11 @@ public class DefaultAdoProvider : IAdoProvider
     private readonly IServiceProvider _serviceProvider;
 
     /// <summary>
+    ///     特殊查询参数过滤器
+    /// </summary>
+    private readonly ISqlParameterFormatProvider _formatProvider;
+
+    /// <summary>
     ///     构造函数
     /// </summary>
     public DefaultAdoProvider(IDataAdapterProvider dataAdapter,
@@ -48,7 +53,8 @@ public class DefaultAdoProvider : IAdoProvider
         IServiceProvider serviceProvider,
         ISqlParameterProvider parameterReader,
         IDatabaseCommandProvider command,
-        IDataReaderTypeConvertProvider dataReaderTypeConvert
+        IDataReaderTypeConvertProvider dataReaderTypeConvert,
+        ISqlParameterFormatProvider formatProvider
     )
     {
         _dataReader = dataReader;
@@ -57,6 +63,7 @@ public class DefaultAdoProvider : IAdoProvider
         _dataAdapter = dataAdapter;
         _parameterReader = parameterReader;
         _dataReaderTypeConvert = dataReaderTypeConvert;
+        _formatProvider = formatProvider;
     }
 
     #region 同步
@@ -115,6 +122,7 @@ public class DefaultAdoProvider : IAdoProvider
     /// <returns>查询结果实体对象</returns>
     private T SqlQuerySingle<T>(string sql, SqlParameter[] parameters)
     {
+        sql = _formatProvider.FormatSql(sql, parameters);
         using var dataReader = _dataReader.GetDataReader(sql, parameters);
         var entity = default(T);
         if (dataReader.HasRows)
@@ -181,6 +189,7 @@ public class DefaultAdoProvider : IAdoProvider
     /// <returns>查询结果实体对象列表</returns>
     private List<T> SqlQuery<T>(string sql, SqlParameter[] parameters)
     {
+        sql = _formatProvider.FormatSql(sql, parameters);
         using var dataReader = _dataReader.GetDataReader(sql, parameters);
         var entities = new List<T>();
         if (dataReader.HasRows)
@@ -238,6 +247,7 @@ public class DefaultAdoProvider : IAdoProvider
     /// <returns>影响行数</returns>
     private int ExecuteCommand(string sql, SqlParameter[] parameters)
     {
+        sql = _formatProvider.FormatSql(sql, parameters);
         var command = _command.GetCommand(sql, parameters);
         return command.ExecuteNonQuery();
     }
@@ -288,6 +298,7 @@ public class DefaultAdoProvider : IAdoProvider
     /// <returns>首行首列</returns>
     private object GetScalar(string sql, SqlParameter[] parameters)
     {
+        sql = _formatProvider.FormatSql(sql, parameters);
         var command = _command.GetCommand(sql, parameters);
         return command.ExecuteScalar();
     }
@@ -337,6 +348,7 @@ public class DefaultAdoProvider : IAdoProvider
     /// <returns>数据读取器</returns>
     private IDataReader GetDataReader(string sql, SqlParameter[] parameters)
     {
+        sql = _formatProvider.FormatSql(sql, parameters);
         return _dataReader.GetDataReader(sql, parameters);
     }
 
@@ -390,6 +402,7 @@ public class DefaultAdoProvider : IAdoProvider
     /// <returns>数据结果集</returns>
     private DataSet GetDataSet(string sql, SqlParameter[] parameters)
     {
+        sql = _formatProvider.FormatSql(sql, parameters);
         var dataAdapter = _dataAdapter.GetDataAdapter();
         var command = _command.GetCommand(sql, parameters);
         _dataAdapter.SetCommandToAdapter(dataAdapter, command);
@@ -444,6 +457,7 @@ public class DefaultAdoProvider : IAdoProvider
     /// <returns>数据表格</returns>
     private DataTable GetDataTable(string sql, SqlParameter[] parameters)
     {
+        sql = _formatProvider.FormatSql(sql, parameters);
         var dataSet = GetDataSet(sql, parameters);
         return dataSet.Tables.Count > 0 ? dataSet.Tables[0] : new DataTable();
     }
@@ -512,6 +526,7 @@ public class DefaultAdoProvider : IAdoProvider
     /// <returns>查询结果实体对象</returns>
     private async Task<T> SqlQuerySingleAsync<T>(string sql, SqlParameter[] parameters, CancellationToken token = default)
     {
+        sql = _formatProvider.FormatSql(sql, parameters);
         await using var dataReader = await _dataReader.GetDataReaderAsync(sql, parameters, token);
         var entity = default(T);
         if (dataReader.HasRows)
@@ -582,6 +597,7 @@ public class DefaultAdoProvider : IAdoProvider
     /// <returns>查询结果实体对象列表</returns>
     private async Task<List<T>> SqlQueryAsync<T>(string sql, SqlParameter[] parameters, CancellationToken token = default)
     {
+        sql = _formatProvider.FormatSql(sql, parameters);
         await using var dataReader = await _dataReader.GetDataReaderAsync(sql, parameters, token);
         var entities = new List<T>();
         if (dataReader.HasRows)
@@ -642,6 +658,7 @@ public class DefaultAdoProvider : IAdoProvider
     /// <returns>影响行数</returns>
     private Task<int> ExecuteCommandAsync(string sql, SqlParameter[] parameters, CancellationToken token = default)
     {
+        sql = _formatProvider.FormatSql(sql, parameters);
         var command = _command.GetCommand(sql, parameters);
         return command.ExecuteNonQueryAsync(token);
     }
@@ -693,6 +710,7 @@ public class DefaultAdoProvider : IAdoProvider
     /// <returns>首行首列</returns>
     private Task<object> GetScalarAsync(string sql, SqlParameter[] parameters)
     {
+        sql = _formatProvider.FormatSql(sql, parameters);
         var command = _command.GetCommand(sql, parameters);
         return command.ExecuteScalarAsync();
     }
@@ -746,6 +764,7 @@ public class DefaultAdoProvider : IAdoProvider
     /// <returns>数据读取器</returns>
     private Task<DbDataReader> GetDataReaderAsync(string sql, SqlParameter[] parameters, CancellationToken token = default)
     {
+        sql = _formatProvider.FormatSql(sql, parameters);
         return _dataReader.GetDataReaderAsync(sql, parameters, token);
     }
 
@@ -811,6 +830,7 @@ public class DefaultAdoProvider : IAdoProvider
     /// <returns>数据结果集</returns>
     private Task<DataSet> GetDataSetAsync(string sql, SqlParameter[] parameters, CancellationToken token = default)
     {
+        sql = _formatProvider.FormatSql(sql, parameters);
         return Task.Run(async () =>
         {
             var dataSet = new DataSet();
