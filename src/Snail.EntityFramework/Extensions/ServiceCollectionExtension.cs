@@ -50,7 +50,7 @@ public static class ServiceCollectionExtension
         services.TryAddSingleton(typeof(IDataReaderEntityBuilder<>), typeof(CachingDataReaderEntityBuilder<>));
 
 
-        services.TryAddScoped<ISnailSqlClient, SnailSqlClient>();
+        services.TryAddScoped<ISqlClient, DefaultSqlClient>();
 
         return new EntityFrameworkBuilder(services);
     }

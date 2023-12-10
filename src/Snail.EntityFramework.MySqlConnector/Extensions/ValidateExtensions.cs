@@ -59,4 +59,15 @@ internal static class ValidateExtensions
             typeof(List<ulong?>),
             typeof(List<ushort?>));
     }
+
+    /// <summary>
+    ///     判断值是否为空
+    /// </summary>
+    /// <param name="thisValue">值</param>
+    /// <returns>ture：是 false:否</returns>
+    internal static bool IsNullOrEmpty(this object thisValue)
+    {
+        if (thisValue == null || thisValue == DBNull.Value) return true;
+        return thisValue.ToString() == string.Empty;
+    }
 }
