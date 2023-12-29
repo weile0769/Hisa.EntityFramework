@@ -610,7 +610,7 @@ from user where id=@id and create_time<@createTime
         });
         Assert.True((long)id > 0);
     }
-    
+
     /// <summary>
     ///     SQL对象参数化首行首列查询单元测试案例
     /// </summary>
@@ -623,7 +623,7 @@ from user where id in (@ids) and create_time<@createTime
 ";
         var id = _adoProvider.GetScalar(sql, new
         {
-            ids = new[]{1,2},
+            ids = new[] { 1, 2 },
             createTime = DateTime.Now
         });
         Assert.True((long)id > 0);

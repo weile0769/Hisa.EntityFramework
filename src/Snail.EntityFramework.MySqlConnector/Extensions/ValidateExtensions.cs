@@ -67,7 +67,11 @@ internal static class ValidateExtensions
     /// <returns>ture：是 false:否</returns>
     internal static bool IsNullOrEmpty(this object thisValue)
     {
-        if (thisValue == null || thisValue == DBNull.Value) return true;
+        if (thisValue == null || thisValue == DBNull.Value)
+        {
+            return true;
+        }
+
         return thisValue.ToString() == string.Empty;
     }
 }

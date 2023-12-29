@@ -11,4 +11,6 @@ public interface ISqlBuilderProvider
     string SqlRightSymbol();
 
     string GetColumnName(EntityColumn entityColumn);
+
+    string GetTableName(Entity entity);
 }

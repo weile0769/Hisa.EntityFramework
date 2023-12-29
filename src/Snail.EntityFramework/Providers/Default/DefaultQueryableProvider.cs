@@ -5,15 +5,16 @@ namespace Snail.EntityFramework.Providers;
 /// <summary>
 ///     IQueryable查询对象提供器默认实现
 /// </summary>
-public class DefaultQueryableProvider<T> : IQueryableProvider<T>
+public class DefaultQueryableProvider : IQueryableProvider
 {
     private readonly IAdoProvider _adoProvider;
-    
+
     /// <summary>
     ///     数据参数化提供器
     /// </summary>
     private readonly ISqlParameterProvider _parameterReader;
 
+    private readonly IQueryBuilderProvider _queryBuilderProvider;
     private readonly ISqlBuilderProvider _sqlBuilderProvider;
 
     /// <summary>
@@ -21,17 +22,19 @@ public class DefaultQueryableProvider<T> : IQueryableProvider<T>
     /// </summary>
     public DefaultQueryableProvider(IAdoProvider adoProvider,
         ISqlParameterProvider parameterReader,
-        ISqlBuilderProvider sqlBuilderProvider)
+        ISqlBuilderProvider sqlBuilderProvider,
+        IQueryBuilderProvider queryBuilderProvider)
     {
         _adoProvider = adoProvider;
         _parameterReader = parameterReader;
         _sqlBuilderProvider = sqlBuilderProvider;
+        _queryBuilderProvider = queryBuilderProvider;
     }
 
     public List<string> WhereInfos { get; set; }
     public List<SqlParameter> Parameters { get; set; }
-    
-    public IQueryableProvider<T> Where(string sqlWhere, object parameter = null)
+
+    public IQueryableProvider Where<T>(string sqlWhere, object parameter = null)
     {
         WhereInfos.Add(_sqlBuilderProvider.AppendWhereOrAnd(WhereInfos.Count == 0, sqlWhere));
 
@@ -45,7 +48,7 @@ public class DefaultQueryableProvider<T> : IQueryableProvider<T>
 
     public List<T> ToList<T>()
     {
-        List<T> result = null;
-        return this;
+        var sql = _queryBuilderProvider.ToSql();
+        return _adoProvider.SqlQuery<T>(sql, Parameters);
     }
 }

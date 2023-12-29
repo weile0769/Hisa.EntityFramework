@@ -11,7 +11,7 @@ public class DefaultSqlClient : ISqlClient
     ///     IQueryable查询对象提供器
     /// </summary>
     private readonly IQueryableProvider _queryableProvider;
-    
+
     /// <summary>
     ///     构造函数
     /// </summary>
@@ -26,7 +26,7 @@ public class DefaultSqlClient : ISqlClient
     ///     数据库访问提供程序
     /// </summary>
     public IAdoProvider Ado { get; }
-    
+
     /*public IQueryableProvider<T> Queryable<T>()
     {
         return _queryableProvider.Queryable<T>();

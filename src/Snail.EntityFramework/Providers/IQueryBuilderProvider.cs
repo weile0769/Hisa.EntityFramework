@@ -1,5 +1,3 @@
-using Snail.EntityFramework.Models;
-
 namespace Snail.EntityFramework.Providers;
 
 /// <summary>
@@ -7,5 +5,5 @@ namespace Snail.EntityFramework.Providers;
 /// </summary>
 public interface IQueryBuilderProvider
 {
-
+    string ToSql();
 }

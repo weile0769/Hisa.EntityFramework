@@ -77,7 +77,7 @@ public class DatabaseCommandProvider : IDatabaseCommandProvider
     /// <param name="sql">sql脚本</param>
     /// <param name="parameters">sql参数</param>
     /// <returns>数据库命令</returns>
-    public DbCommand GetCommand(string sql,params SqlParameter[] parameters)
+    public DbCommand GetCommand(string sql, params SqlParameter[] parameters)
     {
         var connection = _connection.GetConnection();
         if (_dbCommand == null)

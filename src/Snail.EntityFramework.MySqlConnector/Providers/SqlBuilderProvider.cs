@@ -5,7 +5,6 @@ namespace Snail.EntityFramework.MySqlConnector.Providers;
 
 public class SqlBuilderProvider : ISqlBuilderProvider
 {
-
     public string AppendWhereOrAnd(bool isWhere, string sqlWhere)
     {
         return isWhere ? $" WHERE {sqlWhere}" : $" AND {sqlWhere}";
@@ -24,5 +23,10 @@ public class SqlBuilderProvider : ISqlBuilderProvider
     public string GetColumnName(EntityColumn entityColumn)
     {
         return $"{SqlLeftSymbol()}{entityColumn.ColumnName}{SqlRightSymbol()}";
+    }
+
+    public string GetTableName(Entity entity)
+    {
+        return $"{SqlLeftSymbol()}{entity.TableName}{SqlRightSymbol()}";
     }
 }

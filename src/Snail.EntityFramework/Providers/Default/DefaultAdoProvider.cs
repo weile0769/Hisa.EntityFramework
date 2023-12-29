@@ -31,6 +31,11 @@ public class DefaultAdoProvider : IAdoProvider
     private readonly IDataReaderTypeConvertProvider _dataReaderTypeConvert;
 
     /// <summary>
+    ///     特殊查询参数过滤器
+    /// </summary>
+    private readonly ISqlParameterFormatProvider _formatProvider;
+
+    /// <summary>
     ///     数据参数化提供器
     /// </summary>
     private readonly ISqlParameterProvider _parameterReader;
@@ -39,11 +44,6 @@ public class DefaultAdoProvider : IAdoProvider
     ///     容器服务提供器
     /// </summary>
     private readonly IServiceProvider _serviceProvider;
-
-    /// <summary>
-    ///     特殊查询参数过滤器
-    /// </summary>
-    private readonly ISqlParameterFormatProvider _formatProvider;
 
     /// <summary>
     ///     构造函数

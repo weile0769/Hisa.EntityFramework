@@ -5,10 +5,12 @@ namespace Snail.EntityFramework.Providers;
 /// <summary>
 ///     IQueryable查询对象提供器
 /// </summary>
-public interface IQueryableProvider<T>
+public interface IQueryableProvider
 {
     public List<string> WhereInfos { get; set; }
     public List<SqlParameter> Parameters { get; set; }
 
-    IQueryableProvider<T> Where<T>(string sqlWhere, object parameter = null);
+    IQueryableProvider Where<T>(string sqlWhere, object parameter = null);
+
+    List<T> ToList<T>();
 }
