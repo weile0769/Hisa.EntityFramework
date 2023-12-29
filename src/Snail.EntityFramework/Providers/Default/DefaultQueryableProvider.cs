@@ -8,12 +8,7 @@ namespace Snail.EntityFramework.Providers;
 public class DefaultQueryableProvider : IQueryableProvider
 {
     private readonly IAdoProvider _adoProvider;
-
-    /// <summary>
-    ///     数据参数化提供器
-    /// </summary>
     private readonly ISqlParameterProvider _parameterReader;
-
     private readonly IQueryBuilderProvider _queryBuilderProvider;
     private readonly ISqlBuilderProvider _sqlBuilderProvider;
 
@@ -31,16 +26,29 @@ public class DefaultQueryableProvider : IQueryableProvider
         _queryBuilderProvider = queryBuilderProvider;
     }
 
-    public List<string> WhereInfos { get; set; }
-    public List<SqlParameter> Parameters { get; set; }
+    /// <summary>
+    ///     查询条件
+    /// </summary>
+    public List<string> WhereConditions { get; set; } = new();
 
+    /// <summary>
+    ///     查询参数
+    /// </summary>
+    public List<SqlParameter> SqlParameters { get; set; } = new();
+
+    /// <summary>
+    ///     设置查询条件
+    /// </summary>
+    /// <param name="sqlWhere">查询条件语句</param>
+    /// <param name="parameter">查询参数</param>
+    /// <returns>IQueryable查询对象提供器</returns>
     public IQueryableProvider Where<T>(string sqlWhere, object parameter = null)
     {
-        WhereInfos.Add(_sqlBuilderProvider.AppendWhereOrAnd(WhereInfos.Count == 0, sqlWhere));
+        WhereConditions.Add(_sqlBuilderProvider.AppendWhereOrAnd(WhereConditions.Count == 0, sqlWhere));
 
         if (parameter != null)
         {
-            Parameters.AddRange(_parameterReader.GetSqlParameterByObject(parameter));
+            SqlParameters.AddRange(_parameterReader.GetSqlParameterByObject(parameter));
         }
 
         return this;
@@ -49,6 +57,6 @@ public class DefaultQueryableProvider : IQueryableProvider
     public List<T> ToList<T>()
     {
         var sql = _queryBuilderProvider.ToSql();
-        return _adoProvider.SqlQuery<T>(sql, Parameters);
+        return _adoProvider.SqlQuery<T>(sql, SqlParameters);
     }
 }

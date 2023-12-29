@@ -39,8 +39,7 @@ public class AdoProviderUnitTest
 select id          as Id,
        create_time as CreateTime,
        modify_time as ModifyTime
-from user where id>1
-";
+from user where id>1";
         var list = _adoProvider.SqlQuery<User>(sql);
         Assert.NotEmpty(list);
     }
@@ -55,8 +54,7 @@ from user where id>1
 select id          as Id,
        create_time as CreateTime,
        modify_time as ModifyTime
-from user where id>@id
-";
+from user where id>@id";
         var list = _adoProvider.SqlQuery<User>(sql, new SqlParameter
         {
             DbType = DbType.Int64,

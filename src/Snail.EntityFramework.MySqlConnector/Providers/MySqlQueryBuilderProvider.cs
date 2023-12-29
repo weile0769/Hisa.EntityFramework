@@ -91,7 +91,6 @@ public class MySqlQueryBuilderProvider : QueryBuilderProvider, IQueryBuilderProv
 
     public string ToSql()
     {
-        var orderByCriteria = OrderByCriteria;
         Sql.AppendFormat(GetSqlTemplate(), GetSelectValue(), GetTableName(), GetWhereCondition(), $"{GetGroupByCondition()}{HavingCondition}", Skip != null || Take != null ? null : GetOrderByCondition());
         return Sql.ToString();
     }

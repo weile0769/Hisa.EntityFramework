@@ -11,7 +11,7 @@ namespace Microsoft.Extensions.DependencyInjection;
 /// <summary>
 ///     IServiceCollection服务容器扩展类
 /// </summary>
-public static class ServiceCollectionExtension
+public static class IServiceCollectionExtension
 {
     /// <summary>
     ///     注册数据库实体框架
@@ -35,6 +35,9 @@ public static class ServiceCollectionExtension
         services.Configure(optionAction);
         services.AddSingleton(resolver => resolver.GetRequiredService<IOptions<EntityFrameworkOptions>>().Value);
         services.AddSingleton<IDatabaseConnectorOptionsProvider, DefaultDatabaseConnectorOptionsProvider>();
+
+
+        services.TryAddTransient<IQueryableProvider, DefaultQueryableProvider>();
 
         services.TryAddTransient<IAdoProvider, DefaultAdoProvider>();
         services.TryAddSingleton<ISqlParameterProvider, DefaultSqlParameterProvider>();

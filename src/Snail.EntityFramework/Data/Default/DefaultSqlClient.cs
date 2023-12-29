@@ -27,8 +27,8 @@ public class DefaultSqlClient : ISqlClient
     /// </summary>
     public IAdoProvider Ado { get; }
 
-    /*public IQueryableProvider<T> Queryable<T>()
+    public IQueryableProvider Queryable<T>()
     {
-        return _queryableProvider.Queryable<T>();
-    }*/
+        return _queryableProvider;
+    }
 }

@@ -15,11 +15,6 @@ public class QueryBuilderProvider
     }
 
     /// <summary>
-    ///     排序
-    /// </summary>
-    public string OrderByCriteria { get; set; }
-
-    /// <summary>
     ///     SQL脚本
     /// </summary>
     public StringBuilder Sql { get; set; }
