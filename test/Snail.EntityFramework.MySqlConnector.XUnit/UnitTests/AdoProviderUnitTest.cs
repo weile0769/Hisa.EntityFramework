@@ -76,15 +76,14 @@ select id          as Id,
        modify_time as ModifyTime
 from user where id>@id
 ";
-        var list = _adoProvider.SqlQuery<User>(sql, new List<SqlParameter>
-        {
+        var list = _adoProvider.SqlQuery<User>(sql, [
             new()
             {
                 DbType = DbType.Int64,
                 ParameterName = "id",
                 Value = 1
             }
-        });
+        ]);
         Assert.NotEmpty(list);
     }
 
@@ -140,15 +139,14 @@ select id          as Id,
        modify_time as ModifyTime
 from user where id=@id
 ";
-        var entity = _adoProvider.SqlQuerySingle<User>(sql, new List<SqlParameter>
-        {
+        var entity = _adoProvider.SqlQuerySingle<User>(sql, [
             new()
             {
                 DbType = DbType.Int64,
                 ParameterName = "id",
                 Value = 2
             }
-        });
+        ]);
         Assert.NotNull(entity);
     }
 
@@ -223,15 +221,14 @@ delete from user where id=@id;
 insert into user(id,create_time,modify_time)
 value (9999,now(),now());
 ";
-        var count = _adoProvider.ExecuteCommand(sql, new List<SqlParameter>
-        {
+        var count = _adoProvider.ExecuteCommand(sql, [
             new()
             {
                 DbType = DbType.Int64,
                 ParameterName = "id",
                 Value = 9999
             }
-        });
+        ]);
         Assert.True(count > 0);
     }
 
@@ -326,15 +323,14 @@ select id          as Id,
        modify_time as ModifyTime
 from user where id=@id
 ";
-        using var dataReader = _adoProvider.GetDataReader(sql, new List<SqlParameter>
-        {
+        using var dataReader = _adoProvider.GetDataReader(sql, [
             new()
             {
                 DbType = DbType.Int64,
                 ParameterName = "id",
                 Value = 2
             }
-        });
+        ]);
         Assert.True(((DbDataReader)dataReader).HasRows);
     }
 
@@ -391,15 +387,14 @@ select id          as Id,
        modify_time as ModifyTime
 from user where id=@id
 ";
-        var dataSet = _adoProvider.GetDataSet(sql, new List<SqlParameter>
-        {
+        var dataSet = _adoProvider.GetDataSet(sql, [
             new()
             {
                 DbType = DbType.Int64,
                 ParameterName = "id",
                 Value = 2
             }
-        });
+        ]);
         Assert.True(dataSet.Tables.Count > 0);
         Assert.True(dataSet.Tables.Count > 0 && dataSet.Tables[0].Rows.Count > 0);
     }
@@ -479,15 +474,14 @@ select id          as Id,
        modify_time as ModifyTime
 from user where id=@id
 ";
-        var dataTable = _adoProvider.GetDataTable(sql, new List<SqlParameter>
-        {
+        var dataTable = _adoProvider.GetDataTable(sql, [
             new()
             {
                 DbType = DbType.Int64,
                 ParameterName = "id",
                 Value = 2
             }
-        });
+        ]);
         Assert.True(dataTable.Rows.Count > 0);
     }
 
@@ -560,15 +554,14 @@ from user where id=1
 select id          as Id
 from user where id=@id
 ";
-        var id = _adoProvider.GetScalar(sql, new List<SqlParameter>
-        {
+        var id = _adoProvider.GetScalar(sql, [
             new()
             {
                 DbType = DbType.Int64,
                 ParameterName = "id",
                 Value = 2
             }
-        });
+        ]);
         Assert.True((long)id > 0);
     }
 
@@ -684,15 +677,14 @@ select id          as Id,
        modify_time as ModifyTime
 from user where id>@id
 ";
-        var list = await _adoProvider.SqlQueryAsync<User>(sql, new List<SqlParameter>
-        {
+        var list = await _adoProvider.SqlQueryAsync<User>(sql, [
             new()
             {
                 DbType = DbType.Int64,
                 ParameterName = "id",
                 Value = 1
             }
-        });
+        ]);
         Assert.NotEmpty(list);
     }
 
@@ -748,15 +740,14 @@ select id          as Id,
        modify_time as ModifyTime
 from user where id=@id
 ";
-        var entity = await _adoProvider.SqlQuerySingleAsync<User>(sql, new List<SqlParameter>
-        {
+        var entity = await _adoProvider.SqlQuerySingleAsync<User>(sql, [
             new()
             {
                 DbType = DbType.Int64,
                 ParameterName = "id",
                 Value = 2
             }
-        });
+        ]);
         Assert.NotNull(entity);
     }
 
@@ -831,15 +822,14 @@ delete from user where id=@id;
 insert into user(id,create_time,modify_time)
 value (9999,now(),now());
 ";
-        var count = await _adoProvider.ExecuteCommandAsync(sql, new List<SqlParameter>
-        {
+        var count = await _adoProvider.ExecuteCommandAsync(sql, [
             new()
             {
                 DbType = DbType.Int64,
                 ParameterName = "id",
                 Value = 9999
             }
-        });
+        ]);
         Assert.True(count > 0);
     }
 
@@ -934,15 +924,14 @@ select id          as Id,
        modify_time as ModifyTime
 from user where id=@id
 ";
-        await using var dataReader = await _adoProvider.GetDataReaderAsync(sql, new List<SqlParameter>
-        {
+        await using var dataReader = await _adoProvider.GetDataReaderAsync(sql, [
             new()
             {
                 DbType = DbType.Int64,
                 ParameterName = "id",
                 Value = 2
             }
-        });
+        ]);
         Assert.True(dataReader.HasRows);
     }
 
@@ -999,15 +988,14 @@ select id          as Id,
        modify_time as ModifyTime
 from user where id=@id
 ";
-        var dataSet = await _adoProvider.GetDataSetAsync(sql, new List<SqlParameter>
-        {
+        var dataSet = await _adoProvider.GetDataSetAsync(sql, [
             new()
             {
                 DbType = DbType.Int64,
                 ParameterName = "id",
                 Value = 2
             }
-        });
+        ]);
         Assert.True(dataSet.Tables.Count > 0);
         Assert.True(dataSet.Tables.Count > 0 && dataSet.Tables[0].Rows.Count > 0);
     }
@@ -1087,15 +1075,14 @@ select id          as Id,
        modify_time as ModifyTime
 from user where id=@id
 ";
-        var dataTable = await _adoProvider.GetDataTableAsync(sql, new List<SqlParameter>
-        {
+        var dataTable = await _adoProvider.GetDataTableAsync(sql, [
             new()
             {
                 DbType = DbType.Int64,
                 ParameterName = "id",
                 Value = 2
             }
-        });
+        ]);
         Assert.True(dataTable.Rows.Count > 0);
     }
 
@@ -1168,15 +1155,14 @@ from user where id=1
 select id          as Id
 from user where id=@id
 ";
-        var id = await _adoProvider.GetScalarAsync(sql, new List<SqlParameter>
-        {
+        var id = await _adoProvider.GetScalarAsync(sql, [
             new()
             {
                 DbType = DbType.Int64,
                 ParameterName = "id",
                 Value = 2
             }
-        });
+        ]);
         Assert.True((long)id > 0);
     }
 
