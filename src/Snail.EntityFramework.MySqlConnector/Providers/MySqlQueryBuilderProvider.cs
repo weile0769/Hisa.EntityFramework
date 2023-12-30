@@ -21,6 +21,12 @@ public class MySqlQueryBuilderProvider : QueryBuilderProvider, IQueryBuilderProv
         _entityMappingProvider = entityMappingProvider;
     }
 
+    public string ToSql()
+    {
+        Sql.AppendFormat(GetSqlTemplate(), GetSelectValue(), GetTableName(), GetWhereCondition(), $"{GetGroupByCondition()}{HavingCondition}", Skip != null || Take != null ? null : GetOrderByCondition());
+        return Sql.ToString();
+    }
+
 
     /// <summary>
     ///     SQL脚本模版
@@ -87,11 +93,5 @@ public class MySqlQueryBuilderProvider : QueryBuilderProvider, IQueryBuilderProv
     {
         var entity = _entityMappingProvider.GetEntity(EntityType);
         return _sqlBuilderProvider.GetTableName(entity);
-    }
-
-    public string ToSql()
-    {
-        Sql.AppendFormat(GetSqlTemplate(), GetSelectValue(), GetTableName(), GetWhereCondition(), $"{GetGroupByCondition()}{HavingCondition}", Skip != null || Take != null ? null : GetOrderByCondition());
-        return Sql.ToString();
     }
 }

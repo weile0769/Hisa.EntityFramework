@@ -54,12 +54,10 @@ public class QueryBuilderProvider
     public Type EntityType { get; set; }
 
     /// <summary>
-    ///
     /// </summary>
     public int? Skip { get; set; }
 
     /// <summary>
-    ///
     /// </summary>
     public int? Take { get; set; }
 }

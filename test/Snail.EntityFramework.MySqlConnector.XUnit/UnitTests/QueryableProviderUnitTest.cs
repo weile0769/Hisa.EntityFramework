@@ -23,9 +23,9 @@ public class QueryableProviderUnitTest
     }
 
     /// <summary>
-    ///     设置查询条件单元测试案例
+    ///     无参数设置查询条件单元测试案例
     /// </summary>
-    [Fact(DisplayName = "设置查询条件单元测试案例")]
+    [Fact(DisplayName = "无参数设置查询条件单元测试案例")]
     public void AppendWhereConditionsNoParameterUnitTest()
     {
         var queryableProvider = _queryableProvider.Where<User>("id>1");
