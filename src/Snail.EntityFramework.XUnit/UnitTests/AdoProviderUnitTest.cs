@@ -1,10 +1,9 @@
 using System.Data;
 using System.Data.Common;
 using Snail.EntityFramework.Models;
-using Snail.EntityFramework.MySqlConnector.XUnit.Entities;
 using Snail.EntityFramework.Providers;
 
-namespace Snail.EntityFramework.MySqlConnector.XUnit.UnitTests;
+namespace Snail.EntityFramework.XUnit;
 
 /// <summary>
 ///     AdoProvider单元测试
