@@ -84,6 +84,12 @@ public class DataReaderEntityBuilder<T> : IDataReaderEntityBuilder<T>
                 continue;
             }
 
+            var readerKey = readerKeys.FirstOrDefault(s => s.Equals(fileName, StringComparison.CurrentCultureIgnoreCase));
+            if (readerKey == null)
+            {
+                throw new EntityFrameworkException(ErrorMessage.EntityColumnNameNotFound, fileName);
+            }
+
             BindField(dataRecord, generator, result, method, entityColumn, readerKeys.First(s => s.Equals(fileName, StringComparison.CurrentCultureIgnoreCase)));
         }
 
