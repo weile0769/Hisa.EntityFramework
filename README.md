@@ -71,8 +71,7 @@ DatabaseConfigureOptions配置项：
 | ExecuteCommand     | 执行SQL返回受影响行数，一般用于增删改  | int        |
 
 ```csharp
-var sql = @"select id   as Id, create_time as CreateTime, modify_time as ModifyTime
-from user where id>@id and create_time<@createTime";
+var sql = @"select id, create_time, modify_time from user where id>@id and create_time<@createTime";
 var list = _sqlClient.Ado.SqlQuery<User>(sql, new
 {
 	id = 1,
