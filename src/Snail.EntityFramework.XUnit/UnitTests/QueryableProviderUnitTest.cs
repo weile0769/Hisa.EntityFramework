@@ -1,7 +1,6 @@
-using Snail.EntityFramework.MySqlConnector.XUnit.Entities;
 using Snail.EntityFramework.Providers;
 
-namespace Snail.EntityFramework.MySqlConnector.XUnit.UnitTests;
+namespace Snail.EntityFramework.XUnit;
 
 /// <summary>
 ///     QueryableProvider单元测试

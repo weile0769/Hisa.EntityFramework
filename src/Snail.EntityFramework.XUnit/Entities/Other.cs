@@ -1,4 +1,4 @@
-namespace Snail.EntityFramework.MySqlConnector.XUnit.Entities;
+namespace Snail.EntityFramework.XUnit;
 
 public class Other
 {
