@@ -10,27 +10,27 @@
 <img alt="license" src="https://img.shields.io/badge/license-MIT-blue.svg">
 </p>
 
-## 🚩 项目介绍
+# 🚩 项目介绍
 Snail.EntityFramework 一款NET开源多库的、开箱即用的、功能全面的ORM框架。目前数据库仅支持MYSQL。未来一直会致力追求卓越的性能、支持更多的数据库，为开源中国添砖加瓦。
 
-## 🏅 开源地址
+# 🏅 开源地址
 [![Gitee](https://shields.io/badge/Gitee-https://gitee.com/weile0796/Snail.EntityFramework-green?logo=gitee&style=flat&logoColor=red)](https://gitee.com/weile0796/Snail.EntityFramework.git)
 <br>
 [![Github](https://shields.io/badge/Github-https://github.com/weile0769/Snail.EntityFramework-green?logo=github&style=flat&logoColor=white)](https://github.com/weile0769/Snail.EntityFramework)
 
-## ✨ 近期目标
+# ✨ 近期目标
 **原生SQL**
 - [x] 无实体原生SQL数据库访问操作
 
 **条件查询**
 - [ ] SQL语法查询
 - [ ] Lambda表达式查询
-- [ ] SQL语法条件查询
+- [x] SQL语法条件查询
 - [ ] Lambda表达式条件查询
 
 </dl>
 
-## 🎯 安装
+# 🎯 安装
 ```csharp
 var builder = WebApplication.CreateBuilder(args);
 //注册Snail数据库实体框架
@@ -58,8 +58,8 @@ DatabaseConfigureOptions配置项：
 - ConnectionString：数据库连接字符串
 - CommandTimeOut：数据库命令执行等待时间,默认值：300秒
 
-## 🎉 功能介绍
-### **原生SQL**
+# 🎉 功能介绍
+## **原生SQL**
 | 方法名             | 描述                                   | 返回值     |
 | ------------------ | -------------------------------------- | ---------- |
 | SqlQuery\<T>       | 查询所有返回实体集合                   | List\<T>   |
@@ -69,3 +69,23 @@ DatabaseConfigureOptions配置项：
 | GetDataSet         | 查询数据结果集DataSet                  | DataSet    |
 | GetScalar          | 获取首行首列                           | object     |
 | ExecuteCommand     | 执行SQL返回受影响行数，一般用于增删改  | int        |
+
+```csharp
+var sql = @"select id   as Id, create_time as CreateTime, modify_time as ModifyTime
+from user where id>@id and create_time<@createTime";
+var list = _sqlClient.Ado.SqlQuery<User>(sql, new
+{
+	id = 1,
+	createTime = DateTime.Now
+});
+```
+
+## **数据查询**
+### **WHERE 条件查询**
+#### 1. **SQL 语法条件查询**
+```csharp
+var list = _sqlClient.Queryable<Other>().Where("id>@id", new
+{
+	id = 1
+}).ToList();
+```
