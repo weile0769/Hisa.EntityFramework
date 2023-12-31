@@ -12,12 +12,12 @@ public class QueryableProviderUnitTest
     /// <summary>
     ///     IQueryable查询对象提供器
     /// </summary>
-    private readonly IQueryableProvider<User> _queryableProvider;
+    private readonly IQueryableProvider<Other> _queryableProvider;
 
     /// <summary>
     ///     构造函数
     /// </summary>
-    public QueryableProviderUnitTest(IQueryableProvider<User> queryableProvider)
+    public QueryableProviderUnitTest(IQueryableProvider<Other> queryableProvider)
     {
         _queryableProvider = queryableProvider;
     }
