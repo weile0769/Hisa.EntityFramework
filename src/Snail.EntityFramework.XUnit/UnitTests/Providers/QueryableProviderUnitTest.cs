@@ -33,7 +33,6 @@ public class QueryableProviderUnitTest
         Assert.Empty(queryableProvider.SqlParameters);
     }
 
-
     /// <summary>
     ///     对象参数化设置查询条件单元测试案例
     /// </summary>
@@ -52,7 +51,7 @@ public class QueryableProviderUnitTest
     }
 
     /// <summary>
-    ///     S非参数化列表查询单元测试案例
+    ///     非参数化列表查询单元测试案例
     /// </summary>
     [Fact(DisplayName = "SQL非参数化列表查询单元测试案例")]
     public void ToListNoSqlParameterUnitTest()
@@ -71,6 +70,16 @@ public class QueryableProviderUnitTest
         {
             id = 1
         }).ToList();
+        Assert.NotEmpty(list);
+    }
+
+    /// <summary>
+    ///     非参数化列表异步查询单元测试案例
+    /// </summary>
+    [Fact(DisplayName = "SQL非参数化列表异步查询单元测试案例")]
+    public async Task ToListAsyncNoSqlParameterUnitTest()
+    {
+        var list = await _queryableProvider.Queryable().Where("id>1").ToListAsync();
         Assert.NotEmpty(list);
     }
 

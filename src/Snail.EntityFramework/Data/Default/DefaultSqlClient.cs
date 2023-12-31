@@ -35,6 +35,7 @@ public class DefaultSqlClient : ISqlClient
     /// <returns>IQueryable查询对象</returns>
     public IQueryableProvider<T> Queryable<T>()
     {
-        return _serviceProvider.GetRequiredService<IQueryableProvider<T>>();
+        var queryableProvider = _serviceProvider.GetRequiredService<IQueryableProvider<T>>();
+        return queryableProvider.Queryable();
     }
 }
