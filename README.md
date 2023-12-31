@@ -82,7 +82,7 @@ var list = _sqlClient.Ado.SqlQuery<User>(sql, new
 
 ## **数据查询**
 ### **WHERE 条件查询**
-#### 1. **SQL 语法条件查询**
+#### **SQL 语法条件查询**
 ```csharp
 var list = _sqlClient.Queryable<Other>().Where("id>@id", new
 {
