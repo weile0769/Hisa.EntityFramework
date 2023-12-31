@@ -1,3 +1,4 @@
+using Microsoft.Extensions.DependencyInjection;
 using Snail.EntityFramework.Providers;
 
 namespace Snail.EntityFramework;
@@ -8,18 +9,18 @@ namespace Snail.EntityFramework;
 public class DefaultSqlClient : ISqlClient
 {
     /// <summary>
-    ///     IQueryable查询对象提供器
+    ///     容器服务对象提供器
     /// </summary>
-    private readonly IQueryableProvider _queryableProvider;
+    private readonly IServiceProvider _serviceProvider;
 
     /// <summary>
     ///     构造函数
     /// </summary>
     public DefaultSqlClient(IAdoProvider adoProvider,
-        IQueryableProvider queryableProvider)
+        IServiceProvider serviceProvider)
     {
         Ado = adoProvider;
-        _queryableProvider = queryableProvider;
+        _serviceProvider = serviceProvider;
     }
 
     /// <summary>
@@ -27,8 +28,13 @@ public class DefaultSqlClient : ISqlClient
     /// </summary>
     public IAdoProvider Ado { get; }
 
-    public IQueryableProvider Queryable<T>()
+    /// <summary>
+    ///     IQueryable查询对象初始化
+    /// </summary>
+    /// <typeparam name="T">实体类型</typeparam>
+    /// <returns>IQueryable查询对象</returns>
+    public IQueryableProvider<T> Queryable<T>()
     {
-        return _queryableProvider;
+        return _serviceProvider.GetRequiredService<IQueryableProvider<T>>();
     }
 }

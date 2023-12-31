@@ -77,7 +77,7 @@ select id          as Id,
 from user where id>@id
 ";
         var list = _adoProvider.SqlQuery<User>(sql, [
-            new()
+            new SqlParameter
             {
                 DbType = DbType.Int64,
                 ParameterName = "id",
@@ -140,7 +140,7 @@ select id          as Id,
 from user where id=@id
 ";
         var entity = _adoProvider.SqlQuerySingle<User>(sql, [
-            new()
+            new SqlParameter
             {
                 DbType = DbType.Int64,
                 ParameterName = "id",
@@ -222,7 +222,7 @@ insert into user(id,create_time,modify_time)
 value (9999,now(),now());
 ";
         var count = _adoProvider.ExecuteCommand(sql, [
-            new()
+            new SqlParameter
             {
                 DbType = DbType.Int64,
                 ParameterName = "id",
@@ -324,7 +324,7 @@ select id          as Id,
 from user where id=@id
 ";
         using var dataReader = _adoProvider.GetDataReader(sql, [
-            new()
+            new SqlParameter
             {
                 DbType = DbType.Int64,
                 ParameterName = "id",
@@ -388,7 +388,7 @@ select id          as Id,
 from user where id=@id
 ";
         var dataSet = _adoProvider.GetDataSet(sql, [
-            new()
+            new SqlParameter
             {
                 DbType = DbType.Int64,
                 ParameterName = "id",
@@ -475,7 +475,7 @@ select id          as Id,
 from user where id=@id
 ";
         var dataTable = _adoProvider.GetDataTable(sql, [
-            new()
+            new SqlParameter
             {
                 DbType = DbType.Int64,
                 ParameterName = "id",
@@ -555,7 +555,7 @@ select id          as Id
 from user where id=@id
 ";
         var id = _adoProvider.GetScalar(sql, [
-            new()
+            new SqlParameter
             {
                 DbType = DbType.Int64,
                 ParameterName = "id",
@@ -678,7 +678,7 @@ select id          as Id,
 from user where id>@id
 ";
         var list = await _adoProvider.SqlQueryAsync<User>(sql, [
-            new()
+            new SqlParameter
             {
                 DbType = DbType.Int64,
                 ParameterName = "id",
@@ -741,7 +741,7 @@ select id          as Id,
 from user where id=@id
 ";
         var entity = await _adoProvider.SqlQuerySingleAsync<User>(sql, [
-            new()
+            new SqlParameter
             {
                 DbType = DbType.Int64,
                 ParameterName = "id",
@@ -823,7 +823,7 @@ insert into user(id,create_time,modify_time)
 value (9999,now(),now());
 ";
         var count = await _adoProvider.ExecuteCommandAsync(sql, [
-            new()
+            new SqlParameter
             {
                 DbType = DbType.Int64,
                 ParameterName = "id",
@@ -925,7 +925,7 @@ select id          as Id,
 from user where id=@id
 ";
         await using var dataReader = await _adoProvider.GetDataReaderAsync(sql, [
-            new()
+            new SqlParameter
             {
                 DbType = DbType.Int64,
                 ParameterName = "id",
@@ -989,7 +989,7 @@ select id          as Id,
 from user where id=@id
 ";
         var dataSet = await _adoProvider.GetDataSetAsync(sql, [
-            new()
+            new SqlParameter
             {
                 DbType = DbType.Int64,
                 ParameterName = "id",
@@ -1076,7 +1076,7 @@ select id          as Id,
 from user where id=@id
 ";
         var dataTable = await _adoProvider.GetDataTableAsync(sql, [
-            new()
+            new SqlParameter
             {
                 DbType = DbType.Int64,
                 ParameterName = "id",
@@ -1156,7 +1156,7 @@ select id          as Id
 from user where id=@id
 ";
         var id = await _adoProvider.GetScalarAsync(sql, [
-            new()
+            new SqlParameter
             {
                 DbType = DbType.Int64,
                 ParameterName = "id",

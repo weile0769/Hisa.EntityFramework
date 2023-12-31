@@ -37,7 +37,7 @@ public static class IServiceCollectionExtension
         services.AddSingleton<IDatabaseConnectorOptionsProvider, DefaultDatabaseConnectorOptionsProvider>();
 
 
-        services.TryAddTransient<IQueryableProvider, DefaultQueryableProvider>();
+        services.TryAddTransient(typeof(IQueryableProvider<>), typeof(DefaultQueryableProvider<>));
 
         services.TryAddTransient<IAdoProvider, DefaultAdoProvider>();
         services.TryAddSingleton<ISqlParameterProvider, DefaultSqlParameterProvider>();

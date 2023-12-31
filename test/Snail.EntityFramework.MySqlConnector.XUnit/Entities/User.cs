@@ -8,15 +8,15 @@ public class User
     /// <summary>
     ///     标识
     /// </summary>
-    public long Id { get; set; }
+    public long id { get; set; }
 
     /// <summary>
     ///     创建时间
     /// </summary>
-    public DateTime CreateTime { get; set; }
+    public DateTime create_time { get; set; }
 
     /// <summary>
     ///     最后修改时间
     /// </summary>
-    public DateTime ModifyTime { get; set; }
+    public DateTime modify_time { get; set; }
 }

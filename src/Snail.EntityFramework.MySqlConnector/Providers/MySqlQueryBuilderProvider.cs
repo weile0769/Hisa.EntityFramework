@@ -21,6 +21,10 @@ public class MySqlQueryBuilderProvider : QueryBuilderProvider, IQueryBuilderProv
         _entityMappingProvider = entityMappingProvider;
     }
 
+    /// <summary>
+    ///     根据预设SQL模版转换SQL
+    /// </summary>
+    /// <returns>SQL脚本</returns>
     public string ToSql()
     {
         Sql.AppendFormat(GetSqlTemplate(), GetSelectValue(), GetTableName(), GetWhereCondition(), $"{GetGroupByCondition()}{HavingCondition}", Skip != null || Take != null ? null : GetOrderByCondition());
