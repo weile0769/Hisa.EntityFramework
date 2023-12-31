@@ -1,6 +1,9 @@
 namespace System.Collections.Generic;
 
-internal static class ValidateExtensions
+/// <summary>
+///     校验扩展函数
+/// </summary>
+internal static class ValidateExtension
 {
     /// <summary>
     ///     是否有值
@@ -17,7 +20,7 @@ internal static class ValidateExtensions
     /// </summary>
     /// <param name="thisValue"></param>
     /// <returns></returns>
-    public static bool HasValue(this object thisValue)
+    internal static bool HasValue(this object thisValue)
     {
         if (thisValue == null || thisValue == DBNull.Value)
         {
@@ -27,7 +30,13 @@ internal static class ValidateExtensions
         return thisValue.ToString() != "";
     }
 
-
+    /// <summary>
+    ///     当前元素是否在数组内
+    /// </summary>
+    /// <param name="thisValue">当前元素</param>
+    /// <param name="values">数组</param>
+    /// <typeparam name="T">判断类型</typeparam>
+    /// <returns>true：是 false：否</returns>
     internal static bool IsIn<T>(this T thisValue, params T[] values)
     {
         return values.Contains(thisValue);

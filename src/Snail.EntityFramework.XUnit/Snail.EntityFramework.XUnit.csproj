@@ -16,4 +16,8 @@
       <ProjectReference Include="..\Snail.EntityFramework.MySqlConnector\Snail.EntityFramework.MySqlConnector.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Folder Include="UnitTests\Extensions\" />
+    </ItemGroup>
+
 </Project>

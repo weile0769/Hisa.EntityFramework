@@ -1,6 +1,6 @@
 namespace System.Data;
 
-public static class IDataRecordExtensions
+public static class IDataRecordExtension
 {
     public static DateTime? GetDateTimeOrNull(this IDataRecord dr, int i)
     {

@@ -1,7 +1,15 @@
 namespace System;
 
+/// <summary>
+///     类型转换扩展
+/// </summary>
 internal static class TypeConvertExtension
 {
+    /// <summary>
+    ///     是否数字类型
+    /// </summary>
+    /// <param name="type">类型</param>
+    /// <returns>true：是 false：否</returns>
     internal static bool IsNumberArray(this Type type)
     {
         return type.IsIn(typeof(int[]),

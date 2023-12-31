@@ -3,7 +3,7 @@ namespace Snail.EntityFramework.MySqlConnector.Extensions;
 /// <summary>
 ///     Validate 验证扩展类
 /// </summary>
-internal static class ValidateExtensions
+internal static class ValidateExtension
 {
     /// <summary>
     ///     是否集合列表

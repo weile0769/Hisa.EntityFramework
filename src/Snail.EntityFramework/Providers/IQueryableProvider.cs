@@ -38,4 +38,10 @@ public interface IQueryableProvider<T>
     /// </summary>
     /// <returns>查询结果实体对象列表</returns>
     List<T> ToList();
+
+    /// <summary>
+    ///     SQL查询结果集转化实体列表
+    /// </summary>
+    /// <returns>查询结果实体对象列表</returns>
+    Task<List<T>> ToListAsync();
 }

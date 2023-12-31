@@ -2,7 +2,7 @@ using System.Text;
 
 namespace System.Collections.Generic;
 
-internal static class IListExtensions
+internal static class IListExtension
 {
     internal static string ForeachSelectString(this IEnumerable<string> listItems)
     {

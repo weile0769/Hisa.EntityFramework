@@ -5,7 +5,7 @@ namespace Snail.EntityFramework.Providers;
 /// <summary>
 ///     ICache扩展类
 /// </summary>
-internal static class ICacheExtensions
+internal static class ICacheExtension
 {
     /// <summary>
     ///     获取缓存值

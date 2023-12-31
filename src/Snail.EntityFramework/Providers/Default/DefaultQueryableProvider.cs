@@ -90,4 +90,14 @@ public class DefaultQueryableProvider<T> : IQueryableProvider<T>
         var sql = _queryBuilderProvider.ToSql();
         return SqlParameters.HasValue() ? _adoProvider.SqlQuery<T>(sql, SqlParameters) : _adoProvider.SqlQuery<T>(sql);
     }
+
+    /// <summary>
+    ///     SQL查询结果集转化实体列表
+    /// </summary>
+    /// <returns>查询结果实体对象列表</returns>
+    public Task<List<T>> ToListAsync()
+    {
+        var sql = _queryBuilderProvider.ToSql();
+        return SqlParameters.HasValue() ? _adoProvider.SqlQueryAsync<T>(sql, SqlParameters) : _adoProvider.SqlQueryAsync<T>(sql);
+    }
 }

@@ -23,22 +23,22 @@ internal static class DataUtils
     internal static readonly MethodInfo GetDouble = typeof(IDataRecord).GetMethod("GetDouble", new[] { typeof(int) });
     internal static readonly MethodInfo GetGuid = typeof(IDataRecord).GetMethod("GetGuid", new[] { typeof(int) });
 
-    internal static readonly MethodInfo GetByteOrNull = typeof(IDataRecordExtensions).GetMethod("GetByteOrNull");
-    internal static readonly MethodInfo GetInt16OrNull = typeof(IDataRecordExtensions).GetMethod("GetInt16OrNull");
-    internal static readonly MethodInfo GetInt32OrNull = typeof(IDataRecordExtensions).GetMethod("GetInt32OrNull");
-    internal static readonly MethodInfo GetInt64OrNull = typeof(IDataRecordExtensions).GetMethod("GetInt64OrNull");
-    internal static readonly MethodInfo GetBooleanOrNull = typeof(IDataRecordExtensions).GetMethod("GetBooleanOrNull");
-    internal static readonly MethodInfo GetDateTimeOrNull = typeof(IDataRecordExtensions).GetMethod("GetDateTimeOrNull");
-    internal static readonly MethodInfo GetDateTimeOffset = typeof(IDataRecordExtensions).GetMethod("GetDateTimeOffset");
-    internal static readonly MethodInfo GetDateTimeOffsetOrNull = typeof(IDataRecordExtensions).GetMethod("GetDateTimeOffsetOrNull");
-    internal static readonly MethodInfo GetTimeOrNull = typeof(IDataRecordExtensions).GetMethod("GetTimeOrNull");
-    internal static readonly MethodInfo GetTime = typeof(IDataRecordExtensions).GetMethod("GetTime");
-    internal static readonly MethodInfo GetDecimalOrNull = typeof(IDataRecordExtensions).GetMethod("GetDecimalOrNull");
-    internal static readonly MethodInfo GetFloatOrNull = typeof(IDataRecordExtensions).GetMethod("GetFloatOrNull");
-    internal static readonly MethodInfo GetDoubleOrNull = typeof(IDataRecordExtensions).GetMethod("GetDoubleOrNull");
-    internal static readonly MethodInfo GetGuidOrNull = typeof(IDataRecordExtensions).GetMethod("GetGuidOrNull");
-    internal static readonly MethodInfo GetEnumOrNull = typeof(IDataRecordExtensions).GetMethod("GetEnumOrNull");
-    internal static readonly MethodInfo GetEnum = typeof(IDataRecordExtensions).GetMethod("GetEnum");
+    internal static readonly MethodInfo GetByteOrNull = typeof(IDataRecordExtension).GetMethod("GetByteOrNull");
+    internal static readonly MethodInfo GetInt16OrNull = typeof(IDataRecordExtension).GetMethod("GetInt16OrNull");
+    internal static readonly MethodInfo GetInt32OrNull = typeof(IDataRecordExtension).GetMethod("GetInt32OrNull");
+    internal static readonly MethodInfo GetInt64OrNull = typeof(IDataRecordExtension).GetMethod("GetInt64OrNull");
+    internal static readonly MethodInfo GetBooleanOrNull = typeof(IDataRecordExtension).GetMethod("GetBooleanOrNull");
+    internal static readonly MethodInfo GetDateTimeOrNull = typeof(IDataRecordExtension).GetMethod("GetDateTimeOrNull");
+    internal static readonly MethodInfo GetDateTimeOffset = typeof(IDataRecordExtension).GetMethod("GetDateTimeOffset");
+    internal static readonly MethodInfo GetDateTimeOffsetOrNull = typeof(IDataRecordExtension).GetMethod("GetDateTimeOffsetOrNull");
+    internal static readonly MethodInfo GetTimeOrNull = typeof(IDataRecordExtension).GetMethod("GetTimeOrNull");
+    internal static readonly MethodInfo GetTime = typeof(IDataRecordExtension).GetMethod("GetTime");
+    internal static readonly MethodInfo GetDecimalOrNull = typeof(IDataRecordExtension).GetMethod("GetDecimalOrNull");
+    internal static readonly MethodInfo GetFloatOrNull = typeof(IDataRecordExtension).GetMethod("GetFloatOrNull");
+    internal static readonly MethodInfo GetDoubleOrNull = typeof(IDataRecordExtension).GetMethod("GetDoubleOrNull");
+    internal static readonly MethodInfo GetGuidOrNull = typeof(IDataRecordExtension).GetMethod("GetGuidOrNull");
+    internal static readonly MethodInfo GetEnumOrNull = typeof(IDataRecordExtension).GetMethod("GetEnumOrNull");
+    internal static readonly MethodInfo GetEnum = typeof(IDataRecordExtension).GetMethod("GetEnum");
 
     #endregion
 }
