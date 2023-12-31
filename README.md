@@ -23,8 +23,6 @@ Snail.EntityFramework 一款NET开源多库的、开箱即用的、功能全面�
 - [x] 无实体原生SQL数据库访问操作
 
 **条件查询**
-- [ ] SQL语法查询
-- [ ] Lambda表达式查询
 - [x] SQL语法条件查询
 - [ ] Lambda表达式条件查询
 
