@@ -1,3 +1,4 @@
+using System.Linq.Expressions;
 using Snail.EntityFramework.Models;
 
 namespace Snail.EntityFramework.Providers;
@@ -11,6 +12,11 @@ public class DefaultQueryableProvider<T> : IQueryableProvider<T>
     ///     数据库访问提供程序
     /// </summary>
     private readonly IAdoProvider _adoProvider;
+
+    /// <summary>
+    ///     Lambda表达树解析器接口
+    /// </summary>
+    private readonly ILambdaExpressionProvider _expressionProvider;
 
     /// <summary>
     ///     数据参数化提供器
@@ -33,11 +39,13 @@ public class DefaultQueryableProvider<T> : IQueryableProvider<T>
     public DefaultQueryableProvider(IAdoProvider adoProvider,
         ISqlParameterProvider parameterReader,
         ISqlBuilderProvider sqlBuilderProvider,
-        IQueryBuilderProvider queryBuilderProvider)
+        IQueryBuilderProvider queryBuilderProvider,
+        ILambdaExpressionProvider expressionProvider)
     {
         _adoProvider = adoProvider;
         _parameterReader = parameterReader;
         _sqlBuilderProvider = sqlBuilderProvider;
+        _expressionProvider = expressionProvider;
         _queryBuilderProvider = queryBuilderProvider;
     }
 
@@ -99,5 +107,25 @@ public class DefaultQueryableProvider<T> : IQueryableProvider<T>
     {
         var sql = _queryBuilderProvider.ToSql();
         return SqlParameters.HasValue() ? _adoProvider.SqlQueryAsync<T>(sql, SqlParameters) : _adoProvider.SqlQueryAsync<T>(sql);
+    }
+
+    /// <summary>
+    ///     设置查询条件
+    /// </summary>
+    /// <param name="expression">查询条件表达式</param>
+    /// <param name="parameter">查询参数</param>
+    /// <returns>IQueryable查询对象提供器</returns>
+    public IQueryableProvider<T> Where(Expression<Func<T, bool>> expression, object parameter = null)
+    {
+        var sqlWhere = _expressionProvider.ResolveLambdaExpression(expression);
+
+        WhereConditions.Add(_sqlBuilderProvider.AppendWhereOrAnd(WhereConditions.Count == 0, sqlWhere));
+
+        if (parameter != null)
+        {
+            SqlParameters.AddRange(_parameterReader.GetSqlParameterByObject(parameter));
+        }
+
+        return this;
     }
 }

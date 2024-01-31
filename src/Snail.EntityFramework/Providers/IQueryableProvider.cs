@@ -1,3 +1,4 @@
+using System.Linq.Expressions;
 using Snail.EntityFramework.Models;
 
 namespace Snail.EntityFramework.Providers;
@@ -32,6 +33,14 @@ public interface IQueryableProvider<T>
     /// <returns>IQueryable查询对象提供器</returns>
     IQueryableProvider<T> Where(string sqlWhere, object parameter = null);
 
+
+    /// <summary>
+    ///     设置查询条件
+    /// </summary>
+    /// <param name="expression">查询条件表达式</param>
+    /// <param name="parameter">查询参数</param>
+    /// <returns>IQueryable查询对象提供器</returns>
+    IQueryableProvider<T> Where(Expression<Func<T, bool>> expression, object parameter = null);
 
     /// <summary>
     ///     SQL查询结果集转化实体列表

@@ -10,7 +10,7 @@ internal static class DataUtils
 {
     #region IDataRecord 扩展反射函数
 
-    internal static readonly MethodInfo IsDbNull = typeof(IDataRecord).GetMethod("IsDBNull", new[] { typeof(int) });
+    internal static readonly MethodInfo IsDBNull = typeof(IDataRecord).GetMethod("IsDBNull", new[] { typeof(int) });
     internal static readonly MethodInfo GetByte = typeof(IDataRecord).GetMethod("GetByte", new[] { typeof(int) });
     internal static readonly MethodInfo GetInt16 = typeof(IDataRecord).GetMethod("GetInt16", new[] { typeof(int) });
     internal static readonly MethodInfo GetInt32 = typeof(IDataRecord).GetMethod("GetInt32", new[] { typeof(int) });

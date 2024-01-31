@@ -46,5 +46,8 @@ public class MySqlConnectorOptionsExtension : IEntityFrameworkOptionsExtension
 
         services.TryAddTransient<ISqlBuilderProvider, SqlBuilderProvider>();
         services.TryAddSingleton<ISqlParameterFormatValueProvider, SqlParameterFormatValueProvider>();
+
+
+        services.TryAddSingleton<ILambdaExpressionProvider, DefaultLambdaExpressionProvider>();
     }
 }

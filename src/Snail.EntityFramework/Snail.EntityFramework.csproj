@@ -18,9 +18,4 @@
 
     </ItemGroup>
 
-
-    <ItemGroup>
-        <Folder Include="Options\Default\"/>
-    </ItemGroup>
-
 </Project>

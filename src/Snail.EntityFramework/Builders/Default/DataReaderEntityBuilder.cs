@@ -108,7 +108,7 @@ public class DataReaderEntityBuilder<T> : IDataReaderEntityBuilder<T>
         var tryStart = generator.BeginExceptionBlock(); //begin try
         generator.Emit(OpCodes.Ldarg_0);
         generator.Emit(OpCodes.Ldc_I4, i);
-        generator.Emit(OpCodes.Callvirt, DataUtils.IsDbNull);
+        generator.Emit(OpCodes.Callvirt, DataUtils.IsDBNull);
         generator.Emit(OpCodes.Brtrue, endIfLabel);
         generator.Emit(OpCodes.Ldloc, result);
         generator.Emit(OpCodes.Ldarg_0);
