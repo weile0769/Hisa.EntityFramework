@@ -2,22 +2,21 @@ using Snail.EntityFramework.Providers;
 
 namespace Snail.EntityFramework.MySqlConnector.Providers;
 
+/// <summary>
+///     IQueryable查询对象提供器
+/// </summary>
 public class MySqlQueryBuilderProvider : QueryBuilderProvider, IQueryBuilderProvider
 {
-    /// <summary>
-    ///     实体映射提供器
-    /// </summary>
     private readonly IEntityMappingProvider _entityMappingProvider;
-
-    private readonly ISqlBuilderProvider _sqlBuilderProvider;
+    private readonly ISqlFormatProvider _sqlFormatProvider;
 
     /// <summary>
     ///     构造函数
     /// </summary>
-    public MySqlQueryBuilderProvider(ISqlBuilderProvider sqlBuilderProvider,
+    public MySqlQueryBuilderProvider(ISqlFormatProvider sqlFormatProvider,
         IEntityMappingProvider entityMappingProvider)
     {
-        _sqlBuilderProvider = sqlBuilderProvider;
+        _sqlFormatProvider = sqlFormatProvider;
         _entityMappingProvider = entityMappingProvider;
     }
 
@@ -41,13 +40,17 @@ public class MySqlQueryBuilderProvider : QueryBuilderProvider, IQueryBuilderProv
         return "SELECT {0} FROM {1}{2}{3}{4} ";
     }
 
+    /// <summary>
+    ///     获取查询字段
+    /// </summary>
+    /// <returns>查询字段</returns>
     public string GetSelectValue()
     {
         var result = string.Empty;
         if (SelectCondition == null || SelectCondition is string)
         {
             var columns = _entityMappingProvider.GetEntity(EntityType).Columns.Where(s => !s.Ignore);
-            result = string.Join(",", columns.Select(c => _sqlBuilderProvider.GetColumnName(c)));
+            result = string.Join(",", columns.Select(c => _sqlFormatProvider.GetColumnName(c.ColumnName)));
         }
 
         if (IsDistinct)
@@ -58,6 +61,10 @@ public class MySqlQueryBuilderProvider : QueryBuilderProvider, IQueryBuilderProv
         return result;
     }
 
+    /// <summary>
+    ///     获取查询条件
+    /// </summary>
+    /// <returns>查询条件</returns>
     public string GetWhereCondition()
     {
         if (WhereConditions == null)
@@ -68,6 +75,10 @@ public class MySqlQueryBuilderProvider : QueryBuilderProvider, IQueryBuilderProv
         return string.Join(" ", WhereConditions);
     }
 
+    /// <summary>
+    ///     获取分组条件
+    /// </summary>
+    /// <returns>分组条件</returns>
     public string GetGroupByCondition()
     {
         if (GroupByCondition == null)
@@ -83,6 +94,10 @@ public class MySqlQueryBuilderProvider : QueryBuilderProvider, IQueryBuilderProv
         return GroupByCondition;
     }
 
+    /// <summary>
+    ///     获取排序条件
+    /// </summary>
+    /// <returns>排序条件</returns>
     public string GetOrderByCondition()
     {
         if (OrderByCondition == null)
@@ -93,9 +108,13 @@ public class MySqlQueryBuilderProvider : QueryBuilderProvider, IQueryBuilderProv
         return OrderByCondition;
     }
 
+    /// <summary>
+    ///     获取表名
+    /// </summary>
+    /// <returns>表名</returns>
     public string GetTableName()
     {
         var entity = _entityMappingProvider.GetEntity(EntityType);
-        return _sqlBuilderProvider.GetTableName(entity);
+        return _sqlFormatProvider.GetTableName(entity.TableName);
     }
 }

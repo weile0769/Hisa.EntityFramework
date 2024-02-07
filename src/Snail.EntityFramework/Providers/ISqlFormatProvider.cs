@@ -1,11 +1,9 @@
-using Snail.EntityFramework.Models;
-
 namespace Snail.EntityFramework.Providers;
 
 /// <summary>
-///     SQL构造器
+///     SQL语句格式化器
 /// </summary>
-public interface ISqlBuilderProvider
+public interface ISqlFormatProvider
 {
     /// <summary>
     ///     追加WHERE查询条件
@@ -30,14 +28,14 @@ public interface ISqlBuilderProvider
     /// <summary>
     ///     带转义标识符的列名
     /// </summary>
-    /// <param name="entityColumn">实体列</param>
+    /// <param name="columnName">列名</param>
     /// <returns>带转义标识符的列名</returns>
-    string GetColumnName(EntityColumn entityColumn);
+    string GetColumnName(string columnName);
 
     /// <summary>
     ///     带转义标识符的表名
     /// </summary>
-    /// <param name="entity">实体对象</param>
+    /// <param name="tableName">表名</param>
     /// <returns>带转义标识符的表名</returns>
-    string GetTableName(Entity entity);
+    string GetTableName(string tableName);
 }

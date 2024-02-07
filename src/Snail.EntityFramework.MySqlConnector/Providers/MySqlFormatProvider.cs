@@ -4,9 +4,9 @@ using Snail.EntityFramework.Providers;
 namespace Snail.EntityFramework.MySqlConnector.Providers;
 
 /// <summary>
-///     SQL构造器
+///     SQL语句格式化器
 /// </summary>
-public class SqlBuilderProvider : ISqlBuilderProvider
+public class MySqlFormatProvider : ISqlFormatProvider
 {
     /// <summary>
     ///     追加WHERE查询条件
@@ -40,20 +40,20 @@ public class SqlBuilderProvider : ISqlBuilderProvider
     /// <summary>
     ///     带转义标识符的列名
     /// </summary>
-    /// <param name="entityColumn">实体列</param>
+    /// <param name="columnName">列名</param>
     /// <returns>带转义标识符的列名</returns>
-    public string GetColumnName(EntityColumn entityColumn)
+    public string GetColumnName(string columnName)
     {
-        return $"{SqlLeftSymbol()}{entityColumn.ColumnName}{SqlRightSymbol()}";
+        return $"{SqlLeftSymbol()}{columnName}{SqlRightSymbol()}";
     }
 
     /// <summary>
     ///     带转义标识符的表名
     /// </summary>
-    /// <param name="entity">实体对象</param>
+    /// <param name="tableName">表名</param>
     /// <returns>带转义标识符的表名</returns>
-    public string GetTableName(Entity entity)
+    public string GetTableName(string tableName)
     {
-        return $"{SqlLeftSymbol()}{entity.TableName}{SqlRightSymbol()}";
+        return $"{SqlLeftSymbol()}{tableName}{SqlRightSymbol()}";
     }
 }

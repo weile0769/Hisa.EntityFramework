@@ -32,20 +32,20 @@ public class DefaultQueryableProvider<T> : IQueryableProvider<T>
     /// <summary>
     ///     SQL构造器
     /// </summary>
-    private readonly ISqlBuilderProvider _sqlBuilderProvider;
+    private readonly ISqlFormatProvider _sqlFormatProvider;
 
     /// <summary>
     ///     构造函数
     /// </summary>
     public DefaultQueryableProvider(IAdoProvider adoProvider,
         ISqlParameterProvider parameterReader,
-        ISqlBuilderProvider sqlBuilderProvider,
+        ISqlFormatProvider sqlFormatProvider,
         IQueryBuilderProvider queryBuilderProvider,
         ILambdaExpressionProvider expressionProvider)
     {
         _adoProvider = adoProvider;
         _parameterReader = parameterReader;
-        _sqlBuilderProvider = sqlBuilderProvider;
+        _sqlFormatProvider = sqlFormatProvider;
         _expressionProvider = expressionProvider;
         _queryBuilderProvider = queryBuilderProvider;
     }
@@ -80,7 +80,7 @@ public class DefaultQueryableProvider<T> : IQueryableProvider<T>
     /// <returns>IQueryable查询对象提供器</returns>
     public IQueryableProvider<T> Where(string sqlWhere, object parameter = null)
     {
-        WhereConditions.Add(_sqlBuilderProvider.AppendWhereOrAnd(WhereConditions.Count == 0, sqlWhere));
+        WhereConditions.Add(_sqlFormatProvider.AppendWhereOrAnd(WhereConditions.Count == 0, sqlWhere));
 
         if (parameter != null)
         {
@@ -119,7 +119,7 @@ public class DefaultQueryableProvider<T> : IQueryableProvider<T>
     {
         var sqlWhere = _expressionProvider.ResolveWhereLambdaExpression(expression);
 
-        WhereConditions.Add(_sqlBuilderProvider.AppendWhereOrAnd(WhereConditions.Count == 0, sqlWhere));
+        WhereConditions.Add(_sqlFormatProvider.AppendWhereOrAnd(WhereConditions.Count == 0, sqlWhere));
 
         return this;
     }

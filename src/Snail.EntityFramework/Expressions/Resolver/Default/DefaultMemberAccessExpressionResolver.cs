@@ -1,4 +1,5 @@
 using System.Linq.Expressions;
+using Snail.EntityFramework.Providers;
 
 namespace Snail.EntityFramework.Expressions;
 
@@ -10,6 +11,16 @@ namespace Snail.EntityFramework.Expressions;
 /// </remarks>
 public class DefaultMemberAccessExpressionResolver : IMemberAccessExpressionResolver
 {
+    private readonly ISqlFormatProvider _sqlFormatProvider;
+
+    /// <summary>
+    ///     构造函数
+    /// </summary>
+    public DefaultMemberAccessExpressionResolver(ISqlFormatProvider sqlFormatProvider)
+    {
+        _sqlFormatProvider = sqlFormatProvider;
+    }
+
     /// <summary>
     ///     表达式解析
     /// </summary>
@@ -30,6 +41,6 @@ public class DefaultMemberAccessExpressionResolver : IMemberAccessExpressionReso
                 return string.Empty;
         }
 
-        return fieldName;
+        return _sqlFormatProvider.GetColumnName(fieldName);
     }
 }

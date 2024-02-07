@@ -4,7 +4,7 @@ using Snail.EntityFramework.Providers;
 
 namespace Snail.EntityFramework.MySqlConnector.Providers;
 
-public class SqlParameterFormatValueProvider : ISqlParameterFormatValueProvider
+public class MySqlParameterFormatValueProvider : ISqlParameterFormatValueProvider
 {
     public object FormatSqlValue(object parameterValue)
     {
