@@ -17,7 +17,7 @@ public static class Startup
     public static void ConfigureServices(this IServiceCollection services)
     {
         //注册数据库实体框架
-        services.AddSnailEntityFramework(options =>
+        services.AddSnailSqlEntityFramework(options =>
         {
             options.ConfigureOptions = new List<DatabaseConfigureOptions>
             {

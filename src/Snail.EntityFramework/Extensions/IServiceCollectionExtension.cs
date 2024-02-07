@@ -20,7 +20,7 @@ public static class IServiceCollectionExtension
     /// <param name="services">服务容器</param>
     /// <param name="optionAction">配置选项</param>
     /// <returns></returns>
-    public static IEntityFrameworkBuilder AddSnailEntityFramework(this IServiceCollection services, Action<EntityFrameworkOptions> optionAction)
+    public static IEntityFrameworkBuilder AddSnailSqlEntityFramework(this IServiceCollection services, Action<EntityFrameworkOptions> optionAction)
     {
         //配置选注册
         var options = new EntityFrameworkOptions();

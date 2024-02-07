@@ -31,8 +31,8 @@ Snail.EntityFramework 一款NET开源多库的、开箱即用的、功能全面�
 # 🎯 安装
 ```csharp
 var builder = WebApplication.CreateBuilder(args);
-//注册Snail数据库实体框架
-builder.Services.AddSnailEntityFramework(options =>
+//注册数据库实体框架
+builder.Services.AddSnailSqlEntityFramework(options =>
 {
 	options.ConfigureOptions = new List<DatabaseConfigureOptions>
 	{
