@@ -1,7 +1,7 @@
 using System.Data;
 using Snail.EntityFramework.Providers;
 
-namespace Snail.EntityFramework.MySqlConnector.XUnit.UnitTests;
+namespace Snail.EntityFramework.MySqlConnector.XUnit;
 
 /// <summary>
 ///     SqlParameterTypeConvertProvider单元测试

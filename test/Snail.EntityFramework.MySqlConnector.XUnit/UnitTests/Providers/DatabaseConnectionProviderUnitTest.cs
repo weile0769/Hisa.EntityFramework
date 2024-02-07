@@ -2,7 +2,7 @@ using System.Data;
 using Snail.EntityFramework.Exceptions;
 using Snail.EntityFramework.Providers;
 
-namespace Snail.EntityFramework.MySqlConnector.XUnit.UnitTests;
+namespace Snail.EntityFramework.MySqlConnector.XUnit;
 
 /// <summary>
 ///     DbConnectionProvider单元测试
