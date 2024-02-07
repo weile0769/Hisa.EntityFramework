@@ -1,8 +1,8 @@
 using System.Linq.Expressions;
-using Snail.EntityFramework.MySqlConnector.XUnit.Entities;
+using Snail.EntityFramework.Expressions;
 using Snail.EntityFramework.Providers;
 
-namespace Snail.EntityFramework.MySqlConnector.XUnit.UnitTests.Expressions;
+namespace Snail.EntityFramework.XUnit;
 
 /// <summary>
 ///     DefaultLambdaExpressionProvider单元测试
@@ -29,9 +29,9 @@ public class LambdaExpressionProviderUnitTest
     [Fact(DisplayName = "解析Lambda表达式单元测试案例")]
     public void ResolveLambdaExpressionUnitTest()
     {
-        Expression<Func<User, bool>> expression = s => s.Id > 1;
-        var result = _lambdaExpressionProvider.ResolveLambdaExpression(expression);
+        Expression<Func<Other, bool>> expression = s => s.id > 1;
+        var result = _lambdaExpressionProvider.ResolveWhereLambdaExpression(expression);
         // Assert
-        Assert.Equal(" `Id`  > 1", result);
+        Assert.Equal("id > 1", result);
     }
 }

@@ -1,6 +1,6 @@
 using System.Linq.Expressions;
 
-namespace Snail.EntityFramework.Providers;
+namespace Snail.EntityFramework.Expressions;
 
 /// <summary>
 ///     Lambda表达树解析器接口
@@ -13,5 +13,5 @@ public interface ILambdaExpressionProvider
     /// <param name="expression">Lambda表达式</param>
     /// <typeparam name="T">实体类型</typeparam>
     /// <returns>SQL条件语句</returns>
-    string ResolveLambdaExpression<T>(Expression<Func<T, bool>> expression);
+    string ResolveWhereLambdaExpression<T>(Expression<Func<T, bool>> expression);
 }

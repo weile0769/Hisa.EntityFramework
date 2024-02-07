@@ -1,4 +1,5 @@
 using System.Linq.Expressions;
+using Snail.EntityFramework.Expressions;
 using Snail.EntityFramework.Models;
 
 namespace Snail.EntityFramework.Providers;
@@ -113,18 +114,12 @@ public class DefaultQueryableProvider<T> : IQueryableProvider<T>
     ///     设置查询条件
     /// </summary>
     /// <param name="expression">查询条件表达式</param>
-    /// <param name="parameter">查询参数</param>
     /// <returns>IQueryable查询对象提供器</returns>
-    public IQueryableProvider<T> Where(Expression<Func<T, bool>> expression, object parameter = null)
+    public IQueryableProvider<T> Where(Expression<Func<T, bool>> expression)
     {
-        var sqlWhere = _expressionProvider.ResolveLambdaExpression(expression);
+        var sqlWhere = _expressionProvider.ResolveWhereLambdaExpression(expression);
 
         WhereConditions.Add(_sqlBuilderProvider.AppendWhereOrAnd(WhereConditions.Count == 0, sqlWhere));
-
-        if (parameter != null)
-        {
-            SqlParameters.AddRange(_parameterReader.GetSqlParameterByObject(parameter));
-        }
 
         return this;
     }

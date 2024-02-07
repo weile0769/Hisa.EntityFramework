@@ -3,6 +3,7 @@ using Microsoft.Extensions.Options;
 using Snail.EntityFramework;
 using Snail.EntityFramework.Builders;
 using Snail.EntityFramework.Caching;
+using Snail.EntityFramework.Expressions;
 using Snail.EntityFramework.Options;
 using Snail.EntityFramework.Providers;
 
@@ -54,6 +55,11 @@ public static class IServiceCollectionExtension
 
 
         services.TryAddScoped<ISqlClient, DefaultSqlClient>();
+
+
+        services.TryAddSingleton<IBinaryExpressionResolver, DefaultBinaryExpressionResolver>();
+        services.TryAddSingleton<IMemberAccessExpressionResolver, DefaultMemberAccessExpressionResolver>();
+        services.TryAddSingleton<IConstantExpressionResolver, DefaultConstantExpressionResolver>();
 
         return new EntityFrameworkBuilder(services);
     }

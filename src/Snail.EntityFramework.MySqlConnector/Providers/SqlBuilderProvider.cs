@@ -16,7 +16,7 @@ public class SqlBuilderProvider : ISqlBuilderProvider
     /// <returns>追加拼接后的WHERE查询条件语句</returns>
     public string AppendWhereOrAnd(bool isWhere, string sqlWhere)
     {
-        return isWhere ? $" WHERE {sqlWhere}" : $" AND {sqlWhere}";
+        return isWhere ? $" where {sqlWhere}" : $" and {sqlWhere}";
     }
 
     /// <summary>

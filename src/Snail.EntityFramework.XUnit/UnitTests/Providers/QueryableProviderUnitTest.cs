@@ -22,10 +22,10 @@ public class QueryableProviderUnitTest
     }
 
     /// <summary>
-    ///     无参数设置查询条件单元测试案例
+    ///     无参数设置SQL查询条件单元测试案例
     /// </summary>
-    [Fact(DisplayName = "无参数设置查询条件单元测试案例")]
-    public void AppendWhereConditionsNoSqlParameterUnitTest()
+    [Fact(DisplayName = "无参数设置SQL查询条件单元测试案例")]
+    public void AppendSqlWhereConditionsNoSqlParameterUnitTest()
     {
         var queryableProvider = _queryableProvider.Where("id>1");
         Assert.NotNull(queryableProvider.WhereConditions);
@@ -34,10 +34,10 @@ public class QueryableProviderUnitTest
     }
 
     /// <summary>
-    ///     对象参数化设置查询条件单元测试案例
+    ///     对象参数化设置SQL查询条件单元测试案例
     /// </summary>
-    [Fact(DisplayName = "对象参数化设置查询条件单元测试案例")]
-    public void AppendWhereConditionsIncludeObjectParameterUnitTest()
+    [Fact(DisplayName = "对象参数化设置SQL查询条件单元测试案例")]
+    public void AppendSqlWhereConditionsIncludeObjectParameterUnitTest()
     {
         var queryableProvider = _queryableProvider.Where("id>@id", new
         {
@@ -48,6 +48,19 @@ public class QueryableProviderUnitTest
         Assert.NotNull(queryableProvider.SqlParameters);
         Assert.NotEmpty(queryableProvider.SqlParameters);
         Assert.True(queryableProvider.SqlParameters.Exists(s => int.Parse(s.Value?.ToString() ?? "0") == 1));
+    }
+
+
+    /// <summary>
+    ///     无参数设置Lambda查询条件单元测试案例
+    /// </summary>
+    [Fact(DisplayName = "无参数设置Lambda查询条件单元测试案例")]
+    public void AppendLambdaWhereConditionsNoSqlParameterUnitTest()
+    {
+        var queryableProvider = _queryableProvider.Where(s => s.id > 1);
+        Assert.NotNull(queryableProvider.WhereConditions);
+        Assert.NotEmpty(queryableProvider.WhereConditions);
+        Assert.Empty(queryableProvider.SqlParameters);
     }
 
     /// <summary>

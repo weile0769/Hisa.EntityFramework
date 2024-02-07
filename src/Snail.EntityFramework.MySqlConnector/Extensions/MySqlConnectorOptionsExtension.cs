@@ -1,6 +1,7 @@
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Options;
+using Snail.EntityFramework.Expressions;
 using Snail.EntityFramework.MySqlConnector.Providers;
 using Snail.EntityFramework.Providers;
 

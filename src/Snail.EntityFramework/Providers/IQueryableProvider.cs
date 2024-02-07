@@ -38,9 +38,8 @@ public interface IQueryableProvider<T>
     ///     设置查询条件
     /// </summary>
     /// <param name="expression">查询条件表达式</param>
-    /// <param name="parameter">查询参数</param>
     /// <returns>IQueryable查询对象提供器</returns>
-    IQueryableProvider<T> Where(Expression<Func<T, bool>> expression, object parameter = null);
+    IQueryableProvider<T> Where(Expression<Func<T, bool>> expression);
 
     /// <summary>
     ///     SQL查询结果集转化实体列表
