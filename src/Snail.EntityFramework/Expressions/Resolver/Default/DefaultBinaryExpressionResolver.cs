@@ -84,11 +84,14 @@ public class DefaultBinaryExpressionResolver : IExpressionResolver, IBinaryExpre
     {
         switch (expression.NodeType)
         {
-            /*case ExpressionType.MemberAccess:
-                return ResolveMemberAccessExpression(expression);*/
+            case ExpressionType.MemberAccess:
+                var memberExpressionResolver= _serviceProvider.GetRequiredService<IMemberAccessExpressionResolver>();
+                return memberExpressionResolver?.ResolveExpression(expression);
             case ExpressionType.Constant:
                 var constantExpressionResolver= _serviceProvider.GetRequiredService<IConstantExpressionResolver>();
                 return constantExpressionResolver?.ResolveExpression(expression);
+            case ExpressionType.Convert:
+                return ResolveBinaryRightExpression((expression as UnaryExpression)?.Operand);
             /*case ExpressionType.Parameter:
                 return ResolveParameterExpression(expression);*/
             default:

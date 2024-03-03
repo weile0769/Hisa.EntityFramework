@@ -10,7 +10,7 @@
     </ItemGroup>
     <ItemGroup>
         <PackageReference Include="BenchmarkDotNet" Version="0.13.12" />
-        <PackageReference Include="FreeSql.Provider.MySqlConnector" Version="3.2.812" />
-        <PackageReference Include="SqlSugarCore" Version="5.1.4.140" />
+        <PackageReference Include="FreeSql.Provider.MySqlConnector" Version="3.2.815" />
+        <PackageReference Include="SqlSugarCore" Version="5.1.4.143" />
     </ItemGroup>
 </Project>

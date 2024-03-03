@@ -24,12 +24,25 @@ public class LambdaExpressionProviderUnitTest
     }
 
     /// <summary>
-    ///     解析Lambda表达式单元测试案例
+    ///     解析包含数值Lambda表达式单元测试案例
     /// </summary>
-    [Fact(DisplayName = "解析Lambda表达式单元测试案例")]
-    public void ResolveLambdaExpressionUnitTest()
+    [Fact(DisplayName = "解析包含数值Lambda表达式单元测试案例")]
+    public void IncludeNumericalResolveLambdaExpressionUnitTest()
     {
         Expression<Func<Other, bool>> expression = s => s.id > 1;
+        var result = _lambdaExpressionProvider.ResolveWhereLambdaExpression(expression);
+        // Assert
+        Assert.Equal("`id` > 1", result);
+    }
+
+    /// <summary>
+    ///     解析包含数值Lambda表达式单元测试案例
+    /// </summary>
+    [Fact(DisplayName = "解析包含数值Lambda表达式单元测试案例")]
+    public void IncludePropertyResolveLambdaExpressionUnitTest()
+    {
+        var id = 1;
+        Expression<Func<Other, bool>> expression = s => s.id > id;
         var result = _lambdaExpressionProvider.ResolveWhereLambdaExpression(expression);
         // Assert
         Assert.Equal("`id` > 1", result);
