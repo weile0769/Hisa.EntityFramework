@@ -32,7 +32,7 @@ Lysa.EntityFramework 一款NET开源多库的、开箱即用的、功能全面�
 ```csharp
 var builder = WebApplication.CreateBuilder(args);
 //注册数据库实体框架
-builder.Services.AddSnailSqlEntityFramework(options =>
+builder.Services.AddLysaSqlEntityFramework(options =>
 {
 	options.ConfigureOptions = new List<DatabaseConfigureOptions>
 	{
