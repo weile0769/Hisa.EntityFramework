@@ -1,5 +1,5 @@
 <div align="center">
-	<h1 align="center" style="color:#4da7fd"><b>Lysa.EntityFramework</b></h1>
+	<h1 align="center" style="color:#4da7fd"><b>Hisa.EntityFramework</b></h1>
 </div>
 <div align="center">
 <span align="center" style="font-weight:bold" >⚡一款NET开源多库的、开箱即用的、功能全面的ORM框架</span>
@@ -11,12 +11,12 @@
 </p>
 
 # 🚩 项目介绍
-Lysa.EntityFramework 一款NET开源多库的、开箱即用的、功能全面的ORM框架。目前数据库仅支持MYSQL。未来一直会致力追求卓越的性能、支持更多的数据库，为开源中国添砖加瓦。
+Hisa.EntityFramework 一款NET开源多库的、开箱即用的、功能全面的ORM框架。目前数据库仅支持MYSQL。未来一直会致力追求卓越的性能、支持更多的数据库，为开源中国添砖加瓦。
 
 # 🏅 开源地址
-[![Gitee](https://shields.io/badge/Gitee-https://gitee.com/weile0796/Lysa.EntityFramework-green?logo=gitee&style=flat&logoColor=red)](https://gitee.com/weile0796/Lysa.EntityFramework.git)
+[![Gitee](https://shields.io/badge/Gitee-https://gitee.com/weile0796/Hisa.EntityFramework-green?logo=gitee&style=flat&logoColor=red)](https://gitee.com/weile0796/Hisa.EntityFramework.git)
 <br>
-[![Github](https://shields.io/badge/Github-https://github.com/weile0769/Lysa.EntityFramework-green?logo=github&style=flat&logoColor=white)](https://github.com/weile0769/Lysa.EntityFramework)
+[![Github](https://shields.io/badge/Github-https://github.com/weile0769/Hisa.EntityFramework-green?logo=github&style=flat&logoColor=white)](https://github.com/weile0769/Hisa.EntityFramework)
 
 # ✨ 近期目标
 **原生SQL**
@@ -32,7 +32,7 @@ Lysa.EntityFramework 一款NET开源多库的、开箱即用的、功能全面�
 ```csharp
 var builder = WebApplication.CreateBuilder(args);
 //注册数据库实体框架
-builder.Services.AddLysaSqlEntityFramework(options =>
+builder.Services.AddHisaSqlEntityFramework(options =>
 {
 	options.ConfigureOptions = new List<DatabaseConfigureOptions>
 	{

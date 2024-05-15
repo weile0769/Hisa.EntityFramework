@@ -1,0 +1,15 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net8.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\Hisa.EntityFramework\Hisa.EntityFramework.csproj"/>
+    </ItemGroup>
+
+    <ItemGroup>
+        <PackageReference Include="MySqlConnector" Version="2.3.7"/>
+    </ItemGroup>
+</Project>
