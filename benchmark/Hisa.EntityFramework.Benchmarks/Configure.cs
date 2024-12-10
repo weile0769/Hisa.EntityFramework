@@ -13,5 +13,5 @@ public static class Configure
     /// <summary>
     ///     数据库连接字符串
     /// </summary>
-    public const string ConnectionString = "Server=localhost;Port=3306;database=hisa_xunit;uid=root;pwd=123456;SslMode=none;";
+    public const string ConnectionString = "Server=mysql.sqlpub.com;Port=3306;database=hisa_xunit;uid=hisa_root;pwd=vLP4vFJZzMKgKufQ;SslMode=none;";
 }
